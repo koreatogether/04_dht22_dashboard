@@ -1,0 +1,31 @@
+# Ignore accidental Windows reserved filename placeholder
+nul
+
+# Bytecode and caches
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+
+# Tool caches
+.mypy_cache/
+.ruff_cache/
+
+# Logs
+logs/*.log
+
+# Environment
+.env
+
+# Results / reports
+tools/quality/results/
+tools/quality/backups/
+
+# Backup & transient artifacts
+*.bak
+*.pyc
+__pycache__/

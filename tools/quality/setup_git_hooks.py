@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #!/usr/bin/env python3
 """
 DHT22 프로젝트 Pre-commit Hook (복구 버전)

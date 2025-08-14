@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #!/usr/bin/env python3
 """
 Clean pre-commit quality check runner.
@@ -103,8 +104,43 @@ def run_fast_tests(files: list[str], warnings: list[str]) -> None:
         )
 
 
+def _force_utf8_stdio() -> None:
+    """Force stdout/stderr to UTF-8 if possible (Windows git hook safety).
+
+    We only rewrap when the current encoding can't encode a simple emoji.
+    """
+    try:
+        test_char = "🔍"
+        if sys.stdout.encoding and "UTF-8" in sys.stdout.encoding.upper():
+            return
+        # Try a trial encode; if fails, rewrap
+        try:
+            test_char.encode(sys.stdout.encoding or "ascii")
+        except Exception:  # noqa: BLE001
+            import io  # local import to avoid overhead when not needed
+
+            sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")  # type: ignore[attr-defined]
+            sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")  # type: ignore[attr-defined]
+            os.environ["PYTHONUTF8"] = "1"
+            os.environ["PYTHONIOENCODING"] = "utf-8"
+    except Exception:
+        # Silently ignore; fallback printing will still work
+        pass
+
+
+def _e(msg: str) -> None:
+    """Print with emoji fallback: retry without emoji if encoding fails."""
+    try:
+        print(msg)
+    except UnicodeEncodeError:
+        # Strip non-ASCII
+        ascii_msg = msg.encode("ascii", "ignore").decode("ascii")
+        print(ascii_msg)
+
+
 def main() -> int:
-    print("🔍 Running fast pre-commit checks (clean script)...")
+    _force_utf8_stdio()
+    _e("🔍 Running fast pre-commit checks (clean script)...")
     errors: list[str] = []
     warnings: list[str] = []
 
@@ -125,28 +161,28 @@ def main() -> int:
     check_docs(files, warnings)
     run_fast_tests(files, warnings)
 
-    print("\n================ Summary ================")
+    _e("\n================ Summary ================")
     if errors:
-        print(f"❌ Errors ({len(errors)}):")
+        _e(f"❌ Errors ({len(errors)}):")
         for e in errors:
             print("  - " + e.splitlines()[0])
     else:
-        print("✅ No blocking errors.")
+        _e("✅ No blocking errors.")
 
     if warnings:
-        print(f"\n⚠️ Warnings ({len(warnings)}):")
+        _e(f"\n⚠️  Warnings ({len(warnings)}):")
         for w in warnings:
             print("  - " + w.splitlines()[0])
     else:
-        print("⚡ No warnings.")
+        _e("⚡ No warnings.")
 
     if errors:
-        print("\n❌ Commit blocked. Fix errors above.")
+        _e("\n❌ Commit blocked. Fix errors above.")
         return 1
     if warnings:
-        print("\n⚠️ Commit allowed with warnings.")
+        _e("\n⚠️  Commit allowed with warnings.")
         return 0
-    print("\n🎉 All checks passed.")
+    _e("\n🎉 All checks passed.")
     return 0
 
 

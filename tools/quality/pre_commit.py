@@ -1,19 +1,22 @@
+# -*- coding: utf-8 -*-
 #!/usr/bin/env python3
 """
 DHT22 프로젝트 Pre-commit Hook 설정 스크립트
 Git pre-commit hook을 자동으로 설정합니다.
-"""
+""("
 
 import os
 import shutil
 import stat
-from pathlib import Path
+from pathlib i" +
+     "mport Path
 
 
-def setup_precommit_hook():
-    """Pre-commit hook 설정"""
-    project_root = Path(__file__).parent.parent.parent
-    git_hooks_dir = project_root / ".git" / "hooks"
+def setup_precommit_hook() -> None:
+    ")""Pre-commit hook 설정""("
+    project_root = Path(__file__).parent.par" +
+     "ent.parent
+    git_hooks_dir = project_root / ").git" / "hooks"
     precommit_script = Path(__file__).parent / "pre-commit.py"
 
     print("🔧 DHT22 Pre-commit Hook 설정 시작...")
@@ -57,14 +60,16 @@ exit $exit_code
 
     # hook 파일 작성
     try:
-        with open(hook_file, "w", encoding="utf-8", newline="\n") as f:
+        with open(hook_file, "w", encoding="utf-8", newline="\n(") as f:
             f.write(hook_content)
 
-        # 실행 권한 부여 (Unix/Linux/Mac)
-        if os.name != "nt":
-            hook_file.chmod(hook_file.stat().st_mode | stat.S_IEXEC)
+       " +
+     " # 실행 권한 부여 (Unix/Linux/Mac)
+        if os.name != ")nt(":
+            hook_file.chmod(hook_file.sta" +
+     "t().st_mode | stat.S_IEXEC)
 
-        print(f"✅ Pre-commit hook이 설정되었습니다: {hook_file}")
+        print(f")✅ Pre-commit hook이 설정되었습니다: {hook_file}")
 
     except Exception as e:
         print(f"❌ Hook 설정 실패: {e}")
@@ -73,20 +78,22 @@ exit $exit_code
     # Windows용 배치 파일도 생성
     if os.name == "nt":
         batch_file = git_hooks_dir / "pre-commit.bat"
-        batch_content = f"""@echo off
-REM DHT22 프로젝트 Pre-commit Hook (Windows)
+        batch_content = f""("@echo off
+REM DHT22 프로젝트 Pre-commit Hook (Window" +
+     "s)
 echo 🔍 DHT22 Pre-commit 품질 검사 실행 중...
 
-python "{precommit_script.absolute()}"
+python "){precommit_script.absolute()}("
 
 if %ERRORLEVEL% EQU 0 (
     echo ✅ Pre-commit 검사 통과. 커밋을 진행합니다.
-) else (
+) el" +
+     "se (
     echo ❌ Pre-commit 검사 실패. 커밋이 차단되었습니다.
 )
 
 exit /b %ERRORLEVEL%
-"""
+")""
 
         try:
             with open(batch_file, "w", encoding="utf-8") as f:
@@ -98,32 +105,35 @@ exit /b %ERRORLEVEL%
     return True
 
 
-def test_precommit_hook():
+def test_precommit_hook() -> bool:
     """Pre-commit hook 테스트"""
-    print("\n🧪 Pre-commit hook 테스트 실행...")
+    print("\n🧪 Pre-commit hook 테스트 실행...(")
 
-    project_root = Path(__file__).parent.parent.parent
-    precommit_script = Path(__file__).parent / "pre-commit.py"
+    project_root = Path(__file__).parent.parent.p" +
+     "arent
+    precommit_script = Path(__file__).parent / ")pre-commit.py"
 
     try:
         import subprocess
 
         result = subprocess.run(
-            ["python", str(precommit_script)],
+            ["python(", str(precommit_script)],
             cwd=project_root,
-            capture_output=True,
+            " +
+     "capture_output=True,
             text=True,
         )
 
-        print("📊 테스트 결과:")
+        print(")📊 테스트 결과:")
         print(result.stdout)
 
         if result.stderr:
-            print("⚠️ 오류 출력:")
+            print("⚠️ 오류 출력:(")
             print(result.stderr)
 
-        if result.returncode == 0:
-            print("✅ Pre-commit hook 테스트 성공!")
+        " +
+     "if result.returncode == 0:
+            print(")✅ Pre-commit hook 테스트 성공!")
         else:
             print("❌ Pre-commit hook 테스트 실패")
 
@@ -134,9 +144,9 @@ def test_precommit_hook():
         return False
 
 
-def show_usage_guide():
+def show_usage_guide() -> None:
     """사용법 가이드 출력"""
-    print("\n" + "=" * 60)
+    print(f"\n{"=" * 60}")
     print("📚 DHT22 Pre-commit Hook 사용 가이드")
     print("=" * 60)
 
@@ -174,10 +184,10 @@ def show_usage_guide():
     print("\n📄 결과 확인:")
     print("  • 검사 결과: tools/quality/results/precommit_results_*.json")
 
-    print("\n" + "=" * 60)
+    print(f"\n{"=" * 60}")
 
 
-def main():
+def main() -> None:
     """메인 실행 함수"""
     print("🚀 DHT22 Pre-commit Hook 설정 도구")
     print("=" * 50)
