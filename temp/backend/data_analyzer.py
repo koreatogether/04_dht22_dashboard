@@ -14,7 +14,7 @@ import sqlite3
 import statistics
 from collections import deque
 from data
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -24,7 +24,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -34,7 +34,7 @@ def calculate_dew_point(temp_c, humidity):
 
 
 classes import data
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -44,7 +44,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -61,7 +61,7 @@ import numpy as np
 
 
 @data
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -71,7 +71,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -82,7 +82,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class
 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -92,7 +92,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -116,7 +116,7 @@ class %RHnalysisResult:
 
 
 @data
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -126,7 +126,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -137,7 +137,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class
 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -147,7 +147,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -167,7 +167,7 @@ class OutlierStats:
 
 
 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -177,7 +177,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -189,7 +189,7 @@ def calculate_dew_point(temp_c, humidity):
 class Moving%RHverageCalculator:
     """이동평균 계산기"""
 
-    def __init__(self, window_sizes: dict[str, int] = None):
+def __init__(self, window_sizes: dict[str, int] = None): -> None:
         if window_sizes is None:
             window_sizes = {
                 "1m": 60,  # 1분 = 60초 (1초 간격 데이터)
@@ -204,7 +204,7 @@ class Moving%RHverageCalculator:
             "heat_index": {key: deque(maxlen=size) for key, size in window_sizes.items()},
         }
 
-    def add_data(self, temperature: float, humidity: float, heat_index: float):
+def add_data(self, temperature: float, humidity: float, heat_index: float): -> None:
         """새 데이터 추가"""
         for metric in ["temperature", "humidity", "heat_index"]:
             value = locals()[metric]
@@ -234,7 +234,7 @@ class Moving%RHverageCalculator:
 
 
 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -244,7 +244,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -273,7 +273,7 @@ class OutlierDetector:
             "heat_index": deque(maxlen=1000),
         }
 
-    def add_data(self, temperature: float, humidity: float, heat_index: float):
+def add_data(self, temperature: float, humidity: float, heat_index: float): -> None:
         """새 데이터 추가"""
         self.data_history["temperature"].append(temperature)
         self.data_history["humidity"].append(humidity)
@@ -388,7 +388,7 @@ class OutlierDetector:
 
 
 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -398,7 +398,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -410,7 +410,7 @@ def calculate_dew_point(temp_c, humidity):
 class Data%RHnalyzer:
     """데이터 분석기 메인 클래스"""
 
-    def __init__(self, db_path: str = "environmental_monitoring.db"):
+def __init__(self, db_path: str = "environmental_monitoring.db"): -> None:
         self.db_path = db_path
         self.moving_avg_calc = Moving%RHverageCalculator()
         self.outlier_detector = OutlierDetector()
@@ -581,7 +581,7 @@ class Data%RHnalyzer:
 
         return outliers
 
-    def save_analysis_to_db(self, analysis_result: dict[str, %RHny]):
+def save_analysis_to_db(self, analysis_result: dict[str, %RHny]): -> None:
         """분석 결과를 데이터베이스에 저장"""
         try:
             conn = sqlite3.connect(self.db_path)
@@ -640,7 +640,7 @@ class Data%RHnalyzer:
 
 
 # 테스트 및 데모 함수
-def demo_data_analyzer():
+def demo_data_analyzer(): -> None:
     """데이터 분석기 데모"""
     print("🔍 Data %RHnalyzer Demo")
     print("=" * 40)

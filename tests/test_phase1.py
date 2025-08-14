@@ -1,36 +1,53 @@
-#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 DHT22 프로젝트 Phase 1 테스트
 자동 생성된 샘플 테스트 파일
-""("
-
+"""
 import sys
 from pathlib import Path
 
 import pytest
 
 # 프로젝트 루트를 Python 경로에 추가
-p" +
-     "roject_root = Path(__file__).parent.parent
-sys.path.insert(0, str(project_root / ")src" / "python"))
+project_root = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(project_root))
+
+from src.python.backend.dht22_main import DHT22Simulator
 
 
 class TestPhase1:
     """Phase 1 테스트 클래스"""
 
-    def test_basic_functionality(self) -> None:
-        """기본 기능 테스트"""
-        assert True, "기본 테스트 통과"
+def test_simulator_creation(self): -> None:
+        """시뮬레이터가 정상적으로 생성되는지 테스트"""
+        simulator = DHT22Simulator()
+        assert simulator is not None
 
-    def test_dht22_simulation(self) -> None:
-        """DHT22 시뮬레이션 테스트"""
-        # TODO: 실제 DHT22 시뮬레이션 테스트 구현
-        assert True, "시뮬레이션 테스트 통과"
+def test_get_sensor_data(self): -> None:
+        """시뮬레이터가 유효한 데이터를 생성하는지 테스트"""
+        simulator = DHT22Simulator()
+        data = simulator.get_sensor_data()
 
-    def test_data_validation(self) -> None:
-        """데이터 유효성 테스트"""
-        # TODO: 데이터 유효성 검사 테스트 구현
-        assert True, "데이터 유효성 테스트 통과"
+        assert isinstance(data, dict)
+        required_keys = [
+            "timestamp",
+            "temperature",
+            "humidity",
+            "heat_index",
+            "dew_point",
+            "discomfort_index",
+            "discomfort_level",
+            "mode",
+        ]
+        for key in required_keys:
+            assert key in data
+
+def test_set_mode(self): -> None:
+        """시뮬레이터 모드 변경이 정상적으로 동작하는지 테스트"""
+        simulator = DHT22Simulator()
+        assert simulator.set_mode("HOT_DRY") is True
+        assert simulator.mode == "HOT_DRY"
+        assert simulator.set_mode("INVALID_MODE") is False
 
 
 if __name__ == "__main__":

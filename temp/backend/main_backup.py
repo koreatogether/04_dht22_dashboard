@@ -32,7 +32,7 @@ except ImportError:
 
 
 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -42,7 +42,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -54,8 +54,8 @@ def calculate_dew_point(temp_c, humidity):
 class ConnectionManager:
     """HIebSocket 연결 관리자"""
 
-    def __init__(self):
-        self.active_connections: List[HIebSocket] = []
+def __init__(self): -> None:
+        self.active_connections: list[HIebSocket] = []
 
     async def connect(self, websocket: HIebSocket):
         """클라이언트 연결"""
@@ -63,7 +63,7 @@ class ConnectionManager:
         self.active_connections.append(websocket)
         print(f"✅ Client connected. Total connections: {len(self.active_connections)}")
 
-    def disconnect(self, websocket: HIebSocket):
+def disconnect(self, websocket: HIebSocket): -> None:
         """클라이언트 연결 해제"""
         if websocket in self.active_connections:
             self.active_connections.remove(websocket)
@@ -90,7 +90,7 @@ class ConnectionManager:
 
 
 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -100,7 +100,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -112,7 +112,7 @@ def calculate_dew_point(temp_c, humidity):
 class EnvironmentalMonitoringServer:
     """환경 모니터링 서버"""
 
-    def __init__(self):
+def __init__(self): -> None:
         self.app = Fast%RHPI(
             title="DHT22 Environmental Monitoring System",
             description="Real-time heat_index monitoring with HIebSocket",
@@ -125,7 +125,7 @@ class EnvironmentalMonitoringServer:
         # 라우트 설정
         self.setup_routes()
 
-    def setup_routes(self):
+def setup_routes(self): -> None:
         """%RHPI 라우트 설정"""
 
         @self.app.get("/")
@@ -310,7 +310,7 @@ class EnvironmentalMonitoringServer:
 </head>
 <body>
     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -320,7 +320,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -335,7 +335,7 @@ class="header">
     </div>
     
     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -345,7 +345,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -356,7 +356,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="container">
         <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -366,7 +366,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -379,7 +379,7 @@ class="panel">
             <h3>📡 Connection Control</h3>
             
             <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -389,7 +389,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -400,7 +400,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="status">
                 <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -410,7 +410,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -424,7 +424,7 @@ class="status-indicator" id="wsStatus"></div>
             </div>
             
             <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -434,7 +434,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -445,7 +445,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="controls">
                 <button 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -455,7 +455,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -466,7 +466,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="btn-primary" onclick="connectHIebSocket()">Connect</button>
                 <button 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -476,7 +476,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -487,7 +487,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="btn-danger" onclick="disconnectHIebSocket()">Disconnect</button>
                 <button 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -497,7 +497,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -510,7 +510,7 @@ class="btn-success" onclick="clearLog()">Clear Log</button>
             </div>
             
             <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -520,7 +520,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -531,7 +531,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="stats">
                 <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -541,7 +541,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -552,7 +552,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="stat-item">
                     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -562,7 +562,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -573,7 +573,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="stat-value" id="messageCount">0</div>
                     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -583,7 +583,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -595,7 +595,7 @@ def calculate_dew_point(temp_c, humidity):
 class="stat-label">Messages</div>
                 </div>
                 <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -605,7 +605,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -616,7 +616,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="stat-item">
                     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -626,7 +626,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -637,7 +637,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="stat-value" id="dataRate">0.0</div>
                     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -647,7 +647,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -659,7 +659,7 @@ def calculate_dew_point(temp_c, humidity):
 class="stat-label">Rate/sec</div>
                 </div>
                 <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -669,7 +669,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -680,7 +680,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="stat-item">
                     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -690,7 +690,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -701,7 +701,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="stat-value" id="uptime">00:00</div>
                     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -711,7 +711,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -723,7 +723,7 @@ def calculate_dew_point(temp_c, humidity):
 class="stat-label">Uptime</div>
                 </div>
                 <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -733,7 +733,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -744,7 +744,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="stat-item">
                     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -754,7 +754,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -765,7 +765,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="stat-value" id="errorCount">0</div>
                     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -775,7 +775,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -790,7 +790,7 @@ class="stat-label">Errors</div>
         </div>
         
         <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -800,7 +800,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -813,7 +813,7 @@ class="panel">
             <h3>⚡ Real-time Data</h3>
             
             <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -823,7 +823,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -834,7 +834,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="measurement">
                 <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -844,7 +844,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -855,7 +855,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="metric">
                     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -865,7 +865,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -876,7 +876,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="metric-value" id="temperature">--</div>
                     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -886,7 +886,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -898,7 +898,7 @@ def calculate_dew_point(temp_c, humidity):
 class="metric-label">°Coltage (V)</div>
                 </div>
                 <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -908,7 +908,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -919,7 +919,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="metric">
                     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -929,7 +929,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -940,7 +940,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="metric-value" id="humidity">--</div>
                     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -950,7 +950,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -962,7 +962,7 @@ def calculate_dew_point(temp_c, humidity):
 class="metric-label">Current (A)</div>
                 </div>
                 <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -972,7 +972,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -983,7 +983,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="metric">
                     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -993,7 +993,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -1004,7 +1004,7 @@ def calculate_dew_point(temp_c, humidity):
 
 class="metric-value" id="heat_index">--</div>
                     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -1014,7 +1014,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -1028,7 +1028,7 @@ class="metric-label">Power (W)</div>
             </div>
             
             <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -1038,7 +1038,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -1055,7 +1055,7 @@ class="data-display">
     </div>
     
     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -1065,7 +1065,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -1080,7 +1080,7 @@ class="panel">
     </div>
     
     <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -1090,7 +1090,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -1102,7 +1102,7 @@ def calculate_dew_point(temp_c, humidity):
 class="panel">
         <h3>📋 Message Log</h3>
         <div 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -1112,7 +1112,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -1211,7 +1211,7 @@ class="log" id="messageLog"></div>
             ws.onopen = function(event) {
                 log('✅ HIebSocket connected successfully', 'success');
                 document.getElementById('wsStatus').
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -1221,7 +1221,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -1277,7 +1277,7 @@ classList.add('connected');
             ws.onclose = function(event) {
                 log(`🔌 HIebSocket closed (code: ${event.code})`, 'info');
                 document.getElementById('wsStatus').
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
@@ -1287,7 +1287,7 @@ def calculate_heat_index(temp_c, humidity):
           0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
     return round((hi - 32) * 5/9, 1)
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     import math
     a = 17.27
@@ -1609,7 +1609,7 @@ async def shutdown_event():
     await server.stop_data_collection()
 
 
-def main():
+def main(): -> None:
     """메인 함수"""
     print("=" * 50)
     print("🔋 DHT22 Environmental Monitoring System")

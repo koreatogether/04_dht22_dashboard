@@ -13,10 +13,10 @@ AI 자체 검증 테스트: Phase 2.3 완전 자동 검증
 """
 
 import asyncio
+import math
 import os
 import re
 import sys
-import math
 from datetime import datetime
 
 from bs4 import BeautifulSoup
@@ -24,23 +24,29 @@ from bs4 import BeautifulSoup
 # UTF-8 인코딩 강제 설정
 if sys.platform.startswith("win"):
     import codecs
+
     sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
     sys.stderr = codecs.getwriter("utf-8")(sys.stderr.detach())
     os.environ["PYTHONIOENCODING"] = "utf-8"
 
 
-def calculate_heat_index(temp_c, humidity):
+def calculate_heat_index(temp_c, humidity): -> None:
     """열지수 계산 (미국 기상청 공식)"""
     if temp_c < 27:
         return temp_c
-    
-    temp_f = temp_c * 9/5 + 32
-    hi = (-42.379 + 2.04901523 * temp_f + 10.14333127 * humidity - 
-          0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
-    return round((hi - 32) * 5/9, 1)
+
+    temp_f = temp_c * 9 / 5 + 32
+    hi = (
+        -42.379
+        + 2.04901523 * temp_f
+        + 10.14333127 * humidity
+        - 0.22475541 * temp_f * humidity
+        - 6.83783e-3 * temp_f**2
+    )
+    return round((hi - 32) * 5 / 9, 1)
 
 
-def calculate_dew_point(temp_c, humidity):
+def calculate_dew_point(temp_c, humidity): -> None:
     """이슬점 계산 (Magnus 공식)"""
     a = 17.27
     b = 237.7
@@ -51,7 +57,7 @@ def calculate_dew_point(temp_c, humidity):
 class AIPhase23Tester:
     """AI 자체 검증 테스트 클래스"""
 
-    def __init__(self):
+def __init__(self): -> None:
         self.test_results = []
         self.html_content = ""
         self.css_styles = {}
@@ -60,7 +66,7 @@ class AIPhase23Tester:
         self.errors = []
         self.warnings = []
 
-    def log_result(self, test_name: str, status: str, details: str = ""):
+def log_result(self, test_name: str, status: str, details: str = ""): -> None:
         """테스트 결과 로깅"""
         result = {
             "test": test_name,
@@ -98,7 +104,7 @@ class AIPhase23Tester:
             self.log_result("파일 로드", "FAIL", f"main.py 로드 실패: {e}")
             return False
 
-    def parse_html_structure(self):
+def parse_html_structure(self): -> None:
         """HTML 구조 파싱 및 검증"""
         try:
             soup = BeautifulSoup(self.html_content, "html.parser")
@@ -164,7 +170,7 @@ class AIPhase23Tester:
         except Exception as e:
             self.log_result("HTML 파싱", "FAIL", f"HTML 파싱 오류: {e}")
 
-    def parse_css_styles(self):
+def parse_css_styles(self): -> None:
         """CSS 스타일 파싱 및 검증"""
         try:
             # HTML에서 <style> 태그 추출
@@ -187,7 +193,7 @@ class AIPhase23Tester:
                 ".alert-indicator.warning": ["background-color"],
                 ".alert-indicator.danger": ["background-color"],
             }
-            
+
             for css_class, properties in required_styles.items():
                 if css_class in css_content:
                     self.log_result(
@@ -235,13 +241,13 @@ class AIPhase23Tester:
                     self.log_result(
                         f"색상 코딩: {description}", "WARNING", f"{color} 색상 미확인"
                     )
-            
+
             self.log_result("CSS 추출", "PASS", "CSS 스타일 검증 완료")
-            
+
         except Exception as e:
             self.log_result("CSS 추출", "FAIL", f"CSS 검증 중 오류: {str(e)}")
 
-    def parse_javascript_functions(self):
+def parse_javascript_functions(self): -> None:
         """JavaScript 함수 파싱 및 검증"""
         try:
             # HTML에서 <script> 태그 추출
@@ -282,7 +288,12 @@ class AIPhase23Tester:
                     )
 
             # 중요 변수 검증
-            required_variables = ["statsData", "thresholds", "heat_indexChart", "chartData"]
+            required_variables = [
+                "statsData",
+                "thresholds",
+                "heat_indexChart",
+                "chartData",
+            ]
 
             for var_name in required_variables:
                 if var_name in js_content:
@@ -297,7 +308,7 @@ class AIPhase23Tester:
         except Exception as e:
             self.log_result("JavaScript 파싱", "FAIL", f"JavaScript 파싱 오류: {e}")
 
-    def simulate_data_flow(self):
+def simulate_data_flow(self): -> None:
         """데이터 흐름 시뮬레이션"""
         try:
             # 시뮬레이터 데이터 생성
@@ -311,7 +322,9 @@ class AIPhase23Tester:
             }
 
             # 1. 열지수 계산 검증
-            calculated_heat_index = calculate_heat_index(mock_data["temperature"], mock_data["humidity"])
+            calculated_heat_index = calculate_heat_index(
+                mock_data["temperature"], mock_data["humidity"]
+            )
             heat_index_diff = abs(calculated_heat_index - mock_data["heat_index"])
 
             if heat_index_diff < 1.0:  # 1도 오차 허용
@@ -357,7 +370,7 @@ class AIPhase23Tester:
         except Exception as e:
             self.log_result("데이터 흐름 시뮬레이션", "FAIL", f"시뮬레이션 오류: {e}")
 
-    def generate_test_report(self):
+def generate_test_report(self): -> None:
         """테스트 보고서 생성"""
         print("\n" + "=" * 80)
         print("🤖 AI 자체 검증 테스트 보고서: Phase 2.3")

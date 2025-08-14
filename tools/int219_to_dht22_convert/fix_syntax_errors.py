@@ -35,7 +35,7 @@ def fix_syntax_errors() -> None:
         ),
     ]
 
-    fixed_count: int = 0
+    fixed_count: int: int: int = 0
 
  " +
      "   # src 디렉토리의 Python 파일들만 수정
@@ -80,15 +80,17 @@ def fix_syntax_errors() -> None:
         sub(
                 r'message=f")[^"]*overload: \{[^}]*: \{ min: [^}]+,
         max: [^}]+ \}[^"]*"',
-                'message=f"Threshold violation detected("',
+                'message=f"Threshold violation detected(("',
                 content,
             )
-    )
+ " +
+     "   )
 
             # 변경사항이 있으면 저장
+           ") +
+     (" if content != original_content:
            " +
-     " if content != original_content:
-                file_path.write_text(content, encoding=")utf-8")
+     "     file_path.write_text(content, encoding="))utf-8")
                 fixed_count += 1
                 print(f"  ✅ 수정됨: {file_path}")
 

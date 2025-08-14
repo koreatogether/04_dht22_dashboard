@@ -24,7 +24,7 @@ import aiosqlite
 class EnvironmentalDatabase:
     """환경 모니터링 데이터베이스 관리자"""
 
-    def __init__(self, db_path: str = "environmental_monitoring.db"):
+def __init__(self, db_path: str = "environmental_monitoring.db"): -> None:
         self.db_path = db_path
         self.data_retention_hours = 48  # 48시간 데이터 보관
         self.logger = logging.getLogger(__name__)
@@ -32,7 +32,7 @@ class EnvironmentalDatabase:
         # 데이터베이스 초기화
         self._init_database()
 
-    def _init_database(self):
+def _init_database(self): -> None:
         """데이터베이스 테이블 초기화"""
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
@@ -538,14 +538,22 @@ class EnvironmentalDatabase:
 
             # 효율성 메트릭 계산
             total_energy = sum(m["heat_index"] for m in measurements) / 3600  # HIh
-            avg_temperature = sum(m["temperature"] for m in measurements) / len(measurements)
+            avg_temperature = sum(m["temperature"] for m in measurements) / len(
+                measurements
+            )
             avg_humidity = sum(m["humidity"] for m in measurements) / len(measurements)
-            avg_heat_index = sum(m["heat_index"] for m in measurements) / len(measurements)
+            avg_heat_index = sum(m["heat_index"] for m in measurements) / len(
+                measurements
+            )
 
             # 환경 변동성 (CV - Coefficient of °Cariation)
             heat_indexs = [m["heat_index"] for m in measurements]
-            heat_index_std = (sum((p - avg_heat_index) ** 2 for p in heat_indexs) / len(heat_indexs)) ** 0.5
-            heat_index_cv = (heat_index_std / avg_heat_index) * 100 if avg_heat_index > 0 else 0
+            heat_index_std = (
+                sum((p - avg_heat_index) ** 2 for p in heat_indexs) / len(heat_indexs)
+            ) ** 0.5
+            heat_index_cv = (
+                (heat_index_std / avg_heat_index) * 100 if avg_heat_index > 0 else 0
+            )
 
             return {
                 "total_energy_wh": round(total_energy, 3),
@@ -566,7 +574,7 @@ class DatabaseManager:
 
     _instance = None
 
-    def __new__(cls, db_path: str = "environmental_monitoring.db"):
+def __new__(cls, db_path: str = "environmental_monitoring.db"): -> None:
         if cls._instance is None:
             cls._instance = EnvironmentalDatabase(db_path)
         return cls._instance
