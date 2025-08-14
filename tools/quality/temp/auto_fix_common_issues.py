@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 일반적인 코드 품질 문제를 자동으로 수정합니다.
 
@@ -9,7 +8,6 @@
 
 import re
 from pathlib import Path
-from typing import Tuple
 
 
 class CodeFixer:
@@ -152,7 +150,7 @@ class CodeFixer:
             print(f"  [ERROR] {file_path.relative_to(self.project_root)}: {e}")
             return False
 
-    def main():
+def main():
     """메인 함수"""
     import argparse
 

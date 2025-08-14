@@ -1,5 +1,5 @@
 """
-MyPy 타입 힌트 오류를 자동으로 수정합니다.
+Automatically fixes MyPy type hint errors.
 """
 import re
 from pathlib import Path

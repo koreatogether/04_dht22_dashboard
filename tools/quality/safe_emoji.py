@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-안전한 이모지 출력 모듈
+Safe Emoji Output Module
 
-환경에 따라 이모지 또는 ASCII 대체 문자를 선택적으로 사용합니다.
+Selectively uses emojis or ASCII replacement characters based on environment.
 """
 
 import os
@@ -11,94 +10,72 @@ import sys
 
 
 class SafeEmoji:
-    """안전한 이모지 출력 클래스"""
+    """Safe emoji output class"""
 
     def __init__(self):
         self.emoji_support = self._test_emoji_support()
 
-        # 이모지와 ASCII 대체 매핑
+        # Emoji to ASCII replacement mapping
         self.emoji_map = {
-            "search": ("[SEARCH]", "[검색]"),
-            "ok": ("[OK]", "[OK]"),
-            "error": ("[ERROR]", "[ERROR]"),
-            "warning": ("[WARNING]", "[WARNING]"),
-            "rocket": ("[SUCCESS]", "[성공]"),
-            "chart": ("[DATA]", "[데이터]"),
-            "tool": ("[TOOL]", "[도구]"),
-            "idea": ("[TIP]", "[아이디어]"),
-            "target": ("[TARGET]", "[목표]"),
-            "lock": ("🔒", "[보안]"),
-            "calendar": ("📅", "[날짜]"),
-            "build": ("🛠️", "[빌드]"),
+            "search": ("[SEARCH]", "[SCAN]"),
+            "success": ("[SUCCESS]", "[OK]"),
+            "error": ("[ERROR]", "[ERR]"),
+            "warning": ("[WARNING]", "[WARN]"),
+            "info": ("[INFO]", "[NOTE]"),
+            "tool": ("[TOOL]", "[APP]"),
+            "data": ("[DATA]", "[INFO]"),
+            "result": ("[RESULT]", "[END]"),
+            "tip": ("[TIP]", "[HINT]"),
         }
 
     def _test_emoji_support(self) -> bool:
-        """현재 환경의 이모지 지원 여부 확인"""
+        """Test if current environment supports emoji output"""
         try:
-            # UTF-8 환경변수 확인
-            if os.environ.get('PYTHONUTF8') == '1':
-                return True
-            if os.environ.get(
-                'PYTHONIOENCODING',
-                    '').lower().startswith('utf'):
-                return True
-
-            # stdout 인코딩 확인
-            if sys.stdout.encoding and 'utf' in sys.stdout.encoding.lower():
-                # 간단한 이모지 출력 테스트
-                test_emoji = "[OK]"
-                test_emoji.encode(sys.stdout.encoding)
-                return True
-        except Exception:
-    return False
-
-    def get(self, name: str) -> str:
-        """이모지 또는 대체 문자 반환"""
-        if name in self.emoji_map:
-            emoji, ascii_alt = self.emoji_map[name]
-            return emoji if self.emoji_support else ascii_alt
-        return f"[{name.upper()}]"
-
-    def print(self, *args, **kwargs):
-        """안전한 이모지 포함 출력"""
-        try:
-            print(*args, **kwargs)
-        except UnicodeEncodeError:
-            # 이모지를 ASCII로 변환 후 재시도
-            safe_args = []
-            for arg in args:
-                if isinstance(arg, str):
-                    # 간단한 이모지 → ASCII 변환
-                    safe_arg = (arg.replace("[SEARCH]", "[검색]")
-                                .replace("[OK]", "[OK]")
-                                .replace("[ERROR]", "[ERROR]")
-                                .replace("[WARNING]", "[WARNING]")
-                                .replace("[SUCCESS]", "[성공]")
-                                .replace("[DATA]", "[데이터]")
-                                .replace("[TOOL]", "[도구]")
-                                .replace("[TIP]", "[아이디어]")
-                                .replace("[TARGET]", "[목표]")
-                                .replace("🔒", "[보안]")
-                                .replace("📅", "[날짜]")
-                                .replace("🛠️", "[빌드]"))
-                    safe_args.append(safe_arg)
-                else:
-                    safe_args.append(arg)
-            print(*safe_args, **kwargs)
+            # Windows Command Prompt usually doesn't support emojis well
+            if os.name == "nt":
+                return False
+            
+            # Test basic emoji encoding capability
+            test_emoji = "✅"
+            test_emoji.encode(sys.stdout.encoding or "utf-8")
+            return True
+            
+        except (UnicodeEncodeError, AttributeError):
+            return False
+    
+    def get(self, emoji_name: str, fallback_index: int = 0) -> str:
+        """Get emoji or ASCII replacement based on environment"""
+        if emoji_name in self.emoji_map:
+            options = self.emoji_map[emoji_name]
+            if self.emoji_support and len(options) > 1:
+                return options[1]  # Use emoji version
+            else:
+                return options[0]  # Use ASCII version
+        else:
+            return f"[{emoji_name.upper()}]"  # Default ASCII format
 
 
-# 전역 인스턴스
+# Global instance for easy access
 safe_emoji = SafeEmoji()
 
-# 편의 함수들
 
-
-def get_emoji(name: str) -> str:
-    """이모지 또는 대체 문자 반환"""
+def get_safe_emoji(name: str) -> str:
+    """Convenience function to get safe emoji"""
     return safe_emoji.get(name)
-    def safe_print(*args, **kwargs):
-    """안전한 출력"""
-    safe_emoji.print(*args, **kwargs)
-    def is_emoji_supported() -> bool:
-    """이모지 지원 여부 반환"""
-    return safe_emoji.emoji_support
+
+
+def print_with_safe_emoji(emoji_name: str, message: str) -> None:
+    """Print message with safe emoji prefix"""
+    prefix = safe_emoji.get(emoji_name)
+    print(f"{prefix} {message}")
+
+
+if __name__ == "__main__":
+    # Test emoji support
+    print("Testing emoji support...")
+    print(f"Emoji support detected: {safe_emoji.emoji_support}")
+    
+    print("\nTesting emoji output:")
+    for name in safe_emoji.emoji_map.keys():
+        emoji = safe_emoji.get(name)
+        print(f"{emoji} Testing {name}")

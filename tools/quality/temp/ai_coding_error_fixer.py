@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 AI 코딩 오류 종합 자동 수정 도구
 
@@ -11,9 +10,7 @@ import re
 import shutil
 import subprocess
 import sys
-import tempfile
 from pathlib import Path
-from typing import Dict, List, Tuple
 
 
 class AICodeErrorFixer:
@@ -127,7 +124,7 @@ class AICodeErrorFixer:
 
         return changed
 
-    def fix_pattern_errors(self, content: str) -> Tuple[str, int]:
+    def fix_pattern_errors(self, content: str) -> tuple[str, int]:
         """패턴 기반 오류 수정"""
         fixes_applied = 0
 
@@ -175,7 +172,7 @@ class AICodeErrorFixer:
         except ValueError:
             return False
 
-    def fix_file(self, file_path: Path) -> Dict[str, int]:
+    def fix_file(self, file_path: Path) -> dict[str, int]:
         """단일 파일 종합 수정"""
         stats = {"pattern_fixes": 0, "tool_fixes": 0, "encoding_fixes": 0}
 
@@ -265,7 +262,7 @@ class AICodeErrorFixer:
             if len(fixed_files) > 10:
                 print(f"  ... 및 {len(fixed_files) - 10}개 더")
 
-    def main():
+def main():
     """메인 함수"""
     import argparse
 
@@ -274,7 +271,7 @@ class AICodeErrorFixer:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 수정하는 오류들:
-- 타입 힌트 구문 오류 (def func(): -> Type:)
+- 타입 힌트 구문 오류 (def func() -> Type:)
 - 문자열 리터럴 오류 ("" → "")
 - f-string 구문 오류
 - 잘못된 인덴테이션

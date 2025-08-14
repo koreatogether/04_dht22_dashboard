@@ -1,0 +1,20 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+    - id: check-yaml
+    - id: check-added-large-files
+    - id: trailing-whitespace
+    - id: end-of-file-fixer
+    - id: check-python-use-type-hints
+    - id: check-syntax
+
+  - repo: local
+    hooks:
+    - id: validate-tools
+      name: Validate Tool Files
+      entry: python tools/quality/validate_tools.py
+      language: python
+      pass_filenames: false
+      always_run: true
+      stages: [commit]

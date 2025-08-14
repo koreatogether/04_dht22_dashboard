@@ -300,7 +300,8 @@ class PythonSyntaxFixer:
             for file in self.error_files:
                 print(f"  - {file}")
 
-    def main():
+def main():
+    """메인 함수"""
     parser = argparse.ArgumentParser(
         description='Python 구문 오류 종합 수정 도구 (autopep8 + autoflake + pyupgrade)',
         formatter_class=argparse.RawDescriptionHelpFormatter,
