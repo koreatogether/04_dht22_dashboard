@@ -62,7 +62,7 @@ def apply_batch_type_fixes() -> int:
         (r'self\.(\w+) = 0', r'self.\1: int = 0'),
         (r'self\.(\w+) = False', r'self.\1: bool = False'),
         (r'self\.(\w+) = True', r'self.\1: bool = True'),
-        (r'self\.(\w+) = None', r'self.\1: Optional[Any] = None'),
+        (r'self\.(\w+) = None', r'self.\1: Any | None = None'),
     ]
     
     tools_dir = Path("tools")

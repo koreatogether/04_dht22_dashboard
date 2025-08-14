@@ -1,0 +1,30 @@
+{
+  "project": "DHT22 환경 모니터링 시스템",
+  "timestamp": "20250814_211355",
+  "tool": "trufflehog",
+  "version": "trufflehog 3.90.2",
+  "platform": "Windows",
+  "project_root": "E:\\project\\04_P_dht22_monitoring",
+  "scans": {
+    "filesystem": {
+      "success": true,
+      "target_path": "E:\\project\\04_P_dht22_monitoring",
+      "findings_count": 0,
+      "critical_findings": 0,
+      "privacy_findings": 0,
+      "findings": [],
+      "command": "E:\\project\\04_P_dht22_monitoring\\tools\\git_commit_check\\trufflehog.exe filesystem --directory E:\\project\\04_P_dht22_monitoring --json --no-verification --exclude-paths __pycache__ --exclude-paths *.pyc --exclude-paths .git --exclude-paths .venv --exclude-paths logs/* --exclude-paths data/* --exclude-paths temp/* --exclude-paths *.bak --exclude-paths *.tmp",
+      "duration_sec": 0.62,
+      "error": null
+    }
+  },
+  "summary": {
+    "total_scans": 1,
+    "successful_scans": 1,
+    "total_findings": 0,
+    "critical_findings": 0,
+    "privacy_findings": 0,
+    "high_risk_files": [],
+    "scan_duration": 0.6233668327331543
+  }
+}

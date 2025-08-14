@@ -38,7 +38,7 @@ def _print(msg: str) -> None:  # 단일 출력 헬퍼 (인코딩 문제 최소�
 class CommonIssueFixer:
     """공통 오류 패턴 자동 수정 도구"""
 
-    def __init__(self, project_root: Optional[Path] = None) -> None:
+    def __init__(self, project_root: Path | None = None) -> None:
         self.project_root = project_root or Path.cwd()
         self.source_dirs = [self.project_root / "src", self.project_root / "tools"]
         self.backup_dir = self.project_root / "tools" / "quality" / "backups"
@@ -59,8 +59,10 @@ class CommonIssueFixer:
             ],
         }
 
+        # 런타임 속성 초기화
         self.fixed_files: list[str] = []
         self.issues_fixed: int = 0
+        self.pattern_group_counts: dict[str, int] = {k: 0 for k in self.patterns.keys()}
 
     # ---------------------------- 내부 유틸 ----------------------------
     def _iter_python_files(self) -> list[Path]:
@@ -118,14 +120,50 @@ class CommonIssueFixer:
 
         # 간단한 패턴 치환
         for group, repls in self.patterns.items():
+            group_applied = 0
             for src_pat, dst in repls:
                 if re.search(src_pat, content):
-                    new_content = re.sub(src_pat, dst, content)
-                    if new_content != content:
-                        count = len(re.findall(src_pat, content))
-                        content = new_content
-                        applied += count
-                        _print(f"  🔄 {file_path.name}: {group} {count}건")
+                    # 전체 치환 전에 발생 건수 계산
+                    occurrences = len(re.findall(src_pat, content))
+                    if occurrences:
+                        new_content = re.sub(src_pat, dst, content)
+                        if new_content != content:
+                            content = new_content
+                            applied += occurrences
+                            group_applied += occurrences
+            if group_applied:
+                self.pattern_group_counts[group] = self.pattern_group_counts.get(group, 0) + group_applied
+                _print(f"  🔄 {file_path.name}: {group} {group_applied}건")
+
+        # 추가: T | None -> T | None, A | B -> A | B (단순 케이스) (Python 3.10+)
+        modern_extra_applied = 0
+        # ... | None 단순 변환 (중첩 대괄호 깊이 고려 X - 단순 패턴)
+        opt_pattern = re.compile(r"Optional\[([A-Za-z0-9_\.]+)\]")
+        def _opt_repl(m: re.Match) -> str:  # noqa: D401
+            return f"{m.group(1)} | None"
+        if "Optional[" in content:
+            new_content, n_opt = opt_pattern.subn(_opt_repl, content)
+            if n_opt:
+                content = new_content
+                modern_extra_applied += n_opt
+        # ... -> a | b | c
+        union_pattern = re.compile(r"Union\[([^\]]+)\]")
+        def _union_repl(m: re.Match) -> str:
+            inner = m.group(1)
+            parts = [p.strip() for p in inner.split(",") if p.strip()]
+            return " | ".join(parts)
+        if "" in content:
+            new_content | n_union = union_pattern.subn(_union_repl | content)
+            if n_union:
+                content = new_content
+                modern_extra_applied += n_union
+        if modern_extra_applied:
+            applied += modern_extra_applied
+            self.pattern_group_counts["union_optional_modernization" = self.pattern_group_counts.get("union_optional_modernization", 0) + modern_extra_applied
+            _print(f"  🔄 {file_path.name}: union_optional_modernization {modern_extra_applied}건")
+
+        # typing import 정리: List, Dict, Optional, Union 사용 안 하면 제거
+        content = self._cleanup_typing_imports(content)
 
         # UTF-8 주석 (없으면 추가)
         if not content.startswith("# -*- coding: utf-8 -*-"):
@@ -148,6 +186,28 @@ class CommonIssueFixer:
             self.issues_fixed += self.apply_patterns_to_file(py)
         _print("  ✅ 패턴 적용 완료")
 
+    # ---------------------------- typing import 정리 ----------------------------
+    def _cleanup_typing_imports(self, content: str) -> str:
+        """사용하지 않는 typing 심볼(List/Dict/Optional/Union) 제거.
+
+        너무 공격적이지 않게 심플 패턴만 처리한다.
+        """
+        pattern = re.compile(r"^from typing import (.+)$", re.MULTILINE)
+        def _line_repl(m: re.Match) -> str:
+            raw = m.group(1)
+            symbols = [s.strip() for s in raw.split(",")]
+            keep: list[str] = []
+            for s in symbols:
+                base = s.split(" as ")[0].strip()
+                # 아직 코드에 등장하면 유지
+                if re.search(rf"\b{re.escape(base)}\b", content):
+                    keep.append(s)
+            if keep:
+                return f"from typing import {', '.join(keep)}"
+            return ""  # 전부 제거
+        new_content = pattern.sub(_line_repl, content)
+        return new_content
+
     # ---------------------------- MyPy (경고 기반) ----------------------------
     def run_mypy_collect(self) -> int:
         try:
@@ -164,18 +224,29 @@ class CommonIssueFixer:
         return sum(1 for l in proc.stdout.splitlines() if l.strip())
 
     # ---------------------------- 품질 지표 ----------------------------
-    def run_quality_checks(self) -> dict[str, int]:
-        metrics = {"ruff_errors": 0, "mypy_errors": 0}
-        # Ruff: stdout/stderr 합쳐서 경고 라인 수 (간단 계산)
+    def run_quality_checks(self) -> dict[str, object]:
+        metrics: dict[str, object] = {"ruff_errors": 0, "mypy_errors": 0, "ruff_sample": [], "mypy_sample": []}
+        # Ruff: stdout/stderr 합쳐서 경고 라인 수 + 샘플
         try:
             proc = self._run([sys.executable, "-m", "ruff", "check", "src/"])
+            out_all = (proc.stdout or "") + "\n" + (proc.stderr or "")
+            # UP009 필터링
+            lines = [l for l in out_all.splitlines() if l.strip() and "UP009" not in l]
             if proc.returncode != 0:
-                out = (proc.stdout or "") + "\n" + (proc.stderr or "")
-                metrics["ruff_errors"] = sum(1 for l in out.splitlines() if l.strip())
+                metrics["ruff_errors"] = len(lines)
+                metrics["ruff_sample"] = lines[:5]
         except FileNotFoundError:
             _print("⚠️ Ruff 미설치 - Ruff 지표 생략")
-        metrics["mypy_errors"] = self.run_mypy_collect()
-        return metrics
+        # MyPy
+        try:
+            mypy_proc = self._run([sys.executable, "-m", "mypy", "src/", "--ignore-missing-imports"])
+            my_lines = [l for l in (mypy_proc.stdout or "").splitlines() if l.strip()]
+            if mypy_proc.returncode != 0:
+                metrics["mypy_errors"] = len(my_lines)
+                metrics["mypy_sample"] = my_lines[:5]
+        except FileNotFoundError:
+            _print("⚠️ MyPy 미설치 - MyPy 지표 생략")
+        return metrics  # type: ignore[return-value]
 
     # ---------------------------- UTF-8 환경 ----------------------------
     def setup_utf8_environment(self) -> None:
@@ -210,6 +281,31 @@ class CommonIssueFixer:
             f"- Ruff 경고/오류: {before['ruff_errors']} → {after['ruff_errors']} (개선률 {rate(before['ruff_errors'], after['ruff_errors'])})",
             f"- MyPy 경고: {before['mypy_errors']} → {after['mypy_errors']} (개선률 {rate(before['mypy_errors'], after['mypy_errors'])})",
             "",
+            "### 🔍 샘플 (Ruff) (최대 5개)",
+        ]
+        if before.get("ruff_sample"):
+            lines += [f"- BEFORE: {s}" for s in before.get("ruff_sample", [])]
+        if after.get("ruff_sample"):
+            lines += [f"- AFTER: {s}" for s in after.get("ruff_sample", [])]
+        lines += [
+            "",
+            "### 🔍 샘플 (MyPy) (최대 5개)",
+        ]
+        if before.get("mypy_sample"):
+            lines += [f"- BEFORE: {s}" for s in before.get("mypy_sample", [])]
+        if after.get("mypy_sample"):
+            lines += [f"- AFTER: {s}" for s in after.get("mypy_sample", [])]
+        lines += [
+            "",
+            "## 🧬 패턴 그룹 적용 건수",
+        ]
+        if self.pattern_group_counts:
+            for g, c in sorted(self.pattern_group_counts.items()):
+                lines.append(f"- {g}: {c}")
+        else:
+            lines.append("(패턴 적용 없음)")
+        lines += [
+            "",
             "## 🔧 수정된 파일",
         ]
         if self.fixed_files:
@@ -223,6 +319,7 @@ class CommonIssueFixer:
             "## 📌 비고",
             "- 일부 경고는 자동 수정을 지원하지 않을 수 있습니다.",
             "- 잔여 MyPy/Ruff 이슈는 수동 보완 권장.",
+            "- Optional/Union 단순 패턴 변환은 중첩/복잡 제네릭 케이스에서는 생략될 수 있음.",
         ]
         out_file = self.results_dir / f"auto_fix_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md"
         out_file.write_text("\n".join(lines), encoding="utf-8")
