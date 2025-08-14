@@ -1,0 +1,12 @@
+2025-08-14 10:29:26,780 | __main__.DHT22Simulator | INFO | __init__:199 | DHT22 시뮬레이터 초기화 완료, 모드: NORMAL
+2025-08-14 10:29:26,781 | __main__ | INFO | <module>:776 | 🚀 DHT22 개발 서버 시작 중...
+2025-08-14 10:29:26,782 | __main__ | INFO | <module>:777 | 📊 대시보드: http://localhost:8001
+2025-08-14 10:29:26,782 | __main__ | INFO | <module>:778 | 🔌 WebSocket: ws://localhost:8001/ws
+2025-08-14 10:29:26,782 | __main__ | INFO | <module>:779 | 📡 API: http://localhost:8001/api/current
+2025-08-14 10:29:26,782 | __main__ | INFO | <module>:780 | 📈 메트릭: http://localhost:8001/api/metrics
+2025-08-14 10:29:26,782 | __main__ | INFO | <module>:781 | 💚 헬스체크: http://localhost:8001/api/health
+2025-08-14 10:29:27,298 | __mp_main__.DHT22Simulator | INFO | __init__:199 | DHT22 시뮬레이터 초기화 완료, 모드: NORMAL
+2025-08-14 10:29:27,305 | asyncio | DEBUG | __init__:64 | Using selector: SelectSelector
+2025-08-14 10:29:27,336 | dht22_dev_server.DHT22Simulator | INFO | __init__:199 | DHT22 시뮬레이터 초기화 완료, 모드: NORMAL
+2025-08-14 10:29:27,336 | dht22_dev_server.DHT22Simulator | INFO | __init__:199 | DHT22 시뮬레이터 초기화 완료, 모드: NORMAL
+2025-08-14 10:29:27,418 | watchfiles.main | DEBUG | _log_changes:306 | 6 changes detected: {(<Change.deleted: 3>, 'E:\\project\\04_P_dht22_monitoring\\src\\python\\backend\\__pycache__\\dht22_dev_server.cpython-313.pyc.3160207239776'), (<Change.added: 1>, 'E:\\project\\04_P_dht22_monitoring\\src\\python\\backend\\__pycache__\\dht22_dev_server.cpython-313.pyc'), (<Change.modified: 2>, 'E:\\project\\04_P_dht22_monitoring\\src\\python\\backend\\logs\\dht22_dev_20250814.log'), (<Change.added: 1>, 'E:\\project\\04_P_dht22_monitoring\\src\\python\\backend\\__pycache__\\dht22_dev_server.cpython-313.pyc.3160207239776'), (<Change.modified: 2>, 'E:\\project\\04_P_dht22_monitoring\\src\\python\\backend\\__pycache__'), (<Change.modified: 2>, 'E:\\project\\04_P_dht22_monitoring\\src\\python\\backend\\logs')}

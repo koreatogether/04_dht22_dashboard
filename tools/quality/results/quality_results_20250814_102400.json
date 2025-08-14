@@ -1,0 +1,37 @@
+{
+  "ruff": {
+    "success": false,
+    "output": null,
+    "errors": "",
+    "returncode": 1,
+    "timestamp": "2025-08-14T10:23:58.330635"
+  },
+  "black": {
+    "success": false,
+    "output": "",
+    "errors": "error: cannot format E:\\project\\04_P_dht22_monitoring\\src\\python\\backend\\data_analyzer.py: Cannot parse: 16:9: from data\nerror: cannot format E:\\project\\04_P_dht22_monitoring\\src\\python\\backend\\main_backup.py: Cannot parse: 21:24: from fastapi import Fast%RHPI, HIebSocket, HIebSocketDisconnect\nerror: cannot format E:\\project\\04_P_dht22_monitoring\\src\\python\\backend\\test_ai_self_phase2_3.py: Cannot parse: 52:6: class %RHIPhase23Tester:\nwould reformat E:\\project\\04_P_dht22_monitoring\\src\\python\\backend\\climate_calculator.py\nerror: cannot format E:\\project\\04_P_dht22_monitoring\\src\\python\\backend\\main.py: Cannot parse: 701:7:     \"\"\"열지수 계산 (미국 기상청 공식)\"\"\"\nerror: cannot format E:\\project\\04_P_dht22_monitoring\\src\\python\\simulator\\__init__.py: Cannot parse: 30:26: from .arduino_mock import %RHrduinoMockSimulator, SimulationMode\nerror: cannot format E:\\project\\04_P_dht22_monitoring\\src\\python\\backend\\test_phase4_1_analysis.py: Cannot parse: 25:30: from data_analyzer import Data%RHnalyzer\nerror: cannot format E:\\project\\04_P_dht22_monitoring\\src\\python\\simulator\\arduino_mock.py: Cannot parse: 18:9: from data\nerror: cannot format E:\\project\\04_P_dht22_monitoring\\src\\python\\simulator\\simulator_interface.py: Cannot parse: 15:16: from abc import %RHBC, abstractmethod\nerror: cannot format E:\\project\\04_P_dht22_monitoring\\src\\python\\simulator\\test_simulator.py: Cannot parse: 19:19: from typing import %RHny\nerror: cannot format E:\\project\\04_P_dht22_monitoring\\src\\python\\backend\\test_phase3_1_database.py: Cannot parse: 205:53:             \"temperature\": {\"min\": 18.0, \"max\": 28.0}}\nwould reformat E:\\project\\04_P_dht22_monitoring\\src\\python\\backend\\dht22_main.py\nwould reformat E:\\project\\04_P_dht22_monitoring\\src\\python\\backend\\test_phase2.py\nwould reformat E:\\project\\04_P_dht22_monitoring\\src\\python\\backend\\database.py\nwould reformat E:\\project\\04_P_dht22_monitoring\\src\\python\\backend\\test_phase2_2.py\n\nOh no! \\U0001f4a5 \\U0001f494 \\U0001f4a5\n5 files would be reformatted, 2 files would be left unchanged, 10 files would fail to reformat.\n",
+    "returncode": 123,
+    "timestamp": "2025-08-14T10:23:59.570050"
+  },
+  "mypy": {
+    "success": false,
+    "output": "src\\python\\backend\\data_analyzer.py:16: error: Invalid syntax  [syntax]\nFound 1 error in 1 file (errors prevented further checking)\n",
+    "errors": "",
+    "returncode": 2,
+    "timestamp": "2025-08-14T10:23:59.767008"
+  },
+  "security": {
+    "success": false,
+    "output": "",
+    "errors": "Traceback (most recent call last):\n  File \"E:\\project\\04_P_dht22_monitoring\\tools\\quality\\security_scan.py\", line 413, in <module>\n    exit(main())\n         ~~~~^^\n  File \"E:\\project\\04_P_dht22_monitoring\\tools\\quality\\security_scan.py\", line 394, in main\n    results = scanner.scan_project()\n  File \"E:\\project\\04_P_dht22_monitoring\\tools\\quality\\security_scan.py\", line 69, in scan_project\n    print(\"\\U0001f512 DHT22 프로젝트 보안 스캔 시작...\")\n    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'cp949' codec can't encode character '\\U0001f512' in position 0: illegal multibyte sequence\n",
+    "returncode": 1,
+    "timestamp": "2025-08-14T10:23:59.835103"
+  },
+  "dependencies": {
+    "success": true,
+    "output": "No broken requirements found.\n",
+    "errors": "",
+    "returncode": 0,
+    "timestamp": "2025-08-14T10:24:00.484806"
+  }
+}

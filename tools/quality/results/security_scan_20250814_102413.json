@@ -1,0 +1,122 @@
+{
+  "timestamp": "2025-08-14T10:24:12.823706",
+  "vulnerabilities": [
+    {
+      "file": "tools\\quality\\security_scan.py",
+      "line": 46,
+      "category": "sql_injection",
+      "description": "SQL 인젝션 취약점 (동적 쿼리)",
+      "pattern": "SELECT.*\\+.*FROM",
+      "code": "(r'SELECT.*\\+.*FROM', \"SQL 인젝션 취약점 (동적 쿼리)\"),",
+      "severity": "high"
+    },
+    {
+      "file": "src\\python\\backend\\database.py",
+      "line": 511,
+      "category": "sql_injection",
+      "description": "SQL 인젝션 취약점 (문자열 포맷팅)",
+      "pattern": "execute\\s*\\(\\s*[\"\\'].*%.*[\"\\']",
+      "code": "await db.execute(\"V%RHCUUM\")",
+      "severity": "high"
+    }
+  ],
+  "warnings": [
+    {
+      "file": "tools\\quality\\auto_test_runner.py",
+      "line": 412,
+      "category": "file_operations",
+      "description": "파일 쓰기 작업 (권한 확인 필요)",
+      "pattern": "open\\s*\\(.*[\"\\']w[\"\\']",
+      "code": "with open(results_file, 'w', encoding='utf-8') as f:",
+      "severity": "medium"
+    },
+    {
+      "file": "tools\\quality\\auto_test_runner.py",
+      "line": 451,
+      "category": "file_operations",
+      "description": "파일 쓰기 작업 (권한 확인 필요)",
+      "pattern": "open\\s*\\(.*[\"\\']w[\"\\']",
+      "code": "with open(report_file, 'w', encoding='utf-8') as f:",
+      "severity": "medium"
+    },
+    {
+      "file": "tools\\quality\\security_scan.py",
+      "line": 349,
+      "category": "file_operations",
+      "description": "파일 쓰기 작업 (권한 확인 필요)",
+      "pattern": "open\\s*\\(.*[\"\\']w[\"\\']",
+      "code": "with open(results_file, 'w', encoding='utf-8') as f:",
+      "severity": "medium"
+    },
+    {
+      "file": "tools\\quality\\security_scan.py",
+      "line": 401,
+      "category": "file_operations",
+      "description": "파일 쓰기 작업 (권한 확인 필요)",
+      "pattern": "open\\s*\\(.*[\"\\']w[\"\\']",
+      "code": "with open(args.output, 'w', encoding='utf-8') as f:",
+      "severity": "medium"
+    },
+    {
+      "file": "tools\\quality\\security_scan.py",
+      "line": 62,
+      "category": "network_security",
+      "description": "SSL 인증서 검증 비활성화",
+      "pattern": "urllib.*verify=False",
+      "code": "(r'urllib.*verify=False', \"SSL 인증서 검증 비활성화\"),",
+      "severity": "medium"
+    },
+    {
+      "file": "tools\\quality\\security_scan.py",
+      "line": 63,
+      "category": "network_security",
+      "description": "HTTP 사용 (HTTPS 권장)",
+      "pattern": "http://(?!localhost|127\\.0\\.0\\.1)",
+      "code": "(r'http://(?!localhost|127\\.0\\.0\\.1)', \"HTTP 사용 (HTTPS 권장)\"),",
+      "severity": "medium"
+    },
+    {
+      "file": "src\\python\\backend\\test_phase3_1_database.py",
+      "line": 84,
+      "category": "file_operations",
+      "description": "파일 삭제 작업",
+      "pattern": "os\\.remove\\s*\\(",
+      "code": "os.remove(self.test_db_path)",
+      "severity": "medium"
+    },
+    {
+      "file": "src\\python\\backend\\test_phase3_1_database.py",
+      "line": 633,
+      "category": "file_operations",
+      "description": "파일 삭제 작업",
+      "pattern": "os\\.remove\\s*\\(",
+      "code": "os.remove(self.test_db_path)",
+      "severity": "medium"
+    },
+    {
+      "file": "src\\python\\simulator\\simulator_interface.py",
+      "line": 218,
+      "category": "file_operations",
+      "description": "파일 쓰기 작업",
+      "pattern": "\\.write\\s*\\(",
+      "code": "self.serial_conn.write((command + \"\\n\").encode())",
+      "severity": "medium"
+    },
+    "설정 파일 읽기 실패: requirements-dev.txt - 'utf-8' codec can't decode byte 0xb0 in position 2: invalid start byte",
+    "의존성 파일 읽기 실패: requirements-dev.txt - 'utf-8' codec can't decode byte 0xb0 in position 2: invalid start byte"
+  ],
+  "info": [
+    {
+      "category": "dependency_info",
+      "description": "설치된 패키지 수: 123",
+      "severity": "info"
+    }
+  ],
+  "summary": {
+    "total_vulnerabilities": 2,
+    "total_warnings": 11,
+    "total_info": 1,
+    "risk_level": "HIGH",
+    "scan_completed": true
+  }
+}
