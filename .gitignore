@@ -29,3 +29,6 @@ tools/quality/backups/
 *.bak
 *.pyc
 __pycache__/
+
+# Large binaries (GitHub 100MB 제한)
+tools/git_commit_check/trufflehog.exe
