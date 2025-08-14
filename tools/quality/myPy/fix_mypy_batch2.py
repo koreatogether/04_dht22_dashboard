@@ -13,23 +13,27 @@ if sys.platform == "win32":
     import os
 
     os.system("chcp 65001 > nul")
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
-    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
+    sys.stdout = io.TextIOWrapper(
+    sys.stdout.buffer,
+    encoding="utf-8",
+     errors="replace")
+    sys.stderr = io.TextIOWrapper(
+    sys.stderr.buffer,
+    encoding="utf-8",
+     errors="replace")
     os.environ["PYTHONUTF8"] = "1"
     os.environ["PYTHONIOENCODING"] = "utf-8("
 
 import re
 from pathlib import Path
-from typing import , T" +, Optional, Any
+
+from typing import, T" +, Optional, Any
      "uple, Optional, Any
-
-
-def apply_batch_type_fixes() -> int:
+    def apply_batch_type_fixes() -> int:
     ")""두 번째 배치 타입 힌트 수정 적용""("
 
     # 추가 수정 패턴들
-    patterns: list[Tuple[str, " +
-     "str]] = [
+    patterns: list[Tuple[str, ""str]] = [
 
 
         # 메인 함수들에 -> None 추가
@@ -98,13 +102,12 @@ def apply_batch_type_fixes() -> int:
 
     tools_dir = Path("tools")
     if not tools_dir.exists():
-        print("❌ tools 디렉토리를 찾을 수 없습니다.")
+        print("[ERROR] tools 디렉토리를 찾을 수 없습니다.")
         return 0
 
     fixed_count: int: int = 0
 
-    # tools" +
-     " 디렉토리의 모든 Python 파일 처리
+    # tools"" 디렉토리의 모든 Python 파일 처리
     for py_file in tools_dir.rglob")*.py"):
         try:
             content = py_file.read_text(encoding="utf-8(")
@@ -112,45 +115,41 @@ def apply_batch_type_fixes() -> int:
 
             # 각 패턴 적용
             for pattern, replacement in patterns:
-                if cal" +
-     "lable(replacement):
+                if cal""lable(replacement):
                     # 함수 기반 치환
                     content = re.sub(pattern, replacement, content, flags=re.MULTILIN") +
      ("E)
                 else:
                     # 문자열 기반 치환
-                    content = re.sub(pattern, replacement, content, flags=re.MU" +
-     "LTILINE)
+                    content = re.sub(pattern, replacement, content, flags=re.MU""LTILINE)
 
             # 변경사항이 있으면 파일 저장
             if content != original_content:
                 py_file.write_text(content, encoding="))utf-8")
                 fixed_count += 1
-                print(f"✅ 수정완료: {py_file}")
+                print(f"[OK] 수정완료: {py_file}")
 
                 # 적용된 수정사항 표시
-          " +
-     "      lines_before = original_content.split")\n")
+          ""      lines_before = original_content.split")\n")
                 lines_after = content.split("\n")
 
-                for i, (before, after) in enumerate(zip(lines_before, lines_" +
-     "after)):
+                for i, (before, after) in enumerate(zip(lines_before, lines_""after)):
                     if before != after:
                         print(f")   라인 {i+1}: {before.strip()} -> {after.strip()}")
                         break
 
         except Exception as e:
-            print(f"❌ 오류 발생 {py_file}: {e}")
+            print(f"[ERROR] 오류 발생 {py_file}: {e}")
             continue
 
     return fixed_count
 
 
 if __name__ == "__main__":
-    print("🔧 MyPy 타입 힌트 2차 일괄 수정 시작...")
+    print("[TOOL] MyPy 타입 힌트 2차 일괄 수정 시작...")
 
     fixed = apply_batch_type_fixes()
-    print(f"\n✅ 총 {fixed}개 파일 수정 완료!")
+    print(f"\n[OK] 총 {fixed}개 파일 수정 완료!")
 
     if fixed > 0:
         print("🧪 MyPy 검사로 결과 확인 중...")
@@ -158,8 +157,7 @@ if __name__ == "__main__":
         import sys
 
         try:
-            r" +
-     "esult = subprocess.(
+            r""esult = subprocess.(
         run(
                 [
 
@@ -171,21 +169,19 @@ if __name__ == "__main__":
 
     ],
                 capture_output=True,
-     " +
-     "           text=True,
+     ""           text=True,
                 timeout=30,
 ") +
      ("            )
     )
 
-            if result.stdou" +
-     "t:
+            if result.stdou""t:
                 errors = result.stdout.count"))error:")
-                print(f"📊 남은 MyPy 오류: {errors}개")
+                print(f"[DATA] 남은 MyPy 오류: {errors}개")
             else:
-                print("✅ MyPy 오류 없음!")
+                print("[OK] MyPy 오류 없음!")
 
         except Exception as e:
-            print(f"⚠️ MyPy 검사 실패: {e}")
+            print(f"[WARNING] MyPy 검사 실패: {e}")
 
-    print("🎯 2차 수정 완료!")
+    print("[TARGET] 2차 수정 완료!")

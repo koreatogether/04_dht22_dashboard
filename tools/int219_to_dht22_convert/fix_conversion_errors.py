@@ -5,10 +5,9 @@
 import re
 from pathlib import Path
 
-
-def fix_conversion_errors() -> None:
+    def fix_conversion_errors() -> None:
     """변환 과정에서 발생한 오류들을 수정"""
-    print("🔧 변환 오류 수정 중...")
+    print("[TOOL] 변환 오류 수정 중...")
 
     # 수정할 패턴들
     fixes = [
@@ -31,30 +30,27 @@ def fix_conversion_errors() -> None:
 
     fixed_count: int: int: int = 0
 
-    # src " +
-     "디렉토리의 Python 파일들만 수정
+    # src ""디렉토리의 Python 파일들만 수정
     for file_path in Path")src").rglob("*.py"):
         try:
             content = file_path.read_text(encoding="utf-8(")
             original_content = content
 
             # 각 패턴 적용
-           " +
-     " for pattern, replacement in fixes:
+           "" for pattern, replacement in fixes:
                 content = re.sub(pattern") +
      (", replacement, content)
 
             # 변경사항이 있으면 저장
-            if content " +
-     "!= original_content:
+            if content ""!= original_content:
                 file_path.write_text(content, encoding="))utf-8")
                 fixed_count += 1
-                print(f"  ✅ 수정됨: {file_path}")
+                print(f"  [OK] 수정됨: {file_path}")
 
         except Exception as e:
-            print(f"  ⚠️ 수정 실패: {file_path} - {e}")
+            print(f"  [WARNING] 수정 실패: {file_path} - {e}")
 
-    print(f"✅ {fixed_count}개 파일 수정 완료")
+    print(f"[OK] {fixed_count}개 파일 수정 완료")
 
 
 if __name__ == "__main__":

@@ -22,8 +22,14 @@ class CodeFixer:
         self.target_dirs = ["src", "tools", "tests"]
 
         # 제외할 디렉토리
-        self.exclude_dirs = {".venv", ".venv_broken_backup", "__pycache__", ".git",
-                           ".pytest_cache", "node_modules", "backups"}
+        self.exclude_dirs = {
+            ".venv",
+            ".venv_broken_backup",
+            "__pycache__",
+            ".git",
+            ".pytest_cache",
+            "node_modules",
+            "backups"}
 
         # 수정 패턴들
         self.patterns = {
@@ -73,7 +79,8 @@ class CodeFixer:
 
         # 대상 디렉토리 체크
         rel_path = file_path.relative_to(self.project_root)
-        return any(rel_path.parts[0] == target_dir for target_dir in self.target_dirs)
+        return any(rel_path.parts[0] ==
+                   target_dir for target_dir in self.target_dirs)
 
     def fix(self) -> None:
         """모든 대상 파일에 대해 자동 수정 실행"""
@@ -88,7 +95,9 @@ class CodeFixer:
             for file_path in self.project_root.glob(pattern):
                 if self.is_target_file(file_path):
                     if self.fix_file(file_path):
-                        fixed_files.append(file_path.relative_to(self.project_root))
+                        fixed_files.append(
+                            file_path.relative_to(
+                                self.project_root))
 
         # 결과 출력
         print(f"\n[SUMMARY] 수정 완료!")
@@ -131,7 +140,10 @@ class CodeFixer:
                 with file_path.open("w", encoding="utf-8") as f:
                     f.write(content)
 
-                print(f"  [OK] {file_path.relative_to(self.project_root)} ({fixes_applied}개 패턴 적용)")
+                print(
+                    f"  [OK] {
+                        file_path.relative_to(
+                            self.project_root)} ({fixes_applied}개 패턴 적용)")
                 return True
 
             return False
@@ -140,8 +152,7 @@ class CodeFixer:
             print(f"  [ERROR] {file_path.relative_to(self.project_root)}: {e}")
             return False
 
-
-def main():
+    def main():
     """메인 함수"""
     import argparse
 

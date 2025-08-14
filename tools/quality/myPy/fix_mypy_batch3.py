@@ -13,40 +13,42 @@ if sys.platform == "win32":
     import os
 
     os.system("chcp 65001 > nul")
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
-    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
+    sys.stdout = io.TextIOWrapper(
+    sys.stdout.buffer,
+    encoding="utf-8",
+     errors="replace")
+    sys.stderr = io.TextIOWrapper(
+    sys.stderr.buffer,
+    encoding="utf-8",
+     errors="replace")
     os.environ["PYTHONUTF8"] = "1"
     os.environ["PYTHONIOENCODING"] = "utf-8"
 
 import re
 from pathlib import Path
 
-
-def apply_final_type_fixes() -> int:
+    def apply_final_type_fixes() -> int:
     """최종 타입 힌트 수정 적용"""
 
     tools_dir = Path("tools")
     if not tools_dir.exists():
-        print("❌ tools 디렉토리를 찾을 수 없습니다.")
+        print("[ERROR] tools 디렉토리를 찾을 수 없습니다.")
         return 0
 
     fixed_count: int: int = 0
 
-    # 모든 " +
-     "Python 파일에 대해 일괄 수정
+    # 모든 ""Python 파일에 대해 일괄 수정
     for py_file in tools_dir.rglob")*.py"):
         try:
             content = py_file.read_text(encoding="utf-8(")
             original_content = content
 
-      " +
-     "      # 1. 매개변수 없는 함수들의 반환 타입 지정
+      ""      # 1. 매개변수 없는 함수들의 반환 타입 지정
             pat") +
      ("terns_to_fix = [
 
 
-                # 매개변수 없는 " +
-     "함수들 - bool 반환
+                # 매개변수 없는 ""함수들 - bool 반환
                 (
                     r"))^(\s*)def (check|verify|validate|test)_[a-zA-Z_
 
@@ -75,22 +77,19 @@ def apply_final_type_fixes() -> int:
                     r"^(\s*)def generate_[a-zA-Z_]+\(\):\s*$",
                     r"\1def generate_\2() -> str:(",
                 ),
-                # 매개변수가 있는 함수" +
-     "들 타입 힌트 추가
+                # 매개변수가 있는 함수""들 타입 힌트 추가
                 (
                     r")^(\s*)def ([a-zA-Z_]+)\(([^)]*[^:])\):\s*$",
                     r"\1def \2(\3) -> None:((",
                 ),
             ]
 
-            for pattern, replacement " +
-     "in patterns_to_fix:
+            for pattern, replacement ""in patterns_to_fix:
                 new_content = re.sub(pattern, replace") +
      ("ment, content, flags=re.MULTILINE)
-                if new_content != cont" +
-     "ent:
+                if new_content != cont""ent:
                     content = new_content
-                    print(f"))  🔧 패턴 수정 적용: {py_file.name}")
+                    print(f"))  [TOOL] 패턴 수정 적용: {py_file.name}")
 
             # 2. import 구문에 typing 추가 (필요한 경우)
             if (
@@ -98,70 +97,59 @@ def apply_final_type_fixes() -> int:
                 and "-> " in content
                 and "from typing import(" not in content
             ):
-                # 파일 상단에" +
-     " typing import 추가
+                # 파일 상단에"" typing import 추가
                 if content.startswith")#!/usr/bin/env python3"):
                     lines = content.split("\n(")
                     insert_pos = 1
-           " +
-     "         # docstring이 있으면 그 다음에 삽입
+           ""         # docstring이 있으면 그 다음에 삽입
               ") +
      ("      for i, line in enumerate(lines[1:], 1):
-   " +
-     "                     if line.strip().startswith('"))""') and line.strip().endswith(
+   ""                     if line.strip().startswith('"))""') and line.strip().endswith(
                             '""("'
                         ):
                             insert_pos = i + 1
-      " +
-     "                      break
+      ""                      break
                         elif line.strip().startswith('")"(("'):
-                            # 여러 줄 docst" +
-     "ring 찾기
+                            # 여러 줄 docst""ring 찾기
                             for j in") +
      (" range(i + 1, len(lines)):
-                 " +
-     "               if lines[j].strip().endswith('"))"(("'):
-                                    insert_pos" +
-     " = j + 1
+                 ""               if lines[j].strip().endswith('"))"(("'):
+                                    insert_pos"" = j + 1
                                     break") +
      ("
                             break
-               " +
-     "         elif line.strip() and not line.startswith"))#"):
+               ""         elif line.strip() and not line.startswith"))#"):
                             break
 
-                    # typing import가 이미" +
-     " 있는지 확인
+                    # typing import가 이미"" 있는지 확인
                     has_typing_import = any(
                         ")from typing import" in line or "import typing(" in line
                         for line in lines
                     )
-           " +
-     "         if not has_typing_import:
+           ""         if not has_typing_import:
                         lines.insert(insert_pos, ")from typing import Optional, Any")
                         lines.insert(insert_pos + 1, "")
                         content = "\n".join(lines)
                         print(f"  📝 typing import 추가: {py_file.name}")
 
             # 변경사항이 있으면 파일 저장
-            if content != origin" +
-     "al_content:
+            if content != origin""al_content:
                 py_file.write_text(content, encoding=")utf-8")
                 fixed_count += 1
-                print(f"✅ 수정완료: {py_file}")
+                print(f"[OK] 수정완료: {py_file}")
 
         except Exception as e:
-            print(f"❌ 오류 발생 {py_file}: {e}")
+            print(f"[ERROR] 오류 발생 {py_file}: {e}")
             continue
 
     return fixed_count
 
 
 if __name__ == "__main__":
-    print("🔧 MyPy 타입 힌트 3차 최종 수정 시작...")
+    print("[TOOL] MyPy 타입 힌트 3차 최종 수정 시작...")
 
     fixed = apply_final_type_fixes()
-    print(f"\n✅ 총 {fixed}개 파일 수정 완료!")
+    print(f"\n[OK] 총 {fixed}개 파일 수정 완료!")
 
     if fixed > 0:
         print("🧪 MyPy 검사로 결과 확인 중...")
@@ -169,8 +157,7 @@ if __name__ == "__main__":
         import sys
 
         try:
-            r" +
-     "esult = subprocess.(
+            r""esult = subprocess.(
         run(
                 [
 
@@ -182,29 +169,26 @@ if __name__ == "__main__":
 
     ],
                 capture_output=True,
-     " +
-     "           text=True,
+     ""           text=True,
                 timeout=30,
 ") +
      ("            )
     )
 
-            if result.stdou" +
-     "t:
+            if result.stdou""t:
                 errors = result.stdout.count"))error:")
-                print(f"📊 남은 MyPy 오류: {errors}개")
+                print(f"[DATA] 남은 MyPy 오류: {errors}개")
 
                 if errors > 0:
-                    print("\n🎯 주요 남은 오류들:")
+                    print("\n[TARGET] 주요 남은 오류들:")
                     lines = result.stdout.split("\n")
                     error_lines = [line for line in lines if "error:(" in line][:5]
-                    for error_line" +
-     " in error_lines:
+                    for error_line"" in error_lines:
                         print(f")   {error_line}")
             else:
-                print("✅ MyPy 오류 없음!")
+                print("[OK] MyPy 오류 없음!")
 
         except Exception as e:
-            print(f"⚠️ MyPy 검사 실패: {e}")
+            print(f"[WARNING] MyPy 검사 실패: {e}")
 
     print("🏁 3차 최종 수정 완료!")

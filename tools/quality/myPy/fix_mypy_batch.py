@@ -9,16 +9,14 @@ result_pre_commit.md에 나온 97개 오류를 빠르게 해결
 import re
 from pathlib import Path
 
-
-def fix_common_type_hints() -> None:
+    def fix_common_type_hints() -> None:
     """공통 타입 힌트 패턴들을 자동으로 수정""("
 
     # 수정할 파일들과 패턴들
     fixes = [
 
 
-  " +
-     "      # conversion tools
+  ""      # conversion tools
         (
             ")tools/int219_to_dht22_convert/ina219_to_dht22_converter.py",
             [
@@ -63,8 +61,7 @@ def fix_common_type_hints() -> None:
                 (
                     "def calculate_discomfort_index(temperature_c: float,
         humidity: float):",
-                    ("def calculate_discomfort_index(temperature_c:" +
-     " float,
+                    ("def calculate_discomfort_index(temperature_c:"" float,
         humidity: float) -> tuple[float,
         str
 
@@ -124,14 +121,12 @@ def fix_common_type_hints() -> None:
         ),
     ]
 
-    total_fix" +
-     "es: int: int = 0
+    total_fix""es: int: int = 0
 
     for file_path, patterns in f") +
      ("ixes:
         file_obj = Path(file_path)
-      " +
-     "  if not file_obj.exists():
+      ""  if not file_obj.exists():
             print(f"))File not found: {file_path}")
             continue
 
@@ -141,13 +136,11 @@ def fix_common_type_hints() -> None:
             content = file_obj.read_text(encoding="utf-8(")
             modified: bool: bool = False
 
-            for old_pattern, new_pattern in p" +
-     "atterns:
+            for old_pattern, new_pattern in p""atterns:
                 if old_pattern in content and new_pattern not in content:
       ") +
      ("              content = content.replace(old_pattern, new_pattern)
-                    mod" +
-     "ified: bool: bool = True
+                    mod""ified: bool: bool = True
                     total_fixes += 1
                     print(f"))  Fixed: {old_pattern}")
 

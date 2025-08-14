@@ -11,11 +11,11 @@
 6. Python 버전 업그레이드 문법 (pyupgrade)
 """
 
+import argparse
 import re
 import subprocess
 import sys
 from pathlib import Path
-import argparse
 
 
 class PythonSyntaxFixer:
@@ -25,7 +25,8 @@ class PythonSyntaxFixer:
         self.project_root = Path(project_root).resolve()
         self.fixed_files: list[str] = []
         self.error_files: list[str] = []
-        self.backup_dir = self.project_root / "tools" / "quality" / "backups" / "syntax_fixes"
+        self.backup_dir = self.project_root / "tools" / \
+            "quality" / "backups" / "syntax_fixes"
         self.backup_dir.mkdir(parents=True, exist_ok=True)
 
     def create_backup(self, file_path: Path) -> None:
@@ -35,7 +36,10 @@ class PythonSyntaxFixer:
         backup_name = f"{file_path.name}_{timestamp}.bak"
         backup_path = self.backup_dir / backup_name
 
-        backup_path.write_text(file_path.read_text(encoding='utf-8'), encoding='utf-8')
+        backup_path.write_text(
+            file_path.read_text(
+                encoding='utf-8'),
+            encoding='utf-8')
         print(f"  [BACKUP] 백업 생성: {backup_path}")
 
     def fix_type_hint_syntax(self, content: str) -> tuple[str, int]:
@@ -44,6 +48,7 @@ class PythonSyntaxFixer:
 
         # 패턴 1: def function() -> Type:
         pattern1 = r'def\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*\([^)]*\)\s*:\s*->\s*([^:]+):'
+
         def replace1(match):
             nonlocal fixes
             fixes += 1
@@ -56,6 +61,7 @@ class PythonSyntaxFixer:
 
         # 패턴 2: async def function() -> Type:
         pattern2 = r'async\s+def\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*\([^)]*\)\s*:\s*->\s*([^:]+):'
+
         def replace2(match):
             nonlocal fixes
             fixes += 1
@@ -74,12 +80,17 @@ class PythonSyntaxFixer:
 
         # 패턴: " + 으로 잘못 나뉜 문자열들
         pattern = r'"\s*\+\s*\n\s*\("([^"]+)"\s*\+?\s*'
+
         def replace_broken_strings(match):
             nonlocal fixes
             fixes += 1
             return f'"{match.group(1)}'
 
-        content = re.sub(pattern, replace_broken_strings, content, flags=re.MULTILINE)
+        content = re.sub(
+            pattern,
+            replace_broken_strings,
+            content,
+            flags=re.MULTILINE)
 
         # 잘못된 따옴표 시퀀스 수정
         content = content.replace('"git"', '"git"')
@@ -97,7 +108,9 @@ class PythonSyntaxFixer:
 
         for i, line in enumerate(lines):
             # class 정의 후 함수가 잘못 들여쓰기된 경우
-            if i > 0 and lines[i-1].strip().startswith('class ') and lines[i-1].strip().endswith(':'):
+            if i > 0 and lines[i -
+                               1].strip().startswith('class ') and lines[i -
+                                                                         1].strip().endswith(':'):
                 if line.startswith('def ') and not line.startswith('    def '):
                     fixed_lines.append('    ' + line)
                     fixes += 1
@@ -106,7 +119,8 @@ class PythonSyntaxFixer:
             # async def가 잘못 들여쓰기된 경우
             if line.strip().startswith('async def') and not line.startswith('    '):
                 # 이전 라인이 class나 함수 내부인지 확인
-                if i > 0 and any(prev_line.strip().startswith(('class ', 'def ', 'async def')) for prev_line in lines[max(0, i-3):i]):
+                if i > 0 and any(prev_line.strip().startswith(
+                        ('class ', 'def ', 'async def')) for prev_line in lines[max(0, i - 3):i]):
                     fixed_lines.append('    ' + line.strip())
                     fixes += 1
                     continue
@@ -167,7 +181,9 @@ class PythonSyntaxFixer:
                 results['autopep8'] = result.returncode == 0
             else:
                 results['autopep8'] = False
-                print(f"    [WARN] autopep8 건너뜀 (구문 오류 존재): {check_result.stderr.strip()}")
+                print(
+                    f"    [WARN] autopep8 건너뜀 (구문 오류 존재): {
+                        check_result.stderr.strip()}")
         except FileNotFoundError:
             results['autopep8'] = False
             print("    [ERROR] autopep8가 설치되지 않음")
@@ -215,16 +231,19 @@ class PythonSyntaxFixer:
             print(f"  [TOOLS] 외부 도구 실행 중...")
             tool_results = self.run_external_tools(file_path)
 
-            success_tools = [tool for tool, success in tool_results.items() if success]
+            success_tools = [tool for tool,
+                             success in tool_results.items() if success]
             if success_tools:
                 print(f"  [OK] 성공한 도구들: {', '.join(success_tools)}")
 
-            self.fixed_files.append(str(file_path.relative_to(self.project_root)))
+            self.fixed_files.append(
+                str(file_path.relative_to(self.project_root)))
             return True
 
         except Exception as e:
             print(f"  [ERROR] 오류 발생: {e}")
-            self.error_files.append(str(file_path.relative_to(self.project_root)))
+            self.error_files.append(
+                str(file_path.relative_to(self.project_root)))
             return False
 
     def find_python_files(self, directories: list[str]) -> list[Path]:
@@ -238,7 +257,8 @@ class PythonSyntaxFixer:
             if dir_path.is_file() and dir_path.suffix == '.py':
                 python_files.append(dir_path.resolve())
             elif dir_path.is_dir():
-                python_files.extend([f.resolve() for f in dir_path.rglob('*.py')])
+                python_files.extend([f.resolve()
+                                    for f in dir_path.rglob('*.py')])
         return python_files
 
     def run(self, directories: list[str], dry_run: bool = False) -> None:
@@ -262,7 +282,8 @@ class PythonSyntaxFixer:
             if not dry_run:
                 self.fix_file(file_path)
             else:
-                print(f"[DRY-RUN] 검사할 파일: {file_path.relative_to(self.project_root)}")
+                print(
+                    f"[DRY-RUN] 검사할 파일: {file_path.relative_to(self.project_root)}")
 
         # 결과 요약
         print(f"\n[SUMMARY] 수정 완료!")
@@ -279,8 +300,7 @@ class PythonSyntaxFixer:
             for file in self.error_files:
                 print(f"  - {file}")
 
-
-def main():
+    def main():
     parser = argparse.ArgumentParser(
         description='Python 구문 오류 종합 수정 도구 (autopep8 + autoflake + pyupgrade)',
         formatter_class=argparse.RawDescriptionHelpFormatter,

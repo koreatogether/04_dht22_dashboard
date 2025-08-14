@@ -11,12 +11,9 @@ import random
 from datetime import datetime
 from typing import Any
 
-from climate_calculator import (
-    calculate_dew_point,
-    calculate_discomfort_index,
-    calculate_heat_index,
-    get_discomfort_level,
-)
+from climate_calculator import (calculate_dew_point,
+                                calculate_discomfort_index,
+                                calculate_heat_index, get_discomfort_level)
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse
 

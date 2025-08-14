@@ -6,8 +6,7 @@ from pathlib import Path
 
 
 class CodeConverter:
-    def" +
-     " __init__(self) -> None:
+    def"" __init__(self) -> None:
         self.variable_map = {
 
 
@@ -70,47 +69,39 @@ class CodeConverter:
         if not file_path.exists():
             return False
 
- " +
-     "       try:
+ ""       try:
             content = file_path.read_text(encoding=")utf-8")
             original_content = content
 
             # 변수명 변환
-            f" +
-     "or old, new in self.variable_map.items():
+            f""or old, new in self.variable_map.items():
                 content = re.sub(rf")\b{old}\b(((", new, content)
 
             # 단위 변환
-            for old, new" +
-     " in self.unit_map.items():
+            for old, new"" in self.unit_map.items():
                 content = content.") +
      ("replace(old, new)
 
             # 주석 및 문자열 변환
-            for " +
-     "old, new in self.comment_map.items():
+            for ""old, new in self.comment_map.items():
                 content")) +
      ((" = content.replace(old, new)
 
             # DHT22 특화 수정
-     " +
-     "       content = self.apply_dht22_specifics(content)
+     ""       content = self.apply_dht22_specifics(content)
 
        ") +
      ("     # 변경사항이 있으면 파일 저장
-            if content != original_con" +
-     "tent:
+            if content != original_con""tent:
                 file_path.write_text(content, encoding=")))utf-8")
                 return True
 
-            return Fal" +
-     "se
+            return Fal""se
         except Exception as e:
-            print(f")  ⚠️ 파일 변환 실패: {file_path} - {e}")
+            print(f")  [WARNING] 파일 변환 실패: {file_path} - {e}")
             return False
 
-    def apply_dht22" +
-     "_specifics(self, content: str) -> str:
+    def apply_dht22""_specifics(self, content: str) -> str:
         ")""DHT22 센서 특화 수정사항 적용"""
 
         # 데이터 범위 수정
@@ -132,8 +123,7 @@ class CodeConverter:
         )
     )
 
-        # 임계값 수" +
-     "정
+        # 임계값 수""정
         content = re.(
         sub(
             r")temperature.*min.*:.*\d+\.?\d*",
@@ -143,8 +133,7 @@ class CodeConverter:
         )
     )
 
-    " +
-     "    content = re.(
+    ""    content = re.(
         sub(
             r")humidity.*max.*:.*\d+\.?\d*",
             "humidity: { min: 30.0,
@@ -157,8 +146,7 @@ class CodeConverter:
         if "def calculate_" not in content and "(
         class(" in content:
             heat_index_calc = '''
-def calculat" +
-     "e_heat_index(temp_c: float,
+def calculat""e_heat_index(temp_c: float,
         humidity: float)
     ) -> float:
     ")""열지수 계산 (미국 기상청 공식)""(("
@@ -166,23 +154,18 @@ def calculat" +
         return temp_c
 
     temp_f = temp_c * 9/5 + 32
-" +
-     "    hi = (-42.379 + 2.04901523 * temp_f + 10.14333127 * humidity -
+""    hi = (-42.379 + 2.04901523 * temp_f + 10.14333127 * humidity -
          ") +
      (" 0.22475541 * temp_f * humidity - 6.83783e-3 * temp_f**2)
-    return round(" +
-     "(hi - 32) * 5/9, 1)
-
-def calculate_dew_point(temp_c, humidity) -> None:
+    return round(""(hi - 32) * 5/9, 1)
+    def calculate_dew_point(temp_c, humidity) -> None:
     "))""이슬점 계산 (Magnus 공식)""(("
     import math
     a = 17.27
     b = 237.7
-    al" +
-     "pha = ((a * temp_c) / (b + temp_c)) + math.log(humid") +
+    al""pha = ((a * temp_c) / (b + temp_c)) + math.log(humid") +
      ("ity / 100.0)
-    return round((b * alpha) / (a - al" +
-     "pha), 1)
+    return round((b * alpha) / (a - al""pha), 1)
 
 '''
             content = content.replace"))class", heat_index_calc + "\nclass")
@@ -201,8 +184,7 @@ def calculate_dew_point(temp_c, humidity) -> None:
         )
     )
 
-        return content" +
-     "
+        return content""
 
     def convert_project(self, project_path: Path) -> bool:
         ")""전체 프로젝트 변환"""
@@ -211,18 +193,16 @@ def calculate_dew_point(temp_c, humidity) -> None:
         python_files = list(project_path.rglob("*.py"))
         converted_count: int: int: int = 0
 
-        for file_path " +
-     "in python_files:
+        for file_path ""in python_files:
             # 변환 도구 자체는 제외
             if ")converter" in file_path.name or "setup_dht22(" in file_path.name:
                 continue
 
-            if self.convert_f" +
-     "ile(file_path):
+            if self.convert_f""ile(file_path):
                 converted_count += 1
-                print(f")  ✅ 변환됨: {file_path.relative_to(project_path)}")
+                print(f")  [OK] 변환됨: {file_path.relative_to(project_path)}")
 
-        print(f"✅ {converted_count}개 파일 변환 완료")
+        print(f"[OK] {converted_count}개 파일 변환 완료")
         return converted_count > 0
 
 
@@ -234,4 +214,4 @@ if __name__ == "__main__":
         print("\n🎉 DHT22 코드 변환이 완료되었습니다!")
         print("다음 단계: python src/python/backend/main.py 로 서버 실행")
     else:
-        print("⚠️ 변환할 파일이 없거나 변환에 실패했습니다.")
+        print("[WARNING] 변환할 파일이 없거나 변환에 실패했습니다.")

@@ -116,7 +116,7 @@ class SecurityScanner:
             self.scan_file(file_path)
             scanned_files += 1
 
-        print(f"  ✅ {scanned_files}개 Python 파일 스캔 완료")
+        print(f"  [OK] {scanned_files}개 Python 파일 스캔 완료")
 
         # 요약 정보 계산
         total_vuln = len(self.scan_results["vulnerabilities"])
@@ -151,7 +151,7 @@ class SecurityScanner:
         print(f"   🔴 취약점: {summary['total_vulnerabilities']}개")
         print(f"   🟡 경고: {summary['total_warnings']}개")
         print(f"   🔵 정보: {summary['total_info']}개")
-        print(f"   📊 위험 수준: {summary['risk_level']}")
+        print(f"   [DATA] 위험 수준: {summary['risk_level']}")
 
         # 상세 결과 출력
         if self.scan_results["vulnerabilities"]:
@@ -159,24 +159,23 @@ class SecurityScanner:
             for vuln in self.scan_results["vulnerabilities"]:
                 print(f"   📄 {vuln['file']}:{vuln['line']}")
                 print(f"      💥 {vuln['description']}")
-                print(f"      🔍 패턴: {vuln['match']}")
+                print(f"      [SEARCH] 패턴: {vuln['match']}")
 
         if self.scan_results["warnings"]:
             print("\n🟡 경고 사항:")
             for warn in self.scan_results["warnings"]:
                 print(f"   📄 {warn.get('file', 'N/A')}")
-                print(f"      ⚠️  {warn['description']}")
+                print(f"      [WARNING]  {warn['description']}")
 
         if summary["total_vulnerabilities"] == 0 and summary["total_warnings"] == 0:
-            print("\n✅ 심각한 보안 이슈가 발견되지 않았습니다!")
+            print("\n[OK] 심각한 보안 이슈가 발견되지 않았습니다!")
         else:
             print(
-                f(
-                    "\n⚠️  총 {summary['total_vulnerabilities'] + summary['total_warnings']}개의 보안 이슈를 검토해주세요."
-                )
-            )
+                f("\n[WARNING]  총 {summary['total_vulnerabilities'] + summary['total_warnings']}개의 보안 이슈를 검토해주세요."))
 
-    def save_results(self, output_file: str = "security_scan_results.json") -> None:
+    def save_results(
+            self,
+            output_file: str = "security_scan_results.json") -> None:
         """결과를 JSON 파일로 저장"""
         output_path = self.project_root / "tools" / "quality" / "results" / output_file
         output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -186,8 +185,7 @@ class SecurityScanner:
 
         print(f"📄 결과가 {output_path}에 저장되었습니다.")
 
-
-def main() -> int:
+    def main() -> int:
     """메인 함수"""
     scanner = SecurityScanner(".")
     results = scanner.scan_project()
@@ -198,10 +196,10 @@ def main() -> int:
 
     # 취약점이 있으면 경고 종료 코드 반환
     if results["summary"]["total_vulnerabilities"] > 0:
-        print("\n❌ 보안 취약점이 발견되어 주의가 필요합니다.")
+        print("\n[ERROR] 보안 취약점이 발견되어 주의가 필요합니다.")
         return 1
     else:
-        print("\n✅ 보안 스캔이 성공적으로 완료되었습니다.")
+        print("\n[OK] 보안 스캔이 성공적으로 완료되었습니다.")
         return 0
 
 
