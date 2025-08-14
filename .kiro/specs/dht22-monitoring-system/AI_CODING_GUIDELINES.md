@@ -470,6 +470,88 @@ def process_sensor_reading(data: dict) -> None:
 
 ---
 
+## 🔧 **환경 설정 및 Common Issues**
+
+### ⚠️ **가상환경 (virtualenv) 구문 오류 문제**
+
+**문제 상황**: Pre-commit이나 코드 품질 도구 실행 시 `.venv` 폴더에서 구문 오류 발생
+```
+Error processing line 1 of E:\project\04_P_dht22_monitoring\.venv\Lib\site-packages\_virtualenv.pth:
+  File "E:\project\04_P_dht22_monitoring\.venv\Lib\site-packages\_virtualenv.py", line 9
+    def patch_dist(dist): -> None:
+                          ^^
+  SyntaxError: invalid syntax
+```
+
+**해결 방법**:
+
+#### 🛠️ **1. pyproject.toml 설정으로 .venv 폴더 제외**
+```toml
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+exclude = [
+    ".venv",
+    "venv", 
+    "__pycache__",
+    ".git",
+    ".mypy_cache",
+    ".pytest_cache",
+    "node_modules",
+    "dist",
+    "build",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.pytest_cache
+  | \.tox
+  | \.venv
+  | venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+```
+
+#### 🎯 **2. Pre-commit 스크립트에서 검사 범위 제한**
+```python
+# ✅ 올바른 패턴 - src/, tools/ 폴더만 검사
+def check_black(warnings: list[str]) -> None:
+    code, out, err = _run(
+        [sys.executable, "-m", "black", "--check", "src/", "tools/"])
+    
+def check_ruff(warnings: list[str]) -> None:
+    code, out, err = _run(
+        [sys.executable, "-m", "ruff", "check", "src/", "tools/"])
+```
+
+#### ⚡ **3. 명령행에서 직접 제외 옵션 사용**
+```bash
+# Black 실행 시 .venv 제외
+python -m black --exclude .venv src/ tools/
+
+# Ruff 실행 시 .venv 제외  
+python -m ruff check --exclude .venv src/ tools/
+```
+
+**핵심 원칙**: 
+- ✅ 코드 품질 도구는 **src/**, **tools/** 폴더만 검사
+- ✅ .venv, __pycache__, .git 등 시스템 폴더는 **반드시 제외**
+- ✅ pyproject.toml에 exclude 설정으로 전역 적용
+
+---
+
 ## 🔧 **자동 수정 도구 활용**
 
 ### ⚡ **개발 중 자동 품질 검사**

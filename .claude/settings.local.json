@@ -9,7 +9,8 @@
       "Bash(uv:*)",
       "Bash(.venv_new/Scripts/activate:*)",
       "Bash(pip --version)",
-      "Bash(.venv_newScriptspython.exe --version)"
+      "Bash(.venv_newScriptspython.exe --version)",
+      "Bash(C:Python313python.exe -m venv .venv_new)"
     ],
     "deny": [],
     "ask": [],

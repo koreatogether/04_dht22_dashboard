@@ -14,7 +14,7 @@ def setup_precommit_hook() -> None:
     """Setup pre-commit hook"""
     project_root = Path(__file__).parent.parent.parent
     git_hooks_dir = project_root / ".git" / "hooks"
-    precommit_script = Path(__file__).parent / "pre_commit.py"
+    precommit_script = Path(__file__).parent / "pre_commit_checks.py"
 
     print("[TOOL] DHT22 Pre-commit Hook setup starting...")
     print(f"Project root: {project_root}")
@@ -103,7 +103,7 @@ def test_precommit_hook() -> bool:
     print("\nPre-commit hook test execution...")
 
     project_root = Path(__file__).parent.parent.parent
-    precommit_script = Path(__file__).parent / "pre_commit.py"
+    precommit_script = Path(__file__).parent / "pre_commit_checks.py"
 
     try:
         import subprocess

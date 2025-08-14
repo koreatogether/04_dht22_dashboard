@@ -63,7 +63,7 @@ def changed_test_files(files: list[str]) -> list[str]:
 
 
 def check_black(warnings: list[str]) -> None:
-    # Check application source and tools
+    # Check application source and tools only
     code, out, err = _run(
         [sys.executable, "-m", "black", "--check", "src/", "tools/"])
     if code != 0:
@@ -73,12 +73,11 @@ def check_black(warnings: list[str]) -> None:
 
 
 def check_ruff(warnings: list[str]) -> None:
-    code, out, _ = _run(
+    code, out, err = _run(
         [sys.executable, "-m", "ruff", "check", "src/", "tools/"])
     if code != 0:
         warnings.append(
-            "Ruff lint issues (non-blocking). "
-            "Run: python -m ruff check --fix src/ tools/"
+            "Ruff lint issues (non-blocking). Run: python -m ruff check --fix src/ tools/"
         )
 
 

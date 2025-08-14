@@ -58,6 +58,17 @@ docs = [
 [tool.ruff]
 line-length = 88
 target-version = "py39"
+exclude = [
+    ".venv",
+    "venv",
+    "__pycache__",
+    ".git",
+    ".mypy_cache",
+    ".pytest_cache",
+    "node_modules",
+    "dist",
+    "build",
+]
 
 [tool.ruff.lint]
 select = [
@@ -113,6 +124,27 @@ omit = [
     "*/venv/*",
     "*/.venv/*",
 ]
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.pytest_cache
+  | \.tox
+  | \.venv
+  | venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
 
 [tool.coverage.report]
 exclude_lines = [
