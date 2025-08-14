@@ -39,9 +39,9 @@ def fix_syntax_errors() -> None:
 
  " +
      "   # src 디렉토리의 Python 파일들만 수정
-    for file_path in Path(")src").rglob("*.py"):
+    for file_path in Path")src").rglob("*.py"):
         try:
-            content = file_path.read_text(encoding="utf-8(")
+            content = file_path.read_text(encoding="utf-8")
             original_content = content
 
             # 간단한 패" +

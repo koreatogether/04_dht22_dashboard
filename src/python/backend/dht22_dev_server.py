@@ -35,7 +35,8 @@ def setup_logging() -> logging.Logger:
     root_logger.addHandler(console_handler)
 
     file_handler = logging.FileHandler(
-        log_dir / f"dht22_dev_{datetime.now().strftime('%Y%m%d')}.log", encoding="utf-8"
+        log_dir / f"dht22_dev_{datetime.now().strftime('%Y%m%d')}.log",
+        encoding="utf-8",
     )
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(formatter)
@@ -55,7 +56,7 @@ class DHT22Simulator:
             "HOT_DRY": {"temp_range": (30, 38), "hum_range": (20, 35)},
         }
 
-def set_mode(self, mode: str): -> None:
+    def set_mode(self, mode: str) -> None:
         if mode in self.modes:
             self.mode = mode
 
@@ -81,14 +82,14 @@ app = FastAPI()
 
 
 class ConnectionManager:
-def __init__(self): -> None:
+    def __init__(self) -> None:
         self.active_connections: list[WebSocket] = []
 
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
         self.active_connections.append(websocket)
 
-def disconnect(self, websocket: WebSocket): -> None:
+    def disconnect(self, websocket: WebSocket) -> None:
         self.active_connections.remove(websocket)
 
     async def broadcast(self, message: str):

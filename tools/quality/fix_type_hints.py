@@ -1,25 +1,23 @@
-# -*- coding: utf-8 -*-
 """
 MyPy 타입 힌트 오류를 자동으로 수정합니다.
 """
-import os
 import re
 from pathlib import Path
 
 class TypeHintFixer:
-def __init__(self, project_root="."): -> None:
+    def __init__(self, project_root=".") -> None:
         self.project_root = Path(project_root)
 
-def fix(self): -> None:
+def fix(self) -> None:
         print("Fixing missing type hints...")
         for file_path in self.project_root.rglob("*.py"):
             self.fix_file(file_path)
 
-def fix_file(self, file_path: Path): -> None:
+def fix_file(self, file_path: Path) -> None:
         try:
             with file_path.open("r", encoding="utf-8") as f:
                 lines = f.readlines()
-            
+
             new_lines = []
             modified = False
             for line in lines:

@@ -33,15 +33,29 @@ def __init__(self) -> None:
     pass
 ```
 
-#### 📏 **라인 길이 88자 이하 준수**
+#### 📏 **라인 길이 79자 이하 준수 (PEP 8 표준)**
 ```python
-# ❌ 잘못된 예시 (Ruff 오류 발생)
+# ❌ 잘못된 예시 (flake8 E501 오류 발생)
 result = some_very_long_function_name(parameter1, parameter2, parameter3, parameter4, parameter5)
 
 # ✅ 올바른 예시
 result = some_very_long_function_name(
     parameter1, parameter2, parameter3, 
     parameter4, parameter5
+)
+
+# ✅ HTML 템플릿 내부에서도 적용
+button_html = (
+    f'<button onclick="connectWebSocket(\'{ws_url}\')" '
+    f'class="btn btn-primary">Connect</button>'
+)
+
+# ✅ 긴 수식도 분할
+heat_index_f = (
+    -42.379
+    + 2.04901523 * temp_f
+    + 10.14333127 * humidity
+    - 0.22475541 * temp_f * humidity
 )
 ```
 
@@ -188,31 +202,128 @@ from typing import Protocol, TypeVar, Generic
 
 ## 🧹 **코드 스타일 및 구조**
 
-### 📏 **라인 분할 전략**
+### 📏 **라인 분할 전략 - AI가 자주 놓치는 패턴들**
+
+#### 🎯 **1. HTML 템플릿 내 긴 태그들**
 ```python
-# ✅ 함수 호출 분할
-result = some_complex_function(
-    parameter1="value1",
-    parameter2="value2", 
-    parameter3="value3",
-    parameter4="value4"
+# ❌ AI가 자주 놓치는 실수 (79자 초과)
+html = f'<button onclick="connectWebSocket()" class="btn btn-primary me-2" id="connectBtn">Connect WebSocket</button>'
+
+# ✅ 올바른 분할
+html = (
+    f'<button onclick="connectWebSocket()" '
+    f'class="btn btn-primary me-2" id="connectBtn">'
+    f'Connect WebSocket</button>'
 )
+```
 
-# ✅ 딕셔너리 분할
-config = {
-    "temperature_range": {"min": -40, "max": 80},
-    "humidity_range": {"min": 0, "max": 100},
-    "update_interval": 1.0,
-    "retry_attempts": 3
+#### 🎯 **2. JavaScript 코드 블록**
+```python
+# ❌ AI가 자주 놓치는 실수 (79자 초과)
+js_code = "document.getElementById('statusIndicator').classList.add('online', 'bg-success');"
+
+# ✅ 올바른 분할  
+js_code = (
+    "document.getElementById('statusIndicator')"
+    ".classList.add('online', 'bg-success');"
+)
+```
+
+#### 🎯 **3. CSS 스타일 정의**
+```python
+# ❌ AI가 자주 놓치는 실수 (79자 초과)  
+css = "background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px;"
+
+# ✅ 올바른 분할
+css = (
+    "background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); "
+    "border-radius: 10px;"
+)
+```
+
+#### 🎯 **4. 로깅 메시지**
+```python
+# ❌ AI가 자주 놓치는 실수 (79자 초과)
+logger.info(f"Successfully connected to DHT22 sensor at {sensor_address} with config {config}")
+
+# ✅ 올바른 분할
+logger.info(
+    f"Successfully connected to DHT22 sensor at {sensor_address} "
+    f"with config {config}"
+)
+```
+
+#### 🎯 **5. 수학 공식 및 계산**
+```python
+# ❌ AI가 자주 놓치는 실수 (79자 초과)
+adjustment = ((13 - humidity) / 4) * math.sqrt((17 - abs(temp_f - 95.0)) / 17)
+
+# ✅ 올바른 분할
+adjustment = ((13 - humidity) / 4) * math.sqrt(
+    (17 - abs(temp_f - 95.0)) / 17
+)
+```
+
+#### 🎯 **6. 함수/메서드 체인**  
+```python
+# ❌ AI가 자주 놓치는 실수 (79자 초과)
+result = data.filter(lambda x: x.temperature > 20).map(lambda x: x.to_dict()).collect()
+
+# ✅ 올바른 분할
+result = (
+    data.filter(lambda x: x.temperature > 20)
+    .map(lambda x: x.to_dict())
+    .collect()
+)
+```
+
+#### 🎯 **7. 딕셔너리 컴프리헨션**
+```python
+# ❌ AI가 자주 놓치는 실수 (79자 초과)
+data_buffers = {"temperature": {key: deque(maxlen=size) for key, size in window_sizes.items()}}
+
+# ✅ 올바른 분할
+data_buffers = {
+    "temperature": {
+        key: deque(maxlen=size) for key, size in window_sizes.items()
+    }
 }
+```
 
-# ✅ 리스트 분할
-sensors = [
-    "temperature_sensor",
-    "humidity_sensor", 
-    "pressure_sensor",
-    "light_sensor"
-]
+#### 🎯 **8. 에러 메시지 및 예외**
+```python
+# ❌ AI가 자주 놓치는 실수 (79자 초과)
+raise HTTPException(status_code=500, detail=f"Failed to connect to sensor at {address}: {str(e)}")
+
+# ✅ 올바른 분할
+raise HTTPException(
+    status_code=500, 
+    detail=f"Failed to connect to sensor at {address}: {str(e)}"
+)
+```
+
+#### 📋 **라인 분할 체크리스트**
+- ✅ HTML 태그 속성들이 79자를 넘지 않는가?
+- ✅ JavaScript 메서드 체인이 적절히 분할되었는가?
+- ✅ 수학 공식이 읽기 쉽게 분할되었는가?
+- ✅ 로깅 메시지가 너무 길지 않은가?
+- ✅ 함수 매개변수가 적절히 줄바꿈되었는가?
+- ✅ 딕셔너리/리스트 컴프리헨션이 분할되었는가?
+
+#### 🛠️ **자동 검증 명령어**
+```bash
+# 라인 길이 79자 초과 체크
+python -c "
+import os
+for root, dirs, files in os.walk('src'):
+    for file in files:
+        if file.endswith('.py'):
+            filepath = os.path.join(root, file)
+            with open(filepath, 'r', encoding='utf-8') as f:
+                for i, line in enumerate(f, 1):
+                    if len(line.rstrip()) > 79:
+                        print(f'{filepath}:{i}: {line.rstrip()[:80]}...')
+"
 ```
 
 ### 🔍 **비교 연산자 개선**
@@ -375,13 +486,16 @@ python tools/quality/run_all_checks.py --all
 
 ### 📋 **커밋 전 체크리스트**
 1. ✅ 모든 함수에 타입 힌트 추가
-2. ✅ 라인 길이 88자 이하 확인
-3. ✅ 예외 처리에 `from e` 추가
-4. ✅ 현대적 타입 힌트 사용 (list, dict)
-5. ✅ import 문 정리
-6. ✅ `python quick_fix_advanced.py` 실행
-7. ✅ Ruff 0개 오류 확인
-8. ✅ MyPy 주요 오류 해결
+2. ✅ **라인 길이 79자 이하 확인** (PEP 8 표준)
+3. ✅ HTML/CSS/JavaScript 코드도 79자 이하로 분할
+4. ✅ 수학 공식 및 긴 계산식 적절히 분할
+5. ✅ 로깅 메시지 및 에러 메시지 길이 체크
+6. ✅ 예외 처리에 `from e` 추가
+7. ✅ 현대적 타입 힌트 사용 (list, dict)
+8. ✅ import 문 정리
+9. ✅ `python quick_fix_advanced.py` 실행
+10. ✅ flake8 0개 E501 오류 확인
+11. ✅ MyPy 주요 오류 해결
 
 ---
 
@@ -434,13 +548,17 @@ def process_large_dataset(data_stream) -> None:
 
 ### 🎯 **금지 사항 (절대 하지 마세요)**
 - ❌ 타입 힌트 없는 함수 작성
-- ❌ 88자 초과 라인 작성
+- ❌ **79자 초과 라인 작성** (flake8 E501 오류)
+- ❌ HTML/JavaScript 태그에서 긴 라인 방치
+- ❌ 수학 공식, 로깅 메시지 등에서 긴 라인 방치
 - ❌ `except Exception:` without `from e`
 - ❌ `from typing import Dict, List` 사용
 - ❌ `== None` 비교 사용
 
 ### ✅ **필수 사항 (반드시 하세요)**
 - ✅ 모든 함수에 `-> Type:` 추가
+- ✅ **모든 라인 79자 이하로 분할** (PEP 8 표준)
+- ✅ HTML/CSS/JavaScript 코드도 적절히 분할
 - ✅ 클래스 변수에 타입 어노테이션
 - ✅ 현대적 타입 힌트 (list, dict)
 - ✅ f-string 사용

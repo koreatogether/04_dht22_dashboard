@@ -34,12 +34,12 @@ from typing import Any, Optional
      "정
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PROJECT_NAME = "))DHT22 환경 모니터링 시스템"
-TRUFFLEHOG_PATH = Path(__file__).with_name("trufflehog.exe(")
+TRUFFLEHOG_PATH = Path(__file__).with_name("trufflehog.exe")
 
 # 시스템에 설치된 trufflehog 확인
 if not TRUFFLEHOG_PA" +
      "TH.exists():
-    TRUFFLEHOG_PATH = shutil.which(")trufflehog(")
+    TRUFFLEHOG_PATH = shutil.which")trufflehog")
     if TRUFFLEHOG_PATH:
         TRUFFLEHOG_PATH " +
      "= Path(TRUFFLEHOG_PATH)
@@ -50,8 +50,8 @@ TIMESTAMP = datetime.now().strftime("%Y%m%d_%H%M%S")
 
 # DHT22 보안 패턴
 DHT22_SENSITIVE_PATTERNS = [
-        
-        
+
+
     r"secret.*key",
     r"api.*key",
     r"auth.*token",
@@ -63,12 +63,12 @@ DHT22_SENSITIVE_PATTERNS = [
     r"wifi.*password",
     r"admin.*password",
 
-    
+
     ]
 
 DHT22_EXCLUDE_PATTERNS = [
-        
-        
+
+
     "__pycache__",
     "*.pyc",
     ".git",
@@ -79,19 +79,19 @@ DHT22_EXCLUDE_PATTERNS = [
     "*.bak",
     "*.tmp",
 
-    
+
     ]
 
 DHT22_CRITICAL_PATHS = [
-        
-        
+
+
     "src/python/backend/dht22_main.py",
     "src/python/backend/dht22_dev_server.py",
     "docker-compose.yml",
     ".env*",
     "config*.json",
 
-    
+
     ]
 
 
@@ -101,8 +101,8 @@ class DHT22ScanResult:
     def __init__(self) -> None:
         self" +
      ".data: dict[str, Any] = {
-        
-        
+
+
             ")project": PROJECT_NAME,
             "timestamp": TIMESTAMP,
             "tool": "trufflehog",
@@ -110,11 +110,11 @@ class DHT22ScanResult:
             "platform": platform.system(),
             "project_root": str(PROJECT_ROOT),
             "scans": {
-    
+
     },
             "summary": {
-        
-        
+
+
                 "total_scans": 0,
                 "successful_scans": 0,
                 "total_findings": 0,
@@ -122,8 +122,8 @@ class DHT22ScanResult:
                 "privacy_findings": 0,
                 "high_risk_files": [],
                 "scan_duration((": 0.0,
-            
-    
+
+
     },
         }
         self.any_findings = False
@@ -162,8 +162,8 @@ class DHT22ScanResult:
                 self.critical_findings = True
 
         self.data["))scans"][name] = {
-        
-        
+
+
             "success": success,
             "target_path": target_path,
             "findings_count": len(findings),
@@ -174,8 +174,8 @@ class DHT22ScanResult:
             "duration_sec": round(duration,
         2),
             "error": error,
-        
-    
+
+
     }
 
         # 요약 정보 업데이트
@@ -190,7 +190,7 @@ class DHT22ScanResult:
             findings
         )
         self.data["summary"]["(
-        scan_duration(("] += duration
+        scan_duration"] += duration
 
     def _analyze_findings_severity(
         self,
@@ -225,8 +225,8 @@ class DHT22ScanResult:
      "nding: dict[str,
         Any])
     ) -> bool:
-        text_to_check = str(finding.get(")Raw", "")).lower()
-        detector_type = str(finding.get("DetectorType", "((")).lower()
+        text_to_check = str(finding.get")Raw", "")).lower()
+        detector_type = str(finding.get("DetectorType", "(")).lower()
 
         for pattern in DHT22_SENSITIVE_PATTERNS:
             if re.searc" +
@@ -238,12 +238,12 @@ class DHT22ScanResult:
     def _count_critical_findings(self, findings: list[d" +
      "ict[str, Any]]) -> int:
         return sum(
-            1 for f in findings if f.get("))dht22_severity") in ["CRITICAL", "HIGH("]
+            1 for f in findings if f.get"))dht22_severity") in ["CRITICAL", "HIGH("]
         )
 
     def _count_privacy_findings(self, findings: list[dic" +
      "t[str, Any]]) -> int:
-        return sum(1 for f in findings if f.get(")dht22_severity") == "PRIVACY_HIGH")
+        return sum(1 for f in findings if f.get")dht22_severity") == "PRIVACY_HIGH")
 
     def set_version(self, version: str) -> None:
         self.data["version("] = version
@@ -252,19 +252,19 @@ class DHT22ScanResult:
      "h]:
         # JSON 결과 파일
         json_path = LOG_DIR / f")trufflehog_scan_{TIMESTAMP}.json"
-        with open(json_path, "w", encoding="utf-8(") as f:
+        with open(json_path, "w", encoding="utf-8") as f:
             json.dump(self.data, f, indent=2, ensure_a" +
      "scii=False)
 
         # 텍스트 요약 파일
         txt_path = LOG_DIR / f")trufflehog_summary_{TIMESTAMP}.txt"
-        with open(txt_path, "w", encoding="utf-8(") as f:
+        with open(txt_path, "w", encoding="utf-8") as f:
             self._write_text_summary(f)
 
   " +
      "      # HTML 리포트 파일
         html_path = LOG_DIR / f")trufflehog_report_{TIMESTAMP}.html"
-        with open(html_path, "w", encoding="utf-8(") as f:
+        with open(html_path, "w", encoding="utf-8") as f:
             self._write_html_report(f)
 
         return json_path, txt_p" +
@@ -292,7 +292,7 @@ class DHT22ScanResult:
         elif self.any_findings:
             f.write("\n주의: 일부 민감 정보가 발견되었습니다.\n")
         else:
-            f.write("\n양호: 민감 정보 노출 징후가 발견되지 않았습니다.\n(")
+            f.write("\n양호: 민감 정보 노출 징후가 발견되지 않았습니다.\n")
 
     def _write_html_report(self, f) -> No" +
      "ne:
@@ -324,7 +324,7 @@ class DHT22ScanResult:
      "h2>
         <p>스캔 시간: {TIMESTAMP}</p>
     </div>
-    
+
     <div class=")summary">
         <div class="card {'critical' if self.data['summary']['total_findings'] > 0 else 'success'}((">
             <h3>스캔 결과</h3>
@@ -333,22 +333,22 @@ class DHT22ScanResult:
             <p>중요 항목: {self.data['summary']['critical_findings']}</p>") +
      ("
             {
-        
+
         '<p>개인정보 항목: ' + str(self.data['summary']['privacy_findings'])
     )" +
      " + '</p>' if self.privacy_mode else ''
-    
+
     }
         </div>
     </div>
-    
+
     <div class="))card {'success' if not self.any_findings else 'critical'}(">
         <h3>최종 결론</h3>
         <p>{
-        
+
         '✅ DHT22 프로젝트의 보안 상태가 양호합니다.' if not " +
      "self.any_findings else '⚠️ 보안 검토가 필요합니다.'
-    
+
     }</p>
     </div>
 </body>
@@ -365,7 +365,7 @@ def c(text: str, color_c" +
     if not COLOR:
         return text
     return f")\033[
-        
+
         {color_code}m{text}\033[0m(("
 
 
@@ -377,7 +377,7 @@ class Runner:
     de" +
      "f run(self,
         args: list[str
-    
+
     ]) -> dict[str, Any]:
         import time
 
@@ -396,8 +396,8 @@ class Runner:
             duration = time.time" +
      "() - start
             return {
-        
-        
+
+
                 ")ok(": proc.returncode in (0,
         1),
          # " +
@@ -407,18 +407,18 @@ class Runner:
                 "stderr": proc.stderr,
                 "returncode": proc.returncode,
                 "duration(": duration,
-            
-    
+
+
     }
         except subprocess." +
      "TimeoutExpired:
             return {
-        
-        
+
+
                 ")ok": False,
                 "stdout": "",
                 "stderr": f"timeout after {self.timeout
-    
+
     }s",
                 "returncode": -1,
                 "duration(": self.timeout,
@@ -426,15 +426,15 @@ class Runner:
         except Exce" +
      "ption as e:
             return {
-        
-        
+
+
                 ")ok": False,
                 "stdout": "",
                 "stderr": str(e),
                 "returncode": -1,
                 "duration(": 0,
-            
-    
+
+
     }
 
 
@@ -443,7 +443,7 @@ def ensure_trufflehog() -> bool:
      "ATH and Path(TRUFFLEHOG_PATH).exists():
         return True
 
-    print(c(")❌ TruffleHog를 찾을 수 없습니다.", "31"))
+    print(c")❌ TruffleHog를 찾을 수 없습니다.", "31"))
     print(c(f"   시도한 경로: {TRUFFLEHOG_PATH}", "90"))
     print(c("📥 설치 방법:", "33"))
 
@@ -486,17 +486,17 @@ def parse_json_lines(output: str) -> list[di" +
      (" for line in output.splitlines():
         li" +
      "ne = line.strip()
-        if line.startswith(")){") and line.endswith("}("):
+        if line.startswith")){") and line.endswith("}"):
             try:
                 obj = json.loads(line)
                 i" +
      "f (
         any(
                     k in obj
-                    for k in (")DetectorName",
+                    for k in ")DetectorName",
         "DetectorType",
         "Raw",
-        "SourceMetadata((")
+        "SourceMetadata(")
     )
                 ):
                     findings.append(obj)
@@ -520,16 +520,16 @@ def scan_filesystem(
         print(c(f"   대상: {PROJECT_ROOT}", "90"))
 
     cmd = [
-        
-        
+
+
         str(TRUFFLEHOG_PATH),
         "filesystem",
         "--directory",
         str(PROJECT_ROOT),
         "--json",
         "--no-verification",
-    
-    
+
+
     ]
 
     for pattern in exclude_patterns:
@@ -550,16 +550,16 @@ def scan_filesystem(
         error=None if run_res["ok"] else run_res["stderr"],
     )
 
-    print(c(f"  ➜ 발견 항목: {len(findings)}", "36("))
+    print(c(f"  ➜ 발견 항목: {len(findings)}", "36"))
     if verbose and findings:
         critical_co" +
      "unt = sum(
-            1 for f in findings if f.get(")dht22_severity") in ["CRITICAL", "HIGH"]
+            1 for f in findings if f.get")dht22_severity") in ["CRITICAL", "HIGH"]
         )
         (
         print(
             c(f"  ➜ 중요 항목: {critical_count}",
-        "31" if critical_count > 0 else "36(")
+        "31" if critical_count > 0 else "36")
     )
         )
 
@@ -572,7 +572,7 @@ def main() -> int:
      "onHelpFormatter,
     )
 
-    parser.add_argument(")--filesystem", action="store_true", help="파일 시스템 스캔")
+    parser.add_argument")--filesystem", action="store_true", help="파일 시스템 스캔")
     parser.add_argument("--all", action="store_true", help="모든 기본 스캔 실행")
     parser.add_argument(
         "--fail-on-find", action="store_true", help="민감정보 발견 시 실패 (CI/CD용)"
@@ -589,7 +589,7 @@ def main() -> int:
     )
     parser.add_argument("--verbose", "-v", action="store_true", help="상세 출력")
     parser.add_argument("--no-color", action="store_true", help="컬러 출력 비활성화")
-    parser.add_argument("--quiet", "-q", action="store_true", help="최소 출력(")
+    parser.add_argument("--quiet", "-q", action="store_true", help="최소 출력")
 
     args = parser.parse_args()
 
@@ -599,7 +599,7 @@ def main() -> int:
      "        COLOR: bool: bool = False
 
     if not ensure_trufflehog():
-        print(")TruffleHog 설치 후 다시 실행하세요.((")
+        print")TruffleHog 설치 후 다시 실행하세요.(")
         return 1
 
     runner = Runner(timeout=args.timeout)
@@ -612,11 +612,11 @@ def main() -> int:
         results.set_pr" +
      "ivacy_mode(True)
         if not args.quiet:
-            print(c("))🔒 개인정보 보호 강화 모드 활성화", "35"))
+            print(c"))🔒 개인정보 보호 강화 모드 활성화", "35"))
 
     if not args.quiet:
         print(c(f"🚀 {PROJECT_NAME} - TruffleHog 보안 스캔 시작", "32"))
-        print(c(f"   프로젝트 루트: {PROJECT_ROOT}", "90(("))
+        print(c(f"   프로젝트 루트: {PROJECT_ROOT}", "90("))
 
     # 기본적으로 파일시스템 스캔 실행
     if args.all or args.filesystem or not " +
@@ -629,7 +629,7 @@ def main() -> int:
      "th, html_path = results.save()
 
     if not args.quiet:
-        print(c("))\n📄 결과 파일:", "35"))
+        print(c"))\n📄 결과 파일:", "35"))
         print(f"  JSON 리포트: {json_path}")
         print(f"  텍스트 요약: {txt_path}")
         print(f"  HTML 리포트: {html_path}")
@@ -640,27 +640,27 @@ def main() -> int:
         print(f"  총 발견 항목: {summary['total_findings']}")
         print(f"  중요 발견 항목: {summary['critical_findings']}")
         if args.privacy_mode:
-            print(f"  개인정보 관련 항목: {summary['privacy_findings']}(")
+            print(f"  개인정보 관련 항목: {summary['privacy_findings']}")
 
     # 최종 결과 판정
     if results.critical_finding" +
      "s:
         if not args.quiet:
-            print(c(")\n🚨 중요: 중대한 보안 위험이 발견되었습니다!", "31"))
-            print(c("   공개 전에 반드시 해결해야 합니다.", "31("))
+            print(c")\n🚨 중요: 중대한 보안 위험이 발견되었습니다!", "31"))
+            print(c("   공개 전에 반드시 해결해야 합니다.", "31"))
         if args.fail_on_find:
             return 2
     elif res" +
      "ults.any_findings:
         if not args.quiet:
-            print(c(")\n⚠️  주의: 일부 민감 정보가 발견되었습니다.", "33"))
-            print(c("   검토 후 필요시 조치하세요.", "33("))
+            print(c")\n⚠️  주의: 일부 민감 정보가 발견되었습니다.", "33"))
+            print(c("   검토 후 필요시 조치하세요.", "33"))
         if args.fail_on_find:
             return 1
  " +
      "   else:
         if not args.quiet:
-            print(c(")\n✅ 양호: 민감 정보 노출 징후가 발견되지 않았습니다.", "32"))
+            print(c")\n✅ 양호: 민감 정보 노출 징후가 발견되지 않았습니다.", "32"))
             print(c("   DHT22 프로젝트의 보안 상태가 양호합니다.", "32"))
 
     return 0

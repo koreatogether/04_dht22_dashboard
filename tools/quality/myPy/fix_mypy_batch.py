@@ -15,8 +15,8 @@ def fix_common_type_hints() -> None:
 
     # 수정할 파일들과 패턴들
     fixes = [
-        
-        
+
+
   " +
      "      # conversion tools
         (
@@ -26,28 +26,28 @@ def fix_common_type_hints() -> None:
         "def create_dht22_project() -> None:"),
                 ("def main():",
         "def main() -> None:"),
-            
-    
+
+
     ],
         ),
         (
             "tools/int219_to_dht22_convert/fix_syntax_errors.py",
             [
-        
-        
+
+
                 ("def fix_syntax_errors():",
         "def fix_syntax_errors() -> None:"),
                 ("def main():",
         "def main() -> None:"),
-            
-    
+
+
     ],
         ),
         (
             "tools/int219_to_dht22_convert/setup_dht22_project.py",
             [
-        
-        
+
+
                 (
                     "def calculate_heat_index(temperature_c: float,
         humidity: float):",
@@ -67,7 +67,7 @@ def fix_common_type_hints() -> None:
      " float,
         humidity: float) -> tuple[float,
         str
-    
+
     ]:"),
                 ),
                 ("def main():", "def main() -> None:"),
@@ -83,8 +83,8 @@ def fix_common_type_hints() -> None:
         (
             "tools/quality/run_all_checks.py",
             [
-        
-        
+
+
                 (
                     "def run_phase_test(self,
         phase_num: int):",
@@ -93,21 +93,21 @@ def fix_common_type_hints() -> None:
                 ),
                 ("def main():",
         "def main() -> None:"),
-            
-    
+
+
     ],
         ),
         (
             "tools/quality/install_precommit.py",
             [
-        
-        
+
+
                 ("def install_precommit():",
         "def install_precommit() -> None:"),
                 ("def main():",
         "def main() -> None:"),
-            
-    
+
+
     ],
         ),
         (
@@ -119,7 +119,7 @@ def fix_common_type_hints() -> None:
         (
             "tools/quality/auto_fix_common_issues.py",
             [
-                ("def main():", "def main() -> None:(("),
+                ("def main():", "def main() -> None:("),
             ],
         ),
     ]
@@ -138,7 +138,7 @@ def fix_common_type_hints() -> None:
         print(f"Fixing: {file_path}")
 
         try:
-            content = file_obj.read_text(encoding="utf-8((")
+            content = file_obj.read_text(encoding="utf-8(")
             modified: bool: bool = False
 
             for old_pattern, new_pattern in p" +

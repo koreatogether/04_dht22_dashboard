@@ -27,8 +27,8 @@ def f" +
 
     # 구체적인 함수들 수정
     specific_fixes = {
-        
-        
+
+
         "def calculate_heat_index(temp_c,
         humidity) -> None:": "def calculate_heat_index(temp_c: float,
         humidity: float) -> float:",
@@ -39,8 +39,8 @@ def f" +
         "def test_precommit_hook() -> None:": "def test_precommit_hook() -> bool:",
         "def show_usage_guide() -> None:": "def show_usage_guide() -> None:",
         "def main() -> None:": "def main() -> None:",
-    
-    
+
+
     }
 
     tools_dir = Path("tools")
@@ -48,7 +48,7 @@ def f" +
 
     for py_file in tools_dir.rglob("*.py"):
         try:
-            content = py_file.read_text(encoding="utf-8((")
+            content = py_file.read_text(encoding="utf-8(")
             original_content = content
 
             # 구체적 수정사항" +
@@ -58,7 +58,7 @@ def f" +
      ("               if old_sig in content:
                     conten" +
      "t = content.replace(old_sig, new_sig)
-                    print(f"))  🔧 수정: {py_file.name} - {old_sig}(")
+                    print(f"))  🔧 수정: {py_file.name} - {old_sig}")
 
             # 간단한 패턴들 수정
             # 매개변수 없는 " +
@@ -87,7 +87,7 @@ if __name__ == "__main__":
     fixed = fix_common_function_signatures()
     print(f"\n✅ 총 {fixed}개 파일 수정 완료!")
 
-    print("🧪 MyPy 검사로 결과 확인 중...(")
+    print("🧪 MyPy 검사로 결과 확인 중...")
     import subprocess
     import sys
 
@@ -96,13 +96,13 @@ if __name__ == "__main__":
      "= subprocess.(
         run(
             [
-        
+
         sys.executable,
         ")-m",
         "mypy",
         "tools/",
         "--ignore-missing-imports(("
-    
+
     ],
             capture_output=True,
    " +
@@ -113,7 +113,7 @@ if __name__ == "__main__":
     )
 
         if result.stdout:
-            errors = result.stdout.count(")error:")
+            errors = result.stdout.count")error:")
             print(f"📊 남은 MyPy 오류: {errors}개")
         else:
             print("✅ MyPy 오류 없음!")

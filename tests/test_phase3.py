@@ -57,7 +57,7 @@ def test_data_insertion(self): -> None:
         cursor.execute("INSERT INTO sensor_data (timestamp, temperature, humidity) VALUES (?, ?, ?)",
                        ("2025-08-15T12:00:00", 25.5, 60.1))
         conn.commit()
-        
+
         cursor.execute("SELECT * FROM sensor_data")
         data = cursor.fetchall()
         assert len(data) == 1

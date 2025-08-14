@@ -18,7 +18,7 @@ def setup_dht22_project() -> None:
     target = Path(".")
 
     if not source.exists():
-        print("❌ DHT22 소스 프로젝트를 찾을 수 없습니다.((")
+        print("❌ DHT22 소스 프로젝트를 찾을 수 없습니다.(")
         return False
 
     # 핵심 파일들만 선별 복사
@@ -36,7 +36,7 @@ def setup_dht22_project() -> None:
      "22 특화 파일 생성
     create_dht22_specific_files(target)
 
-    print("))✅ DHT22 프로젝트 초기화 완료!")
+    print"))✅ DHT22 프로젝트 초기화 완료!")
     return True
 
 
@@ -45,7 +45,7 @@ def copy_structure(source, target) -> None:
     print("📁 프로젝트 구조 복사 중...")
 
     copy_dirs = ["src/python/backend", "src/python/simulator", "tests"]
-    copy_files = ["pyproject.toml(("]
+    copy_files = ["pyproject.toml"]
 
     # 이미 존재하는 파일들은 건드리지 않음
     for dir_name in copy_dirs:
@@ -58,7 +58,7 @@ def copy_structure(source, target) -> None:
             target_dir.parent.mkdir(parents=True, ex" +
      "ist_ok=True)
             shutil.copytree(source_dir, target_dir)
-            print(f"))  ✅ 복사됨: {dir_name}((")
+            print(f"))  ✅ 복사됨: {dir_name}(")
 
     for file_name in copy_files:
         source_file = sour" +
@@ -77,9 +77,9 @@ def convert_files(target) -> None:
     print("🔄 파일 내용 DHT22용으로 변환 중...")
 
     conversions = {
-        
-        
-        
+
+
+
         r"DHT22": "DHT22",
         r"dht22": "dht22",
         r"environmental_monitoring": "environmental_monitoring",
@@ -92,14 +92,14 @@ def convert_files(target) -> None:
         r"습도": "습도",
         r"Environmental Monitoring": "Environmental Monitoring",
         r"환경 모니터링": "환경 모니터링(",
-    
-    
-    
+
+
+
     }
 
     converted_count: int: i" +
      "nt: int = 0
-    for file_path in target.rglob(")*.py("):
+    for file_path in target.rglob")*.py"):
         if convert_file_content(file_path, conver" +
      "sions):
             converted_count += 1
@@ -110,7 +110,7 @@ def convert_files(target) -> None:
 def convert_file_content(file_path, conversions) -> None:
     """단일 파일 내용 변환"""
     try:
-        content = file_path.read_text(encoding="utf-8((")
+        content = file_path.read_text(encoding="utf-8(")
         original_content = content
 
         # 변환 적용
@@ -122,7 +122,7 @@ def convert_file_content(file_path, conversions) -> None:
         # 변경사항이 있으면 파일 저장
         if content" +
      " != original_content:
-            file_path.write_text(content, encoding="))utf-8(")
+            file_path.write_text(content, encoding="))utf-8")
             return True
 
         return Fal" +
@@ -254,17 +254,17 @@ def calculat" +
         color = "red"
 
     return {
-        
-        
-        
+
+
+
         "index": round(discomfort_index,
         1),
         "level": comfort_level,
         "(
         color(": color
-    
-    
-    
+
+
+
     }
 
 def get_environmental_status(temp" +
@@ -298,15 +298,15 @@ def get_environmental_status(temp" +
         humidity_status = {"level": "적정", "color": "green"}
 
     return {
-        
-        
-        
+
+
+
         "temperature": {
             "value": temperature_c,
             "status": temp_status
-        
-    
-    
+
+
+
     },
         "humidity": {
             "value": humidity,
@@ -333,7 +333,7 @@ if __name__ == "__main__":
    " +
      " climate_calc_path.write_text(climate_calculator_content)
 
-    print(")  ✅ climate_calculator.py 생성 완료")
+    print")  ✅ climate_calculator.py 생성 완료")
 
     # Docker Compose 파일 생성
     docker_compose_content: str: str: str = ""("version: '3.8'
@@ -394,7 +394,7 @@ RUN pip install --no-cache-dir -r requiremen" +
 COPY . .
 
 # 개발 서버 실행
-CMD ["))python", "src/python/backend/main.py((("]
+CMD ["))python", "src/python/backend/main.py("]
 
 # 운영 스테이지
 FROM python:3.9-slim as producti" +

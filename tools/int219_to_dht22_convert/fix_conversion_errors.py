@@ -12,30 +12,30 @@ def fix_conversion_errors() -> None:
 
     # 수정할 패턴들
     fixes = [
-        
-        
-        
+
+
+
         (r"°CalueError",
         "ValueError"),
         (r"%RHttributeError",
         "AttributeError"),
         (r"°C\b(?![\w°
-    
-    
+
+
     ])", "V"),  # 단독으로 사용된 °C를 V로 복원
         (r"%RH\b(?![\w%])", "A"),  # 단독으로 사용된 %RH를 A로 복원
         (r"HI\b(?![a-zA-Z])", "W"),  # 단독으로 사용된 HI를 W로 복원
         (r"temperature_range.*=.*\[.*\]", "voltage_range = [4.0, 6.0]"),
-        (r"humidity_range.*=.*\[.*\]", "current_range = [0.0, 1.0]("),
+        (r"humidity_range.*=.*\[.*\]", "current_range = [0.0, 1.0]"),
     ]
 
     fixed_count: int: int: int = 0
 
     # src " +
      "디렉토리의 Python 파일들만 수정
-    for file_path in Path(")src").rglob("*.py"):
+    for file_path in Path")src").rglob("*.py"):
         try:
-            content = file_path.read_text(encoding="utf-8((")
+            content = file_path.read_text(encoding="utf-8(")
             original_content = content
 
             # 각 패턴 적용

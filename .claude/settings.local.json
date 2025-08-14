@@ -5,7 +5,11 @@
       "Bash(set PYTHONUTF8=1)",
       "Bash(set PYTHONIOENCODING=utf-8)",
       "Bash(toolsqualityquick_fix.bat)",
-      "Bash(cmd /c:*)"
+      "Bash(cmd /c:*)",
+      "Bash(uv:*)",
+      "Bash(.venv_new/Scripts/activate:*)",
+      "Bash(pip --version)",
+      "Bash(.venv_newScriptspython.exe --version)"
     ],
     "deny": [],
     "ask": [],

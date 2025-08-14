@@ -60,7 +60,7 @@ exit $exit_code
 
     # hook 파일 작성
     try:
-        with open(hook_file, "w", encoding="utf-8", newline="\n(") as f:
+        with open(hook_file, "w", encoding="utf-8", newline="\n") as f:
             f.write(hook_content)
 
        " +
@@ -107,7 +107,7 @@ exit /b %ERRORLEVEL%
 
 def test_precommit_hook() -> bool:
     """Pre-commit hook 테스트"""
-    print("\n🧪 Pre-commit hook 테스트 실행...(")
+    print("\n🧪 Pre-commit hook 테스트 실행...")
 
     project_root = Path(__file__).parent.parent.p" +
      "arent
@@ -124,16 +124,16 @@ def test_precommit_hook() -> bool:
             text=True,
         )
 
-        print(")📊 테스트 결과:")
+        print")📊 테스트 결과:")
         print(result.stdout)
 
         if result.stderr:
-            print("⚠️ 오류 출력:(")
+            print("⚠️ 오류 출력:")
             print(result.stderr)
 
         " +
      "if result.returncode == 0:
-            print(")✅ Pre-commit hook 테스트 성공!")
+            print")✅ Pre-commit hook 테스트 성공!")
         else:
             print("❌ Pre-commit hook 테스트 실패")
 

@@ -1,17 +1,18 @@
-# -*- coding: utf-8 -*-
 """
 기후 관련 계산 유틸리티
 - 열지수 (Heat Index)
 - 이슬점 (Dew Point)
 - 불쾌지수 (Discomfort Index)
 """
+
 import math
 
 
 def calculate_heat_index(temp_c: float, humidity: float) -> float:
     """
-    체감온도(열지수)를 계산합니다. (미국 국립 기상청(NOAA)의 Steadman 공식 사용)
-    공식은 화씨(F)를 기준으로 하므로, 섭씨(C)를 화씨로 변환 후 계산하고 다시 섭씨로 변환합니다.
+    체감온도(열지수)를 계산합니다. (NOAA의 Steadman 공식 사용)
+    화씨(F) 기준 공식이므로 섭씨(C)를 화씨로 변환 후 계산하고
+    다시 섭씨로 변환합니다.
     """
     temp_f = (temp_c * 9 / 5) + 32
     if temp_f < 80.0:
@@ -30,7 +31,9 @@ def calculate_heat_index(temp_c: float, humidity: float) -> float:
     )
 
     if humidity < 13 and 80 <= temp_f <= 112:
-        adjustment = ((13 - humidity) / 4) * math.sqrt((17 - abs(temp_f - 95.0)) / 17)
+        adjustment = ((13 - humidity) / 4) * math.sqrt(
+            (17 - abs(temp_f - 95.0)) / 17
+        )
         heat_index_f -= adjustment
     if humidity > 85 and 80 <= temp_f <= 87:
         adjustment = ((humidity - 85) / 10) * ((87 - temp_f) / 5)

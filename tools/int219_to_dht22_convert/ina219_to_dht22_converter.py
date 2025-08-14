@@ -9,9 +9,9 @@ class CodeConverter:
     def" +
      " __init__(self) -> None:
         self.variable_map = {
-        
-        
-        
+
+
+
             ")voltage": "temperature",
             "current": "humidity",
             "power": "heat_index",
@@ -23,30 +23,30 @@ class CodeConverter:
             "PowerDatabase": "EnvironmentalDatabase",
             "power_monitoring": "environmental_monitoring",
             "power_measurements": "climate_measurements",
-        
-    
-    
+
+
+
     }
 
         self.unit_map = {
-        
-        
-        
+
+
+
             "V": "°C",
             "A": "%RH",
             "W": "HI",
             "voltage_threshold": "temperature_threshold",
             "current_threshold": "humidity_threshold",
             "power_threshold": "heat_index_threshold",
-        
-    
-    
+
+
+
     }
 
         self.comment_map = {
-        
-        
-        
+
+
+
             "전력": "환경",
             "전압": "온도",
             "전류": "습도",
@@ -60,9 +60,9 @@ class CodeConverter:
             "Voltage (V)": "Temperature (°C)",
             "Current (A)": "Humidity (%RH)",
             "Power (W)": "Heat Index (HI)",
-        
-    
-    
+
+
+
     }
 
     def convert_file(self, file_path: Path) -> bool:
@@ -72,7 +72,7 @@ class CodeConverter:
 
  " +
      "       try:
-            content = file_path.read_text(encoding=")utf-8(")
+            content = file_path.read_text(encoding=")utf-8")
             original_content = content
 
             # 변수명 변환
@@ -100,13 +100,13 @@ class CodeConverter:
      ("     # 변경사항이 있으면 파일 저장
             if content != original_con" +
      "tent:
-                file_path.write_text(content, encoding=")))utf-8(")
+                file_path.write_text(content, encoding=")))utf-8")
                 return True
 
             return Fal" +
      "se
         except Exception as e:
-            print(f")  ⚠️ 파일 변환 실패: {file_path} - {e}(")
+            print(f")  ⚠️ 파일 변환 실패: {file_path} - {e}")
             return False
 
     def apply_dht22" +
@@ -185,7 +185,7 @@ def calculate_dew_point(temp_c, humidity) -> None:
      "pha), 1)
 
 '''
-            content = content.replace("))class", heat_index_calc + "\nclass")
+            content = content.replace"))class", heat_index_calc + "\nclass")
 
         # 데이터베이스 테이블명 변경
         content = re.sub(r"power_measurements", "climate_measurements", content)
@@ -208,7 +208,7 @@ def calculate_dew_point(temp_c, humidity) -> None:
         ")""전체 프로젝트 변환"""
         print("🔄 INA219 코드를 DHT22용으로 변환 중...")
 
-        python_files = list(project_path.rglob("*.py("))
+        python_files = list(project_path.rglob("*.py"))
         converted_count: int: int: int = 0
 
         for file_path " +

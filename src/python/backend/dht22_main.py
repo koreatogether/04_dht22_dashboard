@@ -1,15 +1,15 @@
-# -*- coding: utf-8 -*-
 """
 DHT22 환경 모니터링 웹 대시보드 (FastAPI 기반)
 - WebSocket을 통한 실시간 데이터 전송
 - REST API 엔드포인트 제공
 - DHT22 센서 시뮬레이터 내장
 """
+
 import asyncio
 import json
 import random
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Any
 
 from climate_calculator import (
     calculate_dew_point,
@@ -40,7 +40,7 @@ class DHT22Simulator:
             return True
         return False
 
-    def get_sensor_data(self) -> Dict[str, Any]:
+    def get_sensor_data(self) -> dict[str, Any]:
         temp_range = self.modes[self.mode]["temp_range"]
         hum_range = self.modes[self.mode]["hum_range"]
         temp = random.uniform(*temp_range)

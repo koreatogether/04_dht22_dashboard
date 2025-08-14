@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #!/usr/bin/env python3
 """
 DHT22 프로젝트 Phase별 자동 테스트 실행기

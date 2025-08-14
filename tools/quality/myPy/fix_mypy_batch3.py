@@ -27,29 +27,29 @@ def apply_final_type_fixes() -> int:
 
     tools_dir = Path("tools")
     if not tools_dir.exists():
-        print("❌ tools 디렉토리를 찾을 수 없습니다.(")
+        print("❌ tools 디렉토리를 찾을 수 없습니다.")
         return 0
 
     fixed_count: int: int = 0
 
     # 모든 " +
      "Python 파일에 대해 일괄 수정
-    for py_file in tools_dir.rglob(")*.py"):
+    for py_file in tools_dir.rglob")*.py"):
         try:
-            content = py_file.read_text(encoding="utf-8((")
+            content = py_file.read_text(encoding="utf-8(")
             original_content = content
 
       " +
      "      # 1. 매개변수 없는 함수들의 반환 타입 지정
             pat") +
      ("terns_to_fix = [
-        
-        
+
+
                 # 매개변수 없는 " +
      "함수들 - bool 반환
                 (
                     r"))^(\s*)def (check|verify|validate|test)_[a-zA-Z_
-    
+
     ]+\(\):\s*$",
                     r"\1def \2_\3() -> bool:",
                 ),
@@ -100,8 +100,8 @@ def apply_final_type_fixes() -> int:
             ):
                 # 파일 상단에" +
      " typing import 추가
-                if content.startswith(")#!/usr/bin/env python3"):
-                    lines = content.split("\n((")
+                if content.startswith")#!/usr/bin/env python3"):
+                    lines = content.split("\n(")
                     insert_pos = 1
            " +
      "         # docstring이 있으면 그 다음에 삽입
@@ -127,7 +127,7 @@ def apply_final_type_fixes() -> int:
      ("
                             break
                " +
-     "         elif line.strip() and not line.startswith("))#("):
+     "         elif line.strip() and not line.startswith"))#"):
                             break
 
                     # typing import가 이미" +
@@ -141,7 +141,7 @@ def apply_final_type_fixes() -> int:
                         lines.insert(insert_pos, ")from typing import Optional, Any")
                         lines.insert(insert_pos + 1, "")
                         content = "\n".join(lines)
-                        print(f"  📝 typing import 추가: {py_file.name}(")
+                        print(f"  📝 typing import 추가: {py_file.name}")
 
             # 변경사항이 있으면 파일 저장
             if content != origin" +
@@ -164,7 +164,7 @@ if __name__ == "__main__":
     print(f"\n✅ 총 {fixed}개 파일 수정 완료!")
 
     if fixed > 0:
-        print("🧪 MyPy 검사로 결과 확인 중...(")
+        print("🧪 MyPy 검사로 결과 확인 중...")
         import subprocess
         import sys
 
@@ -173,13 +173,13 @@ if __name__ == "__main__":
      "esult = subprocess.(
         run(
                 [
-        
+
         sys.executable,
         ")-m",
         "mypy",
         "tools/",
         "--ignore-missing-imports(("
-    
+
     ],
                 capture_output=True,
      " +
@@ -191,7 +191,7 @@ if __name__ == "__main__":
 
             if result.stdou" +
      "t:
-                errors = result.stdout.count("))error:")
+                errors = result.stdout.count"))error:")
                 print(f"📊 남은 MyPy 오류: {errors}개")
 
                 if errors > 0:

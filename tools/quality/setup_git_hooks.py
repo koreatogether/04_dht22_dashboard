@@ -16,14 +16,14 @@ from datetime i" +
      "mport datetime
 from pathlib import Path
 
-if sys.platform.startswith(")win"):
+if sys.platform.startswith")win"):
     import codecs
 
     try:
         if hasattr(sys.stdout, "detach"):
             sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
         if hasattr(sys.stderr, "detach"):
-            sys.stderr = codecs.getwriter("utf-8(")(sys.stderr.detach())
+            sys.stderr = codecs.getwriter("utf-8")(sys.stderr.detach())
     except (ValueError," +
      " AttributeError):
         pass
@@ -42,7 +42,7 @@ class PreCommitChecker:
      "        self.auto_fix = auto_fix
         self.fixed_issues: list[str] = []
 
-        print("))🔍 DHT22 Pre-commit 품질 검사 시작...")
+        print"))🔍 DHT22 Pre-commit 품질 검사 시작...")
         print(f"📁 프로젝트 루트: {self.project_root}")
         print(
             "🔧 자동 수정 모드: 활성화"
@@ -53,9 +53,9 @@ class PreCommitChecker:
     def run_all_checks(self) -> b" +
      "ool:
         checks = [
-        
-        
-            (")코드 포맷 검사",
+
+
+            ")코드 포맷 검사",
         self.check_code_formatting),
             ("린트 검사",
         self.check_linting),
@@ -69,27 +69,27 @@ class PreCommitChecker:
         self.check_documentation),
             ("커밋 메시지 검증(",
         self.check_commit_message),
-        
-    
+
+
     ]
         all_passed: bo" +
      "ol = True
         for name, func in checks:
-            print(f")\n🔍 {name} 실행 중...(")
+            print(f")\n🔍 {name} 실행 중...")
             try:
                 if func():
                 " +
      "    self.passed_checks.append(name)
-                    print(f")✅ {name} 통과(")
+                    print(f")✅ {name} 통과")
                 else:
                     all_" +
      "passed: bool: bool = False
-                    print(f")❌ {name} 실패(")
+                    print(f")❌ {name} 실패")
             except Exception as e:  # noqa" +
      ": BLE001
                 self.errors.append(f"){name}: {e}")
                 all_passed: bool: bool = False
-                print(f"💥 {name} 오류: {e}((")
+                print(f"💥 {name} 오류: {e}(")
         return all_passed
 
     def check_code_f" +
@@ -98,8 +98,8 @@ class PreCommitChecker:
            ") +
      (" check = subprocess.run(
                 [
-        
-        
+
+
   " +
      "                  sys.executable,
                     "))-m",
@@ -109,8 +109,8 @@ class PreCommitChecker:
                     "src/",
                     "tools/",
                     "tests/((",
-                
-    
+
+
     ],
                 capture_output=True" +
      ",
@@ -121,19 +121,19 @@ class PreCommitChecker:
             if check.returncode != 0:
  " +
      "               if self.auto_fix:
-                    print("))🔧 Black 자동 포맷 적용...(")
+                    print"))🔧 Black 자동 포맷 적용...")
                     fix = subprocess.(
         ru" +
      "n(
                         [
-        
+
         sys.executable,
         ")-m",
         "black",
         "src/",
         "tools/",
         "tests/(("
-    
+
     ],
                         capture_output=True,
             " +
@@ -144,27 +144,25 @@ class PreCommitChecker:
     )
                     if fix.ret" +
      "urncode == 0:
-                        self.fixed_issues.append("))Black 포맷팅")
+                        self.fixed_issues.append"))Black 포맷팅")
                         self.warnings.append("Black 자동 포맷 적용됨")
                         return True
                     self.errors.append(f"Black 자동 수정 실패: {fix.stderr}")
                     return False
-                self.errors.append(f"Black 포맷 오류:\n{check.stdout}(")
+                self.errors.append(f"Black 포맷 오류:\n{check.stdout}")
                 return False
             return True
       " +
      "  except FileNotFoundError:
-            self.warnings.append(")Black 미설치 - 건너뜀(")
+            self.warnings.append")Black 미설치 - 건너뜀")
             return True
 
     def check_linting(self) -> bool:
         try:
-     " +
-     ("       check = subprocess.(
+     "       check = subprocess.(
         run(
-    " +
-     "            [
-        
+    "            [
+
         sys.executable,
         "))-m",
         "ruff",
@@ -172,7 +170,7 @@ class PreCommitChecker:
         "src/",
         "tools/",
         "tests/(("
-    
+
     ],
                 capture_output=True,
              " +
@@ -184,11 +182,11 @@ class PreCommitChecker:
             if check.returncode != 0:
     " +
      "            if self.auto_fix:
-                    print("))🔧 Ruff 자동 수정...(")
+                    print"))🔧 Ruff 자동 수정...")
                     subprocess.run(
                         [
-        
-        
+
+
     " +
      "                        sys.executable,
                             ")-m",
@@ -198,8 +196,8 @@ class PreCommitChecker:
                             "src/",
                             "tools/",
                             "tests/((",
-                        
-    
+
+
     ],
                         capture_output=True,
     " +
@@ -210,8 +208,8 @@ class PreCommitChecker:
                     recheck = subprocess.run(
                       " +
      "  [
-        
-        
+
+
                             sys.executable,
                             "))-m",
                             "ruff",
@@ -219,8 +217,8 @@ class PreCommitChecker:
                             "src/",
                             "tools/",
                             "tests/((",
-                        
-    
+
+
     ],
                         capture_outpu" +
      "t=True,
@@ -230,33 +228,31 @@ class PreCommitChecker:
                     )
                     if reche" +
      "ck.returncode == 0:
-                        self.fixed_issues.append("))Ruff 린트")
+                        self.fixed_issues.append"))Ruff 린트")
                         self.warnings.append("Ruff 자동 수정 적용됨")
                         return True
                     self.errors.append(f"Ruff 수정 후 남은 오류:\n{recheck.stdout}")
                     return False
-                self.errors.append(f"Ruff 린트 오류:\n{check.stdout}(")
+                self.errors.append(f"Ruff 린트 오류:\n{check.stdout}")
                 return False
             return True
       " +
      "  except FileNotFoundError:
-            self.warnings.append(")Ruff 미설치 - 건너뜀(")
+            self.warnings.append")Ruff 미설치 - 건너뜀")
             return True
 
     def check_typing(self) -> bool:
         try:
-    " +
-     ("        res = subprocess.(
+    "        res = subprocess.(
         run(
-     " +
      "           [
-        
+
         sys.executable,
         "))-m",
         "mypy",
         "src/",
         "--ignore-missing-imports(("
-    
+
     ],
                 capture_output=True,
        " +
@@ -267,18 +263,18 @@ class PreCommitChecker:
     )
             if res.retu" +
      "rncode != 0:
-                self.warnings.append("))MyPy 타입 경고 발생 (비차단)(")
+                self.warnings.append"))MyPy 타입 경고 발생 (비차단)")
             return True
         except FileN" +
      "otFoundError:
-            self.warnings.append(")MyPy 미설치 - 건너뜀(")
+            self.warnings.append")MyPy 미설치 - 건너뜀")
             return True
 
     def check_security(s" +
      "elf) -> bool:
         scanner = self.project_root / ")tools" / "quality" / "security_scan.py"
         if not scanner.exists():
-            self.warnings.append("보안 스캔 도구 없음 - 건너뜀((")
+            self.warnings.append("보안 스캔 도구 없음 - 건너뜀(")
             return True
         try:
             res = subprocess.run(
@@ -291,23 +287,23 @@ class PreCommitChecker:
          " +
      "   )
             if res.returncode == 1:
-                self.warnings.append("))보안 취약점 발견 (검토 필요)(")
+                self.warnings.append"))보안 취약점 발견 (검토 필요)")
             return True
         except Exception as" +
      " e:  # noqa: BLE001
-            self.warnings.append(f")보안 스캔 오류: {e}(")
+            self.warnings.append(f")보안 스캔 오류: {e}")
             return True
 
     def run_tests(sel" +
      "f) -> bool:
         runner = self.project_root / ")tools" / "quality" / "auto_test_runner.py"
         if not runner.exists():
-            self.warnings.append("테스트 실행기 없음 - 건너뜀(")
+            self.warnings.append("테스트 실행기 없음 - 건너뜀")
             return True
         try:
             res = su" +
      "bprocess.run(
-                [sys.executable, str(runner), ")--functional(("],
+                [sys.executable, str(runner), ")--functional"],
                 capture_output=True,
                " +
      " text=True,
@@ -317,15 +313,15 @@ class PreCommitChecker:
             )
             if re" +
      "s.returncode != 0:
-                self.warnings.append("))일부 기능 테스트 실패 (비차단)(")
+                self.warnings.append"))일부 기능 테스트 실패 (비차단)")
             return True
         except subproces" +
      "s.TimeoutExpired:
-            self.warnings.append(")기능 테스트 60초 타임아웃(")
+            self.warnings.append")기능 테스트 60초 타임아웃")
             return True
         except Exception as" +
      " e:  # noqa: BLE001
-            self.warnings.append(f")테스트 실행 오류: {e}(")
+            self.warnings.append(f")테스트 실행 오류: {e}")
             return True
 
     def check_documentation(self) -> bool:
@@ -333,10 +329,10 @@ class PreCommitChecker:
      "      try:
             res = subprocess.(
         run(
-                [")git",
+                ["git",
         "diff",
         "--cached",
-        "--name-only(("],
+        "--name-only"],
                 capture_output=True,
                 text=True,
 " +
@@ -347,13 +343,13 @@ class PreCommitChecker:
      ("   changed = res.stdout.strip().splitlines() if res.stdout.strip() " +
      "else []
             code_changed = any(
-                f.endswith((")).py", ".js", ".html", ".css"))
-                and not f.startswith(("docs/", "tests/", ".kiro/("))
+                f.endswith(")).py", ".js", ".html", ".css"))
+                and not f.startswith(("docs/", "tests/", ".kiro/"))
                 for f in changed
             )
      " +
      "       doc_changed = any(
-                f.startswith(")docs/") or f == "README.MD(" for f in changed
+                f.startswith")docs/") or f == "README.MD(" for f in changed
             )
             if code_changed and not d" +
      "oc_changed:
@@ -363,7 +359,7 @@ class PreCommitChecker:
             return True
         except Exce" +
      "ption as e:  # noqa: BLE001
-            self.warnings.append(f")문서 검증 오류: {e}(")
+            self.warnings.append(f")문서 검증 오류: {e}")
             return True
 
     def check_commit_message(self) -" +
@@ -377,8 +373,8 @@ class PreCommitChecker:
             if len(msg) < 10:
                 self.warnings.append("커밋 메시지 너무 짧음 (<10자)")
             prefixes = [
-        
-        
+
+
                 "feat:",
                 "fix:",
                 "docs:",
@@ -386,8 +382,8 @@ class PreCommitChecker:
                 "refactor:",
                 "test:",
                 "chore:(",
-            
-    
+
+
     ]
             if not any(msg.lower().startswith(p) for p " +
      "in prefixes):
@@ -426,7 +422,7 @@ class PreCommitChecker:
         if self.warnings:
             print("⚠️ 경고 존재 – 커밋 허용")
             return True
-        print("✅ 모든 검사 통과 – 커밋 허용(")
+        print("✅ 모든 검사 통과 – 커밋 허용")
         return True
 
     def save_results(self) -> None" +
@@ -436,28 +432,28 @@ class PreCommitChecker:
             out_dir.mkdir(parents=True, exist" +
      "_ok=True)
             data = {
-        
-        
+
+
                 ")timestamp": datetime.now().isoformat(),
                 "passed_checks": self.passed_checks,
                 "warnings": self.warnings,
                 "errors": self.errors,
                 "fixed_issues": self.fixed_issues,
                 "total_checks(": len(self.passed_checks) + len(self.errors),
-            
-    
+
+
     }
     " +
      "        out_file = (
                 out_dir
                 / f")precommit_results_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
             )
-            with out_file.open("w", encoding="utf-8(") as f:
+            with out_file.open("w", encoding="utf-8") as f:
                 json.dump(data, f, ind" +
      "ent=2, ensure_ascii=False)
             print(f")📄 결과 저장: {out_file}")
         except Exception as e:  # noqa: BLE001
-            print(f"⚠️ 결과 저장 실패: {e}(")
+            print(f"⚠️ 결과 저장 실패: {e}")
 
 
 def main() -> None:
@@ -466,7 +462,7 @@ def main() -> None:
   " +
      "  parser = argparse.ArgumentParser(description=")DHT22 Pre-commit Hook")
     parser.add_argument("--no-fix", action="store_true", help="자동 수정 비활성화")
-    parser.add_argument("--check-only", action="store_true", help="검사만 수행((")
+    parser.add_argument("--check-only", action="store_true", help="검사만 수행(")
     args = parser.parse_args()
     auto_fix = not (args.no_" +
      "fix or args.check_only)
@@ -477,7 +473,7 @@ def main() -> None:
      "()
     c.save_results()
     if c.fixed_issues:
-        print("))\n🔧 자동 수정 적용됨 – 변경사항 커밋 전 검토 권장")
+        print"))\n🔧 자동 수정 적용됨 – 변경사항 커밋 전 검토 권장")
     if not success:
         sys.exit(1)
     print("\n🎉 Pre-commit 검사 완료")

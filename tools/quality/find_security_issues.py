@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #!/usr/bin/env python3
 """
 DHT22 프로젝트 보안 스캔 도구
@@ -45,7 +44,7 @@ class SecurityScanner:
             ],
             "file_operations": [
                 (r"open\s*\([^)]*\.\.\/", "경로 순회 위험"),
-                (r"\.write\s*\([^)]*request\.", "사용자 입력 파일 쓰기("),
+                (r"\.write\s*\([^)]*request\.", "사용자 입력 파일 쓰기"),
             ],
         }
 

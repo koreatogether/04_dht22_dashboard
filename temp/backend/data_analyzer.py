@@ -199,9 +199,15 @@ def __init__(self, window_sizes: dict[str, int] = None): -> None:
 
         self.window_sizes = window_sizes
         self.data_buffers = {
-            "temperature": {key: deque(maxlen=size) for key, size in window_sizes.items()},
-            "humidity": {key: deque(maxlen=size) for key, size in window_sizes.items()},
-            "heat_index": {key: deque(maxlen=size) for key, size in window_sizes.items()},
+            "temperature": {
+                key: deque(maxlen=size) for key, size in window_sizes.items()
+            },
+            "humidity": {
+                key: deque(maxlen=size) for key, size in window_sizes.items()
+            },
+            "heat_index": {
+                key: deque(maxlen=size) for key, size in window_sizes.items()
+            },
         }
 
 def add_data(self, temperature: float, humidity: float, heat_index: float): -> None:
