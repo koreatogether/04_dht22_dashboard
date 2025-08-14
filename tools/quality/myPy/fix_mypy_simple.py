@@ -12,19 +12,14 @@ if sys.platform == "win32":
     import os
 
     os.system("chcp 65001 > nul")
-    sys.stdout = io.TextIOWrapper(
-        sys.stdout.buffer,
-        encoding="utf-8",
-        errors="replace")
-    sys.stderr = io.TextIOWrapper(
-        sys.stderr.buffer,
-        encoding="utf-8",
-        errors="replace")
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
     os.environ["PYTHONUTF8"] = "1"
     os.environ["PYTHONIOENCODING"] = "utf-8"
 
 import re
 from pathlib import Path
+
 
 def fix_common_function_signatures() -> None:
     """Fix commonly used function signatures"""
@@ -84,13 +79,7 @@ if __name__ == "__main__":
 
     try:
         result = subprocess.run(
-            [
-                sys.executable,
-                "-m",
-                "mypy",
-                "tools/",
-                "--ignore-missing-imports"
-            ],
+            [sys.executable, "-m", "mypy", "tools/", "--ignore-missing-imports"],
             capture_output=True,
             text=True,
             timeout=30,

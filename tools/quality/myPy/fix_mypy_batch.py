@@ -6,8 +6,8 @@ MyPy Type Hints Batch Fix Tool
 Quickly resolve 97 errors listed in result_pre_commit.md
 """
 
-import re
 from pathlib import Path
+
 
 def fix_common_type_hints() -> None:
     """Automatically fix common type hint patterns"""
@@ -18,19 +18,15 @@ def fix_common_type_hints() -> None:
         (
             "tools/int219_to_dht22_convert/ina219_to_dht22_converter.py",
             [
-                ("def create_dht22_project():",
-                 "def create_dht22_project() -> None:"),
-                ("def main():",
-                 "def main() -> None:"),
+                ("def create_dht22_project():", "def create_dht22_project() -> None:"),
+                ("def main():", "def main() -> None:"),
             ],
         ),
         (
             "tools/int219_to_dht22_convert/fix_syntax_errors.py",
             [
-                ("def fix_syntax_errors():",
-                 "def fix_syntax_errors() -> None:"),
-                ("def main():",
-                 "def main() -> None:"),
+                ("def fix_syntax_errors():", "def fix_syntax_errors() -> None:"),
+                ("def main():", "def main() -> None:"),
             ],
         ),
         (
@@ -65,17 +61,14 @@ def fix_common_type_hints() -> None:
                     "def run_phase_test(self, phase_num: int):",
                     "def run_phase_test(self, phase_num: int) -> bool:",
                 ),
-                ("def main():",
-                 "def main() -> None:"),
+                ("def main():", "def main() -> None:"),
             ],
         ),
         (
             "tools/quality/install_precommit.py",
             [
-                ("def install_precommit():",
-                 "def install_precommit() -> None:"),
-                ("def main():",
-                 "def main() -> None:"),
+                ("def install_precommit():", "def install_precommit() -> None:"),
+                ("def main():", "def main() -> None:"),
             ],
         ),
         (

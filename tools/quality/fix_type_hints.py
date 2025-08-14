@@ -1,6 +1,7 @@
 """
 Automatically fixes MyPy type hint errors.
 """
+
 import re
 from pathlib import Path
 

@@ -12,6 +12,7 @@ from datetime import datetime
 from pathlib import Path
 
 import uvicorn
+
 # Assume climate_calculator has the necessary functions
 from climate_calculator import calculate_dew_point, calculate_heat_index
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect

@@ -13,76 +13,42 @@ if sys.platform == "win32":
     import os
 
     os.system("chcp 65001 > nul")
-    sys.stdout = io.TextIOWrapper(
-        sys.stdout.buffer,
-        encoding="utf-8",
-        errors="replace")
-    sys.stderr = io.TextIOWrapper(
-        sys.stderr.buffer,
-        encoding="utf-8",
-        errors="replace")
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
     os.environ["PYTHONUTF8"] = "1"
     os.environ["PYTHONIOENCODING"] = "utf-8"
 
 import re
 from pathlib import Path
-from typing import Tuple, Optional, Any
+
 
 def apply_batch_type_fixes() -> int:
     """Apply second batch type hint fixes"""
 
     # Additional fix patterns
-    patterns: list[Tuple[str, str]] = [
+    patterns: list[tuple[str, str]] = [
         # Add -> None to main functions
-        (r"^def main\(\):\s*$",
-         "def main() -> None:"),
-        (r"^async def main\(\):\s*$",
-         "async def main() -> None:"),
+        (r"^def main\(\):\s*$", "def main() -> None:"),
+        (r"^async def main\(\):\s*$", "async def main() -> None:"),
         # Setup/initialization functions
-        (r"^def setup_logging\(\):\s*$",
-         "def setup_logging() -> None:"),
-        (r"^def setup_environment\(\):\s*$",
-         "def setup_environment() -> None:"),
-        (r"^def initialize\(\):\s*$",
-         "def initialize() -> None:"),
-        (r"^def configure\(\):\s*$",
-         "def configure() -> None:"),
+        (r"^def setup_logging\(\):\s*$", "def setup_logging() -> None:"),
+        (r"^def setup_environment\(\):\s*$", "def setup_environment() -> None:"),
+        (r"^def initialize\(\):\s*$", "def initialize() -> None:"),
+        (r"^def configure\(\):\s*$", "def configure() -> None:"),
         # Check/test functions
-        (r"^def test_\w+\(\):\s*$",
-         lambda m: m.group(0).replace(":",
-         " -> None:")),
-        (r"^def check_\w+\(\):\s*$",
-         lambda m: m.group(0).replace(":",
-         " -> bool:")),
-        (r"^def validate_\w+\(\):\s*$",
-         lambda m: m.group(0).replace(":",
-         " -> bool:")),
-        (r"^def verify_\w+\(\):\s*$",
-         lambda m: m.group(0).replace(":",
-         " -> bool:")),
+        (r"^def test_\w+\(\):\s*$", lambda m: m.group(0).replace(":", " -> None:")),
+        (r"^def check_\w+\(\):\s*$", lambda m: m.group(0).replace(":", " -> bool:")),
+        (r"^def validate_\w+\(\):\s*$", lambda m: m.group(0).replace(":", " -> bool:")),
+        (r"^def verify_\w+\(\):\s*$", lambda m: m.group(0).replace(":", " -> bool:")),
         # Run/process functions
-        (r"^def run_\w+\(\):\s*$",
-         lambda m: m.group(0).replace(":",
-         " -> None:")),
-        (r"^def process_\w+\(\):\s*$",
-         lambda m: m.group(0).replace(":",
-         " -> None:")),
-        (r"^def execute_\w+\(\):\s*$",
-         lambda m: m.group(0).replace(":",
-         " -> None:")),
-        (r"^def handle_\w+\(\):\s*$",
-         lambda m: m.group(0).replace(":",
-         " -> None:")),
+        (r"^def run_\w+\(\):\s*$", lambda m: m.group(0).replace(":", " -> None:")),
+        (r"^def process_\w+\(\):\s*$", lambda m: m.group(0).replace(":", " -> None:")),
+        (r"^def execute_\w+\(\):\s*$", lambda m: m.group(0).replace(":", " -> None:")),
+        (r"^def handle_\w+\(\):\s*$", lambda m: m.group(0).replace(":", " -> None:")),
         # Create/build functions
-        (r"^def create_\w+\(\):\s*$",
-         lambda m: m.group(0).replace(":",
-         " -> None:")),
-        (r"^def build_\w+\(\):\s*$",
-         lambda m: m.group(0).replace(":",
-         " -> None:")),
-        (r"^def make_\w+\(\):\s*$",
-         lambda m: m.group(0).replace(":",
-         " -> None:")),
+        (r"^def create_\w+\(\):\s*$", lambda m: m.group(0).replace(":", " -> None:")),
+        (r"^def build_\w+\(\):\s*$", lambda m: m.group(0).replace(":", " -> None:")),
+        (r"^def make_\w+\(\):\s*$", lambda m: m.group(0).replace(":", " -> None:")),
         # General functions with parameters
         (r"^def (\w+)\(([^)]*)\):\s*$", r"def \1(\2) -> None:"),
         # Class variable type hints
@@ -152,13 +118,7 @@ if __name__ == "__main__":
 
         try:
             result = subprocess.run(
-                [
-                    sys.executable,
-                    "-m",
-                    "mypy",
-                    "tools/",
-                    "--ignore-missing-imports"
-                ],
+                [sys.executable, "-m", "mypy", "tools/", "--ignore-missing-imports"],
                 capture_output=True,
                 text=True,
                 timeout=30,

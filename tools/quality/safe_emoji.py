@@ -34,15 +34,15 @@ class SafeEmoji:
             # Windows Command Prompt usually doesn't support emojis well
             if os.name == "nt":
                 return False
-            
+
             # Test basic emoji encoding capability
             test_emoji = "✅"
             test_emoji.encode(sys.stdout.encoding or "utf-8")
             return True
-            
+
         except (UnicodeEncodeError, AttributeError):
             return False
-    
+
     def get(self, emoji_name: str, fallback_index: int = 0) -> str:
         """Get emoji or ASCII replacement based on environment"""
         if emoji_name in self.emoji_map:
@@ -74,7 +74,7 @@ if __name__ == "__main__":
     # Test emoji support
     print("Testing emoji support...")
     print(f"Emoji support detected: {safe_emoji.emoji_support}")
-    
+
     print("\nTesting emoji output:")
     for name in safe_emoji.emoji_map.keys():
         emoji = safe_emoji.get(name)

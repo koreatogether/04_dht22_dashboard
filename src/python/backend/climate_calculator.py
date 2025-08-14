@@ -40,7 +40,9 @@ def calculate_heat_index(temp_c: float, humidity: float) -> float:
         heat_index_f += adjustment
 
     return (heat_index_f - 32) * 5 / 9
-    def calculate_dew_point(temp_c: float, humidity: float) -> float:
+
+
+def calculate_dew_point(temp_c: float, humidity: float) -> float:
     """
     이슬점을 계산합니다. (Magnus-Tetens 공식 근사치 사용)
     """
@@ -48,13 +50,17 @@ def calculate_heat_index(temp_c: float, humidity: float) -> float:
     b = 237.7
     alpha = ((a * temp_c) / (b + temp_c)) + math.log(humidity / 100.0)
     return (b * alpha) / (a - alpha)
-    def calculate_discomfort_index(temp_c: float, humidity: float) -> float:
+
+
+def calculate_discomfort_index(temp_c: float, humidity: float) -> float:
     """
     불쾌지수를 계산합니다. (Thom의 공식)
     DI = 0.81 * T + 0.01 * RH * (0.99 * T - 14.3) + 46.3
     """
     return 0.81 * temp_c + 0.01 * humidity * (0.99 * temp_c - 14.3) + 46.3
-    def get_discomfort_level(di: float) -> str:
+
+
+def get_discomfort_level(di: float) -> str:
     """불쾌지수 단계 판별"""
     if di >= 80:
         return "매우 높음 (전원 불쾌감)"

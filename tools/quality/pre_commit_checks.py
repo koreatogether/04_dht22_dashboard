@@ -27,9 +27,8 @@ from pathlib import Path
 
 PROJ_ROOT_CANDIDATE = Path(__file__).resolve().parents[2]
 PROJECT_ROOT = (
-    PROJ_ROOT_CANDIDATE if (
-        PROJ_ROOT_CANDIDATE /
-        ".git").exists() else Path.cwd())
+    PROJ_ROOT_CANDIDATE if (PROJ_ROOT_CANDIDATE / ".git").exists() else Path.cwd()
+)
 os.environ.setdefault("PYTHONIOENCODING", "utf-8")
 
 
@@ -51,8 +50,7 @@ def _run(cmd: list[str]) -> tuple[int, str, str]:
 
 
 def staged_files() -> list[str]:
-    code, out, _ = _run(
-        ["git", "diff", "--cached", "--name-only", "--diff-filter=ACM"])
+    code, out, _ = _run(["git", "diff", "--cached", "--name-only", "--diff-filter=ACM"])
     if code != 0:
         return []
     return [f for f in out.splitlines() if f]
@@ -64,8 +62,7 @@ def changed_test_files(files: list[str]) -> list[str]:
 
 def check_black(warnings: list[str]) -> None:
     # Check application source and tools only
-    code, out, err = _run(
-        [sys.executable, "-m", "black", "--check", "src/", "tools/"])
+    code, out, err = _run([sys.executable, "-m", "black", "--check", "src/", "tools/"])
     if code != 0:
         warnings.append(
             "Black formatting issues (non-blocking). Run: python -m black src/ tools/"
@@ -73,8 +70,7 @@ def check_black(warnings: list[str]) -> None:
 
 
 def check_ruff(warnings: list[str]) -> None:
-    code, out, err = _run(
-        [sys.executable, "-m", "ruff", "check", "src/", "tools/"])
+    code, out, err = _run([sys.executable, "-m", "ruff", "check", "src/", "tools/"])
     if code != 0:
         warnings.append(
             "Ruff lint issues (non-blocking). Run: python -m ruff check --fix src/ tools/"
@@ -82,8 +78,9 @@ def check_ruff(warnings: list[str]) -> None:
 
 
 def check_mypy(warnings: list[str]) -> None:
-    code, out, _ = _run([sys.executable, "-m", "mypy",
-                         "src/", "tools/", "--ignore-missing-imports"])
+    code, out, _ = _run(
+        [sys.executable, "-m", "mypy", "src/", "tools/", "--ignore-missing-imports"]
+    )
     if code != 0:
         warnings.append("MyPy type issues (non-blocking):\n" + out)
 
