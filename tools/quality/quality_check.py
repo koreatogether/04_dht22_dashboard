@@ -49,9 +49,7 @@ def run_command(cmd: list[str], description: str) -> tuple[bool, str]:
 
 def check_ruff() -> tuple[bool, str]:
     """Ruff linting check"""
-    return run_command(
-        ["uv", "run", "ruff", "check", "src/python/", "tools/"], "Ruff linting"
-    )
+    return run_command(["uv", "run", "ruff", "check", "src/", "tools/"], "Ruff linting")
 
 
 def fix_ruff() -> tuple[bool, str]:
@@ -64,7 +62,7 @@ def fix_ruff() -> tuple[bool, str]:
             "check",
             "--fix",
             "--unsafe-fixes",
-            "src/python/",
+            "src/",
             "tools/",
         ],
         "Ruff auto-fix",
@@ -74,14 +72,14 @@ def fix_ruff() -> tuple[bool, str]:
 def check_ruff_format() -> tuple[bool, str]:
     """Ruff formatting check"""
     return run_command(
-        ["uv", "run", "ruff", "format", "--check", "src/python/", "tools/"],
+        ["uv", "run", "ruff", "format", "--check", "src/", "tools/"],
         "Ruff formatting",
     )
 
 
 def check_mypy() -> tuple[bool, str]:
     """MyPy type check"""
-    return run_command(["uv", "run", "mypy", "src/python/"], "MyPy type check")
+    return run_command(["uv", "run", "mypy", "src/"], "MyPy type check")
 
 
 def run_tests() -> tuple[bool, str]:

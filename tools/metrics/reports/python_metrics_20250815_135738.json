@@ -1,0 +1,2649 @@
+{
+  "timestamp": "2025-08-15T13:57:38.651264",
+  "project": "DHT22 Environmental Monitoring",
+  "coverage": {
+    "timestamp": "2025-08-15T13:57:25.861086",
+    "total_coverage": 91.55844155844156,
+    "files": {
+      "src\\python\\utils\\data_processor.py": {
+        "executed_lines": [
+          1,
+          5,
+          6,
+          8,
+          11,
+          22,
+          23,
+          25,
+          26,
+          28,
+          31,
+          43,
+          45,
+          49,
+          62,
+          63,
+          66,
+          77,
+          78,
+          81,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          102,
+          105,
+          115,
+          116,
+          118,
+          121,
+          122,
+          123,
+          126,
+          127,
+          130,
+          134,
+          137,
+          138,
+          140,
+          141,
+          142,
+          144,
+          146,
+          147,
+          148,
+          150,
+          152,
+          153,
+          154,
+          156,
+          158,
+          160,
+          162,
+          164,
+          166,
+          168,
+          171,
+          172,
+          174,
+          175,
+          176,
+          177,
+          184
+        ],
+        "summary": {
+          "covered_lines": 67,
+          "num_statements": 70,
+          "percent_covered": 95.71428571428571,
+          "percent_covered_display": "96",
+          "missing_lines": 3,
+          "excluded_lines": 0
+        },
+        "missing_lines": [
+          46,
+          159,
+          169
+        ],
+        "excluded_lines": [],
+        "functions": {
+          "calculate_dew_point": {
+            "executed_lines": [
+              22,
+              23,
+              25,
+              26,
+              28
+            ],
+            "summary": {
+              "covered_lines": 5,
+              "num_statements": 5,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          },
+          "calculate_heat_index": {
+            "executed_lines": [
+              43,
+              45,
+              49,
+              62,
+              63
+            ],
+            "summary": {
+              "covered_lines": 5,
+              "num_statements": 6,
+              "percent_covered": 83.33333333333333,
+              "percent_covered_display": "83",
+              "missing_lines": 1,
+              "excluded_lines": 0
+            },
+            "missing_lines": [
+              46
+            ],
+            "excluded_lines": []
+          },
+          "calculate_discomfort_index": {
+            "executed_lines": [
+              77,
+              78
+            ],
+            "summary": {
+              "covered_lines": 2,
+              "num_statements": 2,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          },
+          "get_comfort_level": {
+            "executed_lines": [
+              91,
+              92,
+              93,
+              94,
+              95,
+              96,
+              97,
+              98,
+              99,
+              100,
+              102
+            ],
+            "summary": {
+              "covered_lines": 11,
+              "num_statements": 11,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          },
+          "process_sensor_data": {
+            "executed_lines": [
+              115,
+              116,
+              118,
+              121,
+              122,
+              123,
+              126,
+              127,
+              130,
+              134
+            ],
+            "summary": {
+              "covered_lines": 10,
+              "num_statements": 10,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          },
+          "DataBuffer.__init__": {
+            "executed_lines": [
+              141,
+              142
+            ],
+            "summary": {
+              "covered_lines": 2,
+              "num_statements": 2,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          },
+          "DataBuffer.add": {
+            "executed_lines": [
+              146,
+              147,
+              148
+            ],
+            "summary": {
+              "covered_lines": 3,
+              "num_statements": 3,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          },
+          "DataBuffer.get_recent": {
+            "executed_lines": [
+              152,
+              153,
+              154
+            ],
+            "summary": {
+              "covered_lines": 3,
+              "num_statements": 3,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          },
+          "DataBuffer.to_dataframe": {
+            "executed_lines": [
+              158,
+              160
+            ],
+            "summary": {
+              "covered_lines": 2,
+              "num_statements": 3,
+              "percent_covered": 66.66666666666667,
+              "percent_covered_display": "67",
+              "missing_lines": 1,
+              "excluded_lines": 0
+            },
+            "missing_lines": [
+              159
+            ],
+            "excluded_lines": []
+          },
+          "DataBuffer.clear": {
+            "executed_lines": [
+              164
+            ],
+            "summary": {
+              "covered_lines": 1,
+              "num_statements": 1,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          },
+          "DataBuffer.get_stats": {
+            "executed_lines": [
+              168,
+              171,
+              172,
+              174,
+              175,
+              176,
+              177,
+              184
+            ],
+            "summary": {
+              "covered_lines": 8,
+              "num_statements": 9,
+              "percent_covered": 88.88888888888889,
+              "percent_covered_display": "89",
+              "missing_lines": 1,
+              "excluded_lines": 0
+            },
+            "missing_lines": [
+              169
+            ],
+            "excluded_lines": []
+          },
+          "": {
+            "executed_lines": [
+              1,
+              5,
+              6,
+              8,
+              11,
+              31,
+              66,
+              81,
+              105,
+              137,
+              138,
+              140,
+              144,
+              150,
+              156,
+              162,
+              166
+            ],
+            "summary": {
+              "covered_lines": 15,
+              "num_statements": 15,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          }
+        },
+        "classes": {
+          "DataBuffer": {
+            "executed_lines": [
+              141,
+              142,
+              146,
+              147,
+              148,
+              152,
+              153,
+              154,
+              158,
+              160,
+              164,
+              168,
+              171,
+              172,
+              174,
+              175,
+              176,
+              177,
+              184
+            ],
+            "summary": {
+              "covered_lines": 19,
+              "num_statements": 21,
+              "percent_covered": 90.47619047619048,
+              "percent_covered_display": "90",
+              "missing_lines": 2,
+              "excluded_lines": 0
+            },
+            "missing_lines": [
+              159,
+              169
+            ],
+            "excluded_lines": []
+          },
+          "": {
+            "executed_lines": [
+              1,
+              5,
+              6,
+              8,
+              11,
+              22,
+              23,
+              25,
+              26,
+              28,
+              31,
+              43,
+              45,
+              49,
+              62,
+              63,
+              66,
+              77,
+              78,
+              81,
+              91,
+              92,
+              93,
+              94,
+              95,
+              96,
+              97,
+              98,
+              99,
+              100,
+              102,
+              105,
+              115,
+              116,
+              118,
+              121,
+              122,
+              123,
+              126,
+              127,
+              130,
+              134,
+              137,
+              138,
+              140,
+              144,
+              150,
+              156,
+              162,
+              166
+            ],
+            "summary": {
+              "covered_lines": 48,
+              "num_statements": 49,
+              "percent_covered": 97.95918367346938,
+              "percent_covered_display": "98",
+              "missing_lines": 1,
+              "excluded_lines": 0
+            },
+            "missing_lines": [
+              46
+            ],
+            "excluded_lines": []
+          }
+        }
+      },
+      "src\\python\\utils\\env_loader.py": {
+        "executed_lines": [
+          2,
+          8,
+          9,
+          10,
+          13,
+          14,
+          16,
+          23,
+          24,
+          25,
+          27,
+          31,
+          32,
+          33,
+          34,
+          36,
+          37,
+          38,
+          39,
+          42,
+          43,
+          46,
+          47,
+          48,
+          49,
+          52,
+          53,
+          54,
+          55,
+          58,
+          59,
+          66,
+          67,
+          78,
+          80,
+          81,
+          92,
+          93,
+          94,
+          95,
+          97,
+          98,
+          109,
+          110,
+          111,
+          112,
+          114,
+          115,
+          126,
+          127,
+          128,
+          129,
+          130,
+          132,
+          134,
+          135,
+          149,
+          152,
+          153,
+          154,
+          156,
+          160,
+          163,
+          164,
+          165,
+          166,
+          167,
+          170,
+          172,
+          181,
+          183,
+          192,
+          194,
+          202,
+          204,
+          210
+        ],
+        "summary": {
+          "covered_lines": 74,
+          "num_statements": 84,
+          "percent_covered": 88.0952380952381,
+          "percent_covered_display": "88",
+          "missing_lines": 10,
+          "excluded_lines": 0
+        },
+        "missing_lines": [
+          61,
+          63,
+          64,
+          150,
+          212,
+          213,
+          215,
+          216,
+          217,
+          218
+        ],
+        "excluded_lines": [],
+        "functions": {
+          "EnvLoader.__init__": {
+            "executed_lines": [
+              23,
+              24,
+              25
+            ],
+            "summary": {
+              "covered_lines": 3,
+              "num_statements": 3,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          },
+          "EnvLoader._load_env_file": {
+            "executed_lines": [
+              31,
+              32,
+              33,
+              34,
+              36,
+              37,
+              38,
+              39,
+              42,
+              43,
+              46,
+              47,
+              48,
+              49,
+              52,
+              53,
+              54,
+              55,
+              58,
+              59
+            ],
+            "summary": {
+              "covered_lines": 20,
+              "num_statements": 23,
+              "percent_covered": 86.95652173913044,
+              "percent_covered_display": "87",
+              "missing_lines": 3,
+              "excluded_lines": 0
+            },
+            "missing_lines": [
+              61,
+              63,
+              64
+            ],
+            "excluded_lines": []
+          },
+          "EnvLoader.get_str": {
+            "executed_lines": [
+              78
+            ],
+            "summary": {
+              "covered_lines": 1,
+              "num_statements": 1,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          },
+          "EnvLoader.get_int": {
+            "executed_lines": [
+              92,
+              93,
+              94,
+              95
+            ],
+            "summary": {
+              "covered_lines": 4,
+              "num_statements": 4,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          },
+          "EnvLoader.get_float": {
+            "executed_lines": [
+              109,
+              110,
+              111,
+              112
+            ],
+            "summary": {
+              "covered_lines": 4,
+              "num_statements": 4,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          },
+          "EnvLoader.get_bool": {
+            "executed_lines": [
+              126,
+              127,
+              128,
+              129,
+              130,
+              132
+            ],
+            "summary": {
+              "covered_lines": 6,
+              "num_statements": 6,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          },
+          "EnvLoader.get_list": {
+            "executed_lines": [
+              149,
+              152,
+              153,
+              154,
+              156
+            ],
+            "summary": {
+              "covered_lines": 5,
+              "num_statements": 6,
+              "percent_covered": 83.33333333333333,
+              "percent_covered_display": "83",
+              "missing_lines": 1,
+              "excluded_lines": 0
+            },
+            "missing_lines": [
+              150
+            ],
+            "excluded_lines": []
+          },
+          "load_database_config": {
+            "executed_lines": [
+              172
+            ],
+            "summary": {
+              "covered_lines": 1,
+              "num_statements": 1,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          },
+          "load_server_config": {
+            "executed_lines": [
+              183
+            ],
+            "summary": {
+              "covered_lines": 1,
+              "num_statements": 1,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          },
+          "load_sensor_config": {
+            "executed_lines": [
+              194
+            ],
+            "summary": {
+              "covered_lines": 1,
+              "num_statements": 1,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          },
+          "load_logging_config": {
+            "executed_lines": [
+              204
+            ],
+            "summary": {
+              "covered_lines": 1,
+              "num_statements": 1,
+              "percent_covered": 100.0,
+              "percent_covered_display": "100",
+              "missing_lines": 0,
+              "excluded_lines": 0
+            },
+            "missing_lines": [],
+            "excluded_lines": []
+          },
+          "": {
+            "executed_lines": [
+              2,
+              8,
+              9,
+              10,
+              13,
+              14,
+              16,
+              27,
+              66,
+              67,
+              80,
+              81,
+              97,
+              98,
+              114,
+              115,
+              134,
+              135,
+              160,
+              163,
+              164,
+              165,
+              166,
+              167,
+              170,
+              181,
+              192,
+              202,
+              210
+            ],
+            "summary": {
+              "covered_lines": 27,
+              "num_statements": 33,
+              "percent_covered": 81.81818181818181,
+              "percent_covered_display": "82",
+              "missing_lines": 6,
+              "excluded_lines": 0
+            },
+            "missing_lines": [
+              212,
+              213,
+              215,
+              216,
+              217,
+              218
+            ],
+            "excluded_lines": []
+          }
+        },
+        "classes": {
+          "EnvLoader": {
+            "executed_lines": [
+              23,
+              24,
+              25,
+              31,
+              32,
+              33,
+              34,
+              36,
+              37,
+              38,
+              39,
+              42,
+              43,
+              46,
+              47,
+              48,
+              49,
+              52,
+              53,
+              54,
+              55,
+              58,
+              59,
+              78,
+              92,
+              93,
+              94,
+              95,
+              109,
+              110,
+              111,
+              112,
+              126,
+              127,
+              128,
+              129,
+              130,
+              132,
+              149,
+              152,
+              153,
+              154,
+              156
+            ],
+            "summary": {
+              "covered_lines": 43,
+              "num_statements": 47,
+              "percent_covered": 91.48936170212765,
+              "percent_covered_display": "91",
+              "missing_lines": 4,
+              "excluded_lines": 0
+            },
+            "missing_lines": [
+              61,
+              63,
+              64,
+              150
+            ],
+            "excluded_lines": []
+          },
+          "": {
+            "executed_lines": [
+              2,
+              8,
+              9,
+              10,
+              13,
+              14,
+              16,
+              27,
+              66,
+              67,
+              80,
+              81,
+              97,
+              98,
+              114,
+              115,
+              134,
+              135,
+              160,
+              163,
+              164,
+              165,
+              166,
+              167,
+              170,
+              172,
+              181,
+              183,
+              192,
+              194,
+              202,
+              204,
+              210
+            ],
+            "summary": {
+              "covered_lines": 31,
+              "num_statements": 37,
+              "percent_covered": 83.78378378378379,
+              "percent_covered_display": "84",
+              "missing_lines": 6,
+              "excluded_lines": 0
+            },
+            "missing_lines": [
+              212,
+              213,
+              215,
+              216,
+              217,
+              218
+            ],
+            "excluded_lines": []
+          }
+        }
+      }
+    },
+    "missing_lines": {},
+    "summary": {
+      "covered_lines": 141,
+      "num_statements": 154,
+      "percent_covered": 91.55844155844156,
+      "percent_covered_display": "92",
+      "missing_lines": 13,
+      "excluded_lines": 0
+    }
+  },
+  "complexity": {
+    "timestamp": "2025-08-15T13:57:28.131965",
+    "cyclomatic_complexity": {
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\dashboard\\app.py": [
+        {
+          "type": "function",
+          "rank": "A",
+          "complexity": 4,
+          "endline": 178,
+          "name": "data_collection_thread",
+          "lineno": 168,
+          "col_offset": 0,
+          "closures": []
+        },
+        {
+          "type": "function",
+          "rank": "A",
+          "complexity": 4,
+          "endline": 337,
+          "name": "update_statistics",
+          "lineno": 291,
+          "col_offset": 0,
+          "closures": []
+        },
+        {
+          "type": "function",
+          "rank": "A",
+          "complexity": 3,
+          "endline": 214,
+          "name": "update_current_values",
+          "lineno": 197,
+          "col_offset": 0,
+          "closures": []
+        },
+        {
+          "type": "function",
+          "rank": "A",
+          "complexity": 2,
+          "endline": 250,
+          "name": "update_temperature_chart",
+          "lineno": 221,
+          "col_offset": 0,
+          "closures": []
+        },
+        {
+          "type": "function",
+          "rank": "A",
+          "complexity": 2,
+          "endline": 285,
+          "name": "update_humidity_chart",
+          "lineno": 256,
+          "col_offset": 0,
+          "closures": []
+        }
+      ],
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\utils\\data_processor.py": [
+        {
+          "type": "function",
+          "rank": "B",
+          "complexity": 6,
+          "endline": 102,
+          "name": "get_comfort_level",
+          "lineno": 81,
+          "col_offset": 0,
+          "closures": []
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 5,
+          "endline": 184,
+          "classname": "DataBuffer",
+          "name": "get_stats",
+          "lineno": 166,
+          "col_offset": 4,
+          "closures": []
+        },
+        {
+          "type": "class",
+          "rank": "A",
+          "complexity": 3,
+          "endline": 184,
+          "name": "DataBuffer",
+          "lineno": 137,
+          "col_offset": 0,
+          "methods": [
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 1,
+              "endline": 142,
+              "classname": "DataBuffer",
+              "name": "__init__",
+              "lineno": 140,
+              "col_offset": 4,
+              "closures": []
+            },
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 2,
+              "endline": 148,
+              "classname": "DataBuffer",
+              "name": "add",
+              "lineno": 144,
+              "col_offset": 4,
+              "closures": []
+            },
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 3,
+              "endline": 154,
+              "classname": "DataBuffer",
+              "name": "get_recent",
+              "lineno": 150,
+              "col_offset": 4,
+              "closures": []
+            },
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 2,
+              "endline": 160,
+              "classname": "DataBuffer",
+              "name": "to_dataframe",
+              "lineno": 156,
+              "col_offset": 4,
+              "closures": []
+            },
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 1,
+              "endline": 164,
+              "classname": "DataBuffer",
+              "name": "clear",
+              "lineno": 162,
+              "col_offset": 4,
+              "closures": []
+            },
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 5,
+              "endline": 184,
+              "classname": "DataBuffer",
+              "name": "get_stats",
+              "lineno": 166,
+              "col_offset": 4,
+              "closures": []
+            }
+          ]
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 3,
+          "endline": 154,
+          "classname": "DataBuffer",
+          "name": "get_recent",
+          "lineno": 150,
+          "col_offset": 4,
+          "closures": []
+        },
+        {
+          "type": "function",
+          "rank": "A",
+          "complexity": 2,
+          "endline": 63,
+          "name": "calculate_heat_index",
+          "lineno": 31,
+          "col_offset": 0,
+          "closures": []
+        },
+        {
+          "type": "function",
+          "rank": "A",
+          "complexity": 2,
+          "endline": 134,
+          "name": "process_sensor_data",
+          "lineno": 105,
+          "col_offset": 0,
+          "closures": []
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 2,
+          "endline": 148,
+          "classname": "DataBuffer",
+          "name": "add",
+          "lineno": 144,
+          "col_offset": 4,
+          "closures": []
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 2,
+          "endline": 160,
+          "classname": "DataBuffer",
+          "name": "to_dataframe",
+          "lineno": 156,
+          "col_offset": 4,
+          "closures": []
+        },
+        {
+          "type": "function",
+          "rank": "A",
+          "complexity": 1,
+          "endline": 28,
+          "name": "calculate_dew_point",
+          "lineno": 11,
+          "col_offset": 0,
+          "closures": []
+        },
+        {
+          "type": "function",
+          "rank": "A",
+          "complexity": 1,
+          "endline": 78,
+          "name": "calculate_discomfort_index",
+          "lineno": 66,
+          "col_offset": 0,
+          "closures": []
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 1,
+          "endline": 142,
+          "classname": "DataBuffer",
+          "name": "__init__",
+          "lineno": 140,
+          "col_offset": 4,
+          "closures": []
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 1,
+          "endline": 164,
+          "classname": "DataBuffer",
+          "name": "clear",
+          "lineno": 162,
+          "col_offset": 4,
+          "closures": []
+        }
+      ],
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\utils\\env_loader.py": [
+        {
+          "type": "method",
+          "rank": "C",
+          "complexity": 12,
+          "endline": 64,
+          "classname": "EnvLoader",
+          "name": "_load_env_file",
+          "lineno": 27,
+          "col_offset": 4,
+          "closures": []
+        },
+        {
+          "type": "class",
+          "rank": "A",
+          "complexity": 5,
+          "endline": 156,
+          "name": "EnvLoader",
+          "lineno": 13,
+          "col_offset": 0,
+          "methods": [
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 2,
+              "endline": 25,
+              "classname": "EnvLoader",
+              "name": "__init__",
+              "lineno": 16,
+              "col_offset": 4,
+              "closures": []
+            },
+            {
+              "type": "method",
+              "rank": "C",
+              "complexity": 12,
+              "endline": 64,
+              "classname": "EnvLoader",
+              "name": "_load_env_file",
+              "lineno": 27,
+              "col_offset": 4,
+              "closures": []
+            },
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 1,
+              "endline": 78,
+              "classname": "EnvLoader",
+              "name": "get_str",
+              "lineno": 67,
+              "col_offset": 4,
+              "closures": []
+            },
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 2,
+              "endline": 95,
+              "classname": "EnvLoader",
+              "name": "get_int",
+              "lineno": 81,
+              "col_offset": 4,
+              "closures": []
+            },
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 2,
+              "endline": 112,
+              "classname": "EnvLoader",
+              "name": "get_float",
+              "lineno": 98,
+              "col_offset": 4,
+              "closures": []
+            },
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 3,
+              "endline": 132,
+              "classname": "EnvLoader",
+              "name": "get_bool",
+              "lineno": 115,
+              "col_offset": 4,
+              "closures": []
+            },
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 5,
+              "endline": 156,
+              "classname": "EnvLoader",
+              "name": "get_list",
+              "lineno": 135,
+              "col_offset": 4,
+              "closures": []
+            }
+          ]
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 5,
+          "endline": 156,
+          "classname": "EnvLoader",
+          "name": "get_list",
+          "lineno": 135,
+          "col_offset": 4,
+          "closures": []
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 3,
+          "endline": 132,
+          "classname": "EnvLoader",
+          "name": "get_bool",
+          "lineno": 115,
+          "col_offset": 4,
+          "closures": []
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 2,
+          "endline": 25,
+          "classname": "EnvLoader",
+          "name": "__init__",
+          "lineno": 16,
+          "col_offset": 4,
+          "closures": []
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 2,
+          "endline": 95,
+          "classname": "EnvLoader",
+          "name": "get_int",
+          "lineno": 81,
+          "col_offset": 4,
+          "closures": []
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 2,
+          "endline": 112,
+          "classname": "EnvLoader",
+          "name": "get_float",
+          "lineno": 98,
+          "col_offset": 4,
+          "closures": []
+        },
+        {
+          "type": "function",
+          "rank": "A",
+          "complexity": 1,
+          "endline": 177,
+          "name": "load_database_config",
+          "lineno": 170,
+          "col_offset": 0,
+          "closures": []
+        },
+        {
+          "type": "function",
+          "rank": "A",
+          "complexity": 1,
+          "endline": 188,
+          "name": "load_server_config",
+          "lineno": 181,
+          "col_offset": 0,
+          "closures": []
+        },
+        {
+          "type": "function",
+          "rank": "A",
+          "complexity": 1,
+          "endline": 198,
+          "name": "load_sensor_config",
+          "lineno": 192,
+          "col_offset": 0,
+          "closures": []
+        },
+        {
+          "type": "function",
+          "rank": "A",
+          "complexity": 1,
+          "endline": 206,
+          "name": "load_logging_config",
+          "lineno": 202,
+          "col_offset": 0,
+          "closures": []
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 1,
+          "endline": 78,
+          "classname": "EnvLoader",
+          "name": "get_str",
+          "lineno": 67,
+          "col_offset": 4,
+          "closures": []
+        }
+      ],
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\utils\\serial_reader.py": [
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 5,
+          "endline": 69,
+          "classname": "DHT22SerialReader",
+          "name": "read_sensor_data",
+          "lineno": 47,
+          "col_offset": 4,
+          "closures": []
+        },
+        {
+          "type": "class",
+          "rank": "A",
+          "complexity": 3,
+          "endline": 76,
+          "name": "DHT22SerialReader",
+          "lineno": 15,
+          "col_offset": 0,
+          "methods": [
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 1,
+              "endline": 23,
+              "classname": "DHT22SerialReader",
+              "name": "__init__",
+              "lineno": 18,
+              "col_offset": 4,
+              "closures": []
+            },
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 2,
+              "endline": 38,
+              "classname": "DHT22SerialReader",
+              "name": "connect",
+              "lineno": 25,
+              "col_offset": 4,
+              "closures": []
+            },
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 3,
+              "endline": 45,
+              "classname": "DHT22SerialReader",
+              "name": "disconnect",
+              "lineno": 40,
+              "col_offset": 4,
+              "closures": []
+            },
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 5,
+              "endline": 69,
+              "classname": "DHT22SerialReader",
+              "name": "read_sensor_data",
+              "lineno": 47,
+              "col_offset": 4,
+              "closures": []
+            },
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 2,
+              "endline": 76,
+              "classname": "DHT22SerialReader",
+              "name": "get_available_ports",
+              "lineno": 71,
+              "col_offset": 4,
+              "closures": []
+            }
+          ]
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 3,
+          "endline": 45,
+          "classname": "DHT22SerialReader",
+          "name": "disconnect",
+          "lineno": 40,
+          "col_offset": 4,
+          "closures": []
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 2,
+          "endline": 38,
+          "classname": "DHT22SerialReader",
+          "name": "connect",
+          "lineno": 25,
+          "col_offset": 4,
+          "closures": []
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 2,
+          "endline": 76,
+          "classname": "DHT22SerialReader",
+          "name": "get_available_ports",
+          "lineno": 71,
+          "col_offset": 4,
+          "closures": []
+        },
+        {
+          "type": "class",
+          "rank": "A",
+          "complexity": 2,
+          "endline": 113,
+          "name": "DHT22Simulator",
+          "lineno": 79,
+          "col_offset": 0,
+          "methods": [
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 1,
+              "endline": 83,
+              "classname": "DHT22Simulator",
+              "name": "__init__",
+              "lineno": 82,
+              "col_offset": 4,
+              "closures": []
+            },
+            {
+              "type": "method",
+              "rank": "A",
+              "complexity": 1,
+              "endline": 113,
+              "classname": "DHT22Simulator",
+              "name": "read_sensor_data",
+              "lineno": 85,
+              "col_offset": 4,
+              "closures": []
+            }
+          ]
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 1,
+          "endline": 23,
+          "classname": "DHT22SerialReader",
+          "name": "__init__",
+          "lineno": 18,
+          "col_offset": 4,
+          "closures": []
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 1,
+          "endline": 83,
+          "classname": "DHT22Simulator",
+          "name": "__init__",
+          "lineno": 82,
+          "col_offset": 4,
+          "closures": []
+        },
+        {
+          "type": "method",
+          "rank": "A",
+          "complexity": 1,
+          "endline": 113,
+          "classname": "DHT22Simulator",
+          "name": "read_sensor_data",
+          "lineno": 85,
+          "col_offset": 4,
+          "closures": []
+        }
+      ]
+    },
+    "maintainability_index": {
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\dashboard\\app.py": {
+        "mi": 55.99227758256322,
+        "rank": "A"
+      },
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\utils\\data_processor.py": {
+        "mi": 62.47774621906861,
+        "rank": "A"
+      },
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\utils\\env_loader.py": {
+        "mi": 64.86185053508896,
+        "rank": "A"
+      },
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\utils\\serial_reader.py": {
+        "mi": 62.78625896233985,
+        "rank": "A"
+      }
+    },
+    "halstead_metrics": {
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\dashboard\\app.py": {
+        "total": {
+          "h1": 3,
+          "h2": 9,
+          "N1": 7,
+          "N2": 9,
+          "vocabulary": 12,
+          "length": 16,
+          "calculated_length": 33.28421251514428,
+          "volume": 57.359400011538504,
+          "difficulty": 1.5,
+          "effort": 86.03910001730776,
+          "time": 4.779950000961542,
+          "bugs": 0.01911980000384617
+        },
+        "functions": {
+          "data_collection_thread": {
+            "h1": 0,
+            "h2": 0,
+            "N1": 0,
+            "N2": 0,
+            "vocabulary": 0,
+            "length": 0,
+            "calculated_length": 0,
+            "volume": 0,
+            "difficulty": 0,
+            "effort": 0,
+            "time": 0.0,
+            "bugs": 0.0
+          },
+          "update_current_values": {
+            "h1": 1,
+            "h2": 1,
+            "N1": 1,
+            "N2": 1,
+            "vocabulary": 2,
+            "length": 2,
+            "calculated_length": 0.0,
+            "volume": 2.0,
+            "difficulty": 0.5,
+            "effort": 1.0,
+            "time": 0.05555555555555555,
+            "bugs": 0.0006666666666666666
+          },
+          "update_temperature_chart": {
+            "h1": 1,
+            "h2": 1,
+            "N1": 1,
+            "N2": 1,
+            "vocabulary": 2,
+            "length": 2,
+            "calculated_length": 0.0,
+            "volume": 2.0,
+            "difficulty": 0.5,
+            "effort": 1.0,
+            "time": 0.05555555555555555,
+            "bugs": 0.0006666666666666666
+          },
+          "update_humidity_chart": {
+            "h1": 1,
+            "h2": 1,
+            "N1": 1,
+            "N2": 1,
+            "vocabulary": 2,
+            "length": 2,
+            "calculated_length": 0.0,
+            "volume": 2.0,
+            "difficulty": 0.5,
+            "effort": 1.0,
+            "time": 0.05555555555555555,
+            "bugs": 0.0006666666666666666
+          },
+          "update_statistics": {
+            "h1": 2,
+            "h2": 3,
+            "N1": 2,
+            "N2": 3,
+            "vocabulary": 5,
+            "length": 5,
+            "calculated_length": 6.754887502163469,
+            "volume": 11.60964047443681,
+            "difficulty": 1.0,
+            "effort": 11.60964047443681,
+            "time": 0.6449800263576005,
+            "bugs": 0.0038698801581456034
+          }
+        }
+      },
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\utils\\data_processor.py": {
+        "total": {
+          "h1": 13,
+          "h2": 89,
+          "N1": 62,
+          "N2": 119,
+          "vocabulary": 102,
+          "length": 181,
+          "calculated_length": 624.4459916918437,
+          "volume": 1207.7089868968405,
+          "difficulty": 8.691011235955056,
+          "effort": 10496.212374884339,
+          "time": 583.1229097157966,
+          "bugs": 0.40256966229894686
+        },
+        "functions": {
+          "calculate_dew_point": {
+            "h1": 4,
+            "h2": 12,
+            "N1": 8,
+            "N2": 16,
+            "vocabulary": 16,
+            "length": 24,
+            "calculated_length": 51.01955000865388,
+            "volume": 96.0,
+            "difficulty": 2.6666666666666665,
+            "effort": 256.0,
+            "time": 14.222222222222221,
+            "bugs": 0.032
+          },
+          "calculate_heat_index": {
+            "h1": 7,
+            "h2": 48,
+            "N1": 34,
+            "N2": 67,
+            "vocabulary": 55,
+            "length": 101,
+            "calculated_length": 287.7296844890187,
+            "volume": 583.9173310659907,
+            "difficulty": 4.885416666666667,
+            "effort": 2852.679461145309,
+            "time": 158.4821922858505,
+            "bugs": 0.1946391103553302
+          },
+          "calculate_discomfort_index": {
+            "h1": 2,
+            "h2": 9,
+            "N1": 5,
+            "N2": 10,
+            "vocabulary": 11,
+            "length": 15,
+            "calculated_length": 30.529325012980813,
+            "volume": 51.89147427955947,
+            "difficulty": 1.1111111111111112,
+            "effort": 57.65719364395497,
+            "time": 3.203177424664165,
+            "bugs": 0.01729715809318649
+          },
+          "get_comfort_level": {
+            "h1": 1,
+            "h2": 6,
+            "N1": 5,
+            "N2": 10,
+            "vocabulary": 7,
+            "length": 15,
+            "calculated_length": 15.509775004326936,
+            "volume": 42.11032383086406,
+            "difficulty": 0.8333333333333334,
+            "effort": 35.09193652572005,
+            "time": 1.9495520292066695,
+            "bugs": 0.01403677461028802
+          },
+          "process_sensor_data": {
+            "h1": 1,
+            "h2": 2,
+            "N1": 1,
+            "N2": 2,
+            "vocabulary": 3,
+            "length": 3,
+            "calculated_length": 2.0,
+            "volume": 4.754887502163469,
+            "difficulty": 0.5,
+            "effort": 2.3774437510817346,
+            "time": 0.1320802083934297,
+            "bugs": 0.0015849625007211565
+          },
+          "__init__": {
+            "h1": 0,
+            "h2": 0,
+            "N1": 0,
+            "N2": 0,
+            "vocabulary": 0,
+            "length": 0,
+            "calculated_length": 0,
+            "volume": 0,
+            "difficulty": 0,
+            "effort": 0,
+            "time": 0.0,
+            "bugs": 0.0
+          },
+          "add": {
+            "h1": 1,
+            "h2": 2,
+            "N1": 1,
+            "N2": 2,
+            "vocabulary": 3,
+            "length": 3,
+            "calculated_length": 2.0,
+            "volume": 4.754887502163469,
+            "difficulty": 0.5,
+            "effort": 2.3774437510817346,
+            "time": 0.1320802083934297,
+            "bugs": 0.0015849625007211565
+          },
+          "get_recent": {
+            "h1": 3,
+            "h2": 3,
+            "N1": 3,
+            "N2": 5,
+            "vocabulary": 6,
+            "length": 8,
+            "calculated_length": 9.509775004326938,
+            "volume": 20.67970000576925,
+            "difficulty": 2.5,
+            "effort": 51.69925001442312,
+            "time": 2.87218055635684,
+            "bugs": 0.006893233335256416
+          },
+          "to_dataframe": {
+            "h1": 1,
+            "h2": 1,
+            "N1": 1,
+            "N2": 1,
+            "vocabulary": 2,
+            "length": 2,
+            "calculated_length": 0.0,
+            "volume": 2.0,
+            "difficulty": 0.5,
+            "effort": 1.0,
+            "time": 0.05555555555555555,
+            "bugs": 0.0006666666666666666
+          },
+          "clear": {
+            "h1": 0,
+            "h2": 0,
+            "N1": 0,
+            "N2": 0,
+            "vocabulary": 0,
+            "length": 0,
+            "calculated_length": 0,
+            "volume": 0,
+            "difficulty": 0,
+            "effort": 0,
+            "time": 0.0,
+            "bugs": 0.0
+          },
+          "get_stats": {
+            "h1": 4,
+            "h2": 6,
+            "N1": 4,
+            "N2": 6,
+            "vocabulary": 10,
+            "length": 10,
+            "calculated_length": 23.509775004326936,
+            "volume": 33.219280948873624,
+            "difficulty": 2.0,
+            "effort": 66.43856189774725,
+            "time": 3.691031216541514,
+            "bugs": 0.01107309364962454
+          }
+        }
+      },
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\utils\\env_loader.py": {
+        "total": {
+          "h1": 10,
+          "h2": 24,
+          "N1": 16,
+          "N2": 27,
+          "vocabulary": 34,
+          "length": 43,
+          "calculated_length": 143.2583809661814,
+          "volume": 218.7609021737646,
+          "difficulty": 5.625,
+          "effort": 1230.530074727426,
+          "time": 68.36278192930143,
+          "bugs": 0.0729203007245882
+        },
+        "functions": {
+          "__init__": {
+            "h1": 1,
+            "h2": 2,
+            "N1": 1,
+            "N2": 2,
+            "vocabulary": 3,
+            "length": 3,
+            "calculated_length": 2.0,
+            "volume": 4.754887502163469,
+            "difficulty": 0.5,
+            "effort": 2.3774437510817346,
+            "time": 0.1320802083934297,
+            "bugs": 0.0015849625007211565
+          },
+          "_load_env_file": {
+            "h1": 6,
+            "h2": 12,
+            "N1": 9,
+            "N2": 14,
+            "vocabulary": 18,
+            "length": 23,
+            "calculated_length": 58.52932501298082,
+            "volume": 95.90827503317318,
+            "difficulty": 3.5,
+            "effort": 335.67896261610616,
+            "time": 18.648831256450343,
+            "bugs": 0.03196942501105773
+          },
+          "get_str": {
+            "h1": 0,
+            "h2": 0,
+            "N1": 0,
+            "N2": 0,
+            "vocabulary": 0,
+            "length": 0,
+            "calculated_length": 0,
+            "volume": 0,
+            "difficulty": 0,
+            "effort": 0,
+            "time": 0.0,
+            "bugs": 0.0
+          },
+          "get_int": {
+            "h1": 0,
+            "h2": 0,
+            "N1": 0,
+            "N2": 0,
+            "vocabulary": 0,
+            "length": 0,
+            "calculated_length": 0,
+            "volume": 0,
+            "difficulty": 0,
+            "effort": 0,
+            "time": 0.0,
+            "bugs": 0.0
+          },
+          "get_float": {
+            "h1": 0,
+            "h2": 0,
+            "N1": 0,
+            "N2": 0,
+            "vocabulary": 0,
+            "length": 0,
+            "calculated_length": 0,
+            "volume": 0,
+            "difficulty": 0,
+            "effort": 0,
+            "time": 0.0,
+            "bugs": 0.0
+          },
+          "get_bool": {
+            "h1": 1,
+            "h2": 3,
+            "N1": 2,
+            "N2": 4,
+            "vocabulary": 4,
+            "length": 6,
+            "calculated_length": 4.754887502163469,
+            "volume": 12.0,
+            "difficulty": 0.6666666666666666,
+            "effort": 8.0,
+            "time": 0.4444444444444444,
+            "bugs": 0.004
+          },
+          "get_list": {
+            "h1": 2,
+            "h2": 3,
+            "N1": 2,
+            "N2": 3,
+            "vocabulary": 5,
+            "length": 5,
+            "calculated_length": 6.754887502163469,
+            "volume": 11.60964047443681,
+            "difficulty": 1.0,
+            "effort": 11.60964047443681,
+            "time": 0.6449800263576005,
+            "bugs": 0.0038698801581456034
+          },
+          "load_database_config": {
+            "h1": 0,
+            "h2": 0,
+            "N1": 0,
+            "N2": 0,
+            "vocabulary": 0,
+            "length": 0,
+            "calculated_length": 0,
+            "volume": 0,
+            "difficulty": 0,
+            "effort": 0,
+            "time": 0.0,
+            "bugs": 0.0
+          },
+          "load_server_config": {
+            "h1": 0,
+            "h2": 0,
+            "N1": 0,
+            "N2": 0,
+            "vocabulary": 0,
+            "length": 0,
+            "calculated_length": 0,
+            "volume": 0,
+            "difficulty": 0,
+            "effort": 0,
+            "time": 0.0,
+            "bugs": 0.0
+          },
+          "load_sensor_config": {
+            "h1": 0,
+            "h2": 0,
+            "N1": 0,
+            "N2": 0,
+            "vocabulary": 0,
+            "length": 0,
+            "calculated_length": 0,
+            "volume": 0,
+            "difficulty": 0,
+            "effort": 0,
+            "time": 0.0,
+            "bugs": 0.0
+          },
+          "load_logging_config": {
+            "h1": 0,
+            "h2": 0,
+            "N1": 0,
+            "N2": 0,
+            "vocabulary": 0,
+            "length": 0,
+            "calculated_length": 0,
+            "volume": 0,
+            "difficulty": 0,
+            "effort": 0,
+            "time": 0.0,
+            "bugs": 0.0
+          }
+        }
+      },
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\utils\\serial_reader.py": {
+        "total": {
+          "h1": 7,
+          "h2": 32,
+          "N1": 20,
+          "N2": 37,
+          "vocabulary": 39,
+          "length": 57,
+          "calculated_length": 179.65148445440323,
+          "volume": 301.26792647514816,
+          "difficulty": 4.046875,
+          "effort": 1219.1936399541153,
+          "time": 67.73297999745085,
+          "bugs": 0.10042264215838272
+        },
+        "functions": {
+          "__init__": {
+            "h1": 0,
+            "h2": 0,
+            "N1": 0,
+            "N2": 0,
+            "vocabulary": 0,
+            "length": 0,
+            "calculated_length": 0,
+            "volume": 0,
+            "difficulty": 0,
+            "effort": 0,
+            "time": 0.0,
+            "bugs": 0.0
+          },
+          "connect": {
+            "h1": 0,
+            "h2": 0,
+            "N1": 0,
+            "N2": 0,
+            "vocabulary": 0,
+            "length": 0,
+            "calculated_length": 0,
+            "volume": 0,
+            "difficulty": 0,
+            "effort": 0,
+            "time": 0.0,
+            "bugs": 0.0
+          },
+          "disconnect": {
+            "h1": 1,
+            "h2": 2,
+            "N1": 1,
+            "N2": 2,
+            "vocabulary": 3,
+            "length": 3,
+            "calculated_length": 2.0,
+            "volume": 4.754887502163469,
+            "difficulty": 0.5,
+            "effort": 2.3774437510817346,
+            "time": 0.1320802083934297,
+            "bugs": 0.0015849625007211565
+          },
+          "read_sensor_data": {
+            "h1": 4,
+            "h2": 25,
+            "N1": 15,
+            "N2": 30,
+            "vocabulary": 29,
+            "length": 45,
+            "calculated_length": 124.09640474436812,
+            "volume": 218.60914478074076,
+            "difficulty": 2.4,
+            "effort": 524.6619474737778,
+            "time": 29.147885970765433,
+            "bugs": 0.07286971492691359
+          },
+          "get_available_ports": {
+            "h1": 0,
+            "h2": 0,
+            "N1": 0,
+            "N2": 0,
+            "vocabulary": 0,
+            "length": 0,
+            "calculated_length": 0,
+            "volume": 0,
+            "difficulty": 0,
+            "effort": 0,
+            "time": 0.0,
+            "bugs": 0.0
+          }
+        }
+      }
+    }
+  },
+  "quality": {
+    "timestamp": "2025-08-15T13:57:28.555801",
+    "overall_score": 0,
+    "files": {
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\dashboard\\app.py": {
+        "issues": [
+          {
+            "type": "error",
+            "module": "app",
+            "obj": "",
+            "line": 21,
+            "column": 0,
+            "endLine": 21,
+            "endColumn": 64,
+            "path": "src\\python\\dashboard\\app.py",
+            "symbol": "import-error",
+            "message": "Unable to import 'utils.data_processor'",
+            "message-id": "E0401"
+          },
+          {
+            "type": "convention",
+            "module": "app",
+            "obj": "",
+            "line": 21,
+            "column": 0,
+            "endLine": 21,
+            "endColumn": 64,
+            "path": "src\\python\\dashboard\\app.py",
+            "symbol": "wrong-import-position",
+            "message": "Import \"from utils.data_processor import DataBuffer, process_sensor_data\" should be placed at the top of the module",
+            "message-id": "C0413"
+          },
+          {
+            "type": "error",
+            "module": "app",
+            "obj": "",
+            "line": 22,
+            "column": 0,
+            "endLine": 22,
+            "endColumn": 65,
+            "path": "src\\python\\dashboard\\app.py",
+            "symbol": "import-error",
+            "message": "Unable to import 'utils.serial_reader'",
+            "message-id": "E0401"
+          },
+          {
+            "type": "convention",
+            "module": "app",
+            "obj": "",
+            "line": 22,
+            "column": 0,
+            "endLine": 22,
+            "endColumn": 65,
+            "path": "src\\python\\dashboard\\app.py",
+            "symbol": "wrong-import-position",
+            "message": "Import \"from utils.serial_reader import DHT22SerialReader, DHT22Simulator\" should be placed at the top of the module",
+            "message-id": "C0413"
+          },
+          {
+            "type": "warning",
+            "module": "app",
+            "obj": "data_collection_thread",
+            "line": 176,
+            "column": 15,
+            "endLine": 176,
+            "endColumn": 24,
+            "path": "src\\python\\dashboard\\app.py",
+            "symbol": "broad-exception-caught",
+            "message": "Catching too general exception Exception",
+            "message-id": "W0718"
+          },
+          {
+            "type": "warning",
+            "module": "app",
+            "obj": "update_current_values",
+            "line": 197,
+            "column": 26,
+            "endLine": 197,
+            "endColumn": 27,
+            "path": "src\\python\\dashboard\\app.py",
+            "symbol": "unused-argument",
+            "message": "Unused argument 'n'",
+            "message-id": "W0613"
+          },
+          {
+            "type": "warning",
+            "module": "app",
+            "obj": "update_temperature_chart",
+            "line": 221,
+            "column": 29,
+            "endLine": 221,
+            "endColumn": 30,
+            "path": "src\\python\\dashboard\\app.py",
+            "symbol": "unused-argument",
+            "message": "Unused argument 'n'",
+            "message-id": "W0613"
+          },
+          {
+            "type": "warning",
+            "module": "app",
+            "obj": "update_humidity_chart",
+            "line": 256,
+            "column": 26,
+            "endLine": 256,
+            "endColumn": 27,
+            "path": "src\\python\\dashboard\\app.py",
+            "symbol": "unused-argument",
+            "message": "Unused argument 'n'",
+            "message-id": "W0613"
+          },
+          {
+            "type": "warning",
+            "module": "app",
+            "obj": "update_statistics",
+            "line": 291,
+            "column": 22,
+            "endLine": 291,
+            "endColumn": 23,
+            "path": "src\\python\\dashboard\\app.py",
+            "symbol": "unused-argument",
+            "message": "Unused argument 'n'",
+            "message-id": "W0613"
+          }
+        ],
+        "issue_count": 9
+      },
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\utils\\data_processor.py": {
+        "issues": [
+          {
+            "type": "refactor",
+            "module": "data_processor",
+            "obj": "get_comfort_level",
+            "line": 91,
+            "column": 4,
+            "endLine": 102,
+            "endColumn": 30,
+            "path": "src\\python\\utils\\data_processor.py",
+            "symbol": "no-else-return",
+            "message": "Unnecessary \"elif\" after \"return\", remove the leading \"el\" from \"elif\"",
+            "message-id": "R1705"
+          }
+        ],
+        "issue_count": 1
+      },
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\utils\\env_loader.py": {
+        "issues": [
+          {
+            "type": "warning",
+            "module": "env_loader",
+            "obj": "EnvLoader._load_env_file",
+            "line": 63,
+            "column": 15,
+            "endLine": 63,
+            "endColumn": 24,
+            "path": "src\\python\\utils\\env_loader.py",
+            "symbol": "broad-exception-caught",
+            "message": "Catching too general exception Exception",
+            "message-id": "W0718"
+          },
+          {
+            "type": "refactor",
+            "module": "env_loader",
+            "obj": "EnvLoader.get_bool",
+            "line": 127,
+            "column": 8,
+            "endLine": 132,
+            "endColumn": 26,
+            "path": "src\\python\\utils\\env_loader.py",
+            "symbol": "no-else-return",
+            "message": "Unnecessary \"elif\" after \"return\", remove the leading \"el\" from \"elif\"",
+            "message-id": "R1705"
+          }
+        ],
+        "issue_count": 2
+      },
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\utils\\serial_reader.py": {
+        "issues": [
+          {
+            "type": "warning",
+            "module": "serial_reader",
+            "obj": "DHT22SerialReader.connect",
+            "line": 33,
+            "column": 12,
+            "endLine": 33,
+            "endColumn": 76,
+            "path": "src\\python\\utils\\serial_reader.py",
+            "symbol": "logging-fstring-interpolation",
+            "message": "Use lazy % formatting in logging functions",
+            "message-id": "W1203"
+          },
+          {
+            "type": "warning",
+            "module": "serial_reader",
+            "obj": "DHT22SerialReader.connect",
+            "line": 36,
+            "column": 12,
+            "endLine": 36,
+            "endColumn": 66,
+            "path": "src\\python\\utils\\serial_reader.py",
+            "symbol": "logging-fstring-interpolation",
+            "message": "Use lazy % formatting in logging functions",
+            "message-id": "W1203"
+          },
+          {
+            "type": "warning",
+            "module": "serial_reader",
+            "obj": "DHT22SerialReader.read_sensor_data",
+            "line": 68,
+            "column": 12,
+            "endLine": 68,
+            "endColumn": 61,
+            "path": "src\\python\\utils\\serial_reader.py",
+            "symbol": "logging-fstring-interpolation",
+            "message": "Use lazy % formatting in logging functions",
+            "message-id": "W1203"
+          },
+          {
+            "type": "warning",
+            "module": "serial_reader",
+            "obj": "DHT22SerialReader.get_available_ports",
+            "line": 73,
+            "column": 8,
+            "endLine": 73,
+            "endColumn": 38,
+            "path": "src\\python\\utils\\serial_reader.py",
+            "symbol": "redefined-outer-name",
+            "message": "Redefining name 'serial' from outer scope (line 10)",
+            "message-id": "W0621"
+          },
+          {
+            "type": "convention",
+            "module": "serial_reader",
+            "obj": "DHT22SerialReader.get_available_ports",
+            "line": 73,
+            "column": 8,
+            "endLine": 73,
+            "endColumn": 38,
+            "path": "src\\python\\utils\\serial_reader.py",
+            "symbol": "import-outside-toplevel",
+            "message": "Import outside toplevel (serial.tools.list_ports)",
+            "message-id": "C0415"
+          },
+          {
+            "type": "refactor",
+            "module": "serial_reader",
+            "obj": "DHT22Simulator",
+            "line": 79,
+            "column": 0,
+            "endLine": 79,
+            "endColumn": 20,
+            "path": "src\\python\\utils\\serial_reader.py",
+            "symbol": "too-few-public-methods",
+            "message": "Too few public methods (1/2)",
+            "message-id": "R0903"
+          }
+        ],
+        "issue_count": 6
+      }
+    },
+    "issues": [
+      {
+        "type": "error",
+        "module": "app",
+        "obj": "",
+        "line": 21,
+        "column": 0,
+        "endLine": 21,
+        "endColumn": 64,
+        "path": "src\\python\\dashboard\\app.py",
+        "symbol": "import-error",
+        "message": "Unable to import 'utils.data_processor'",
+        "message-id": "E0401"
+      },
+      {
+        "type": "convention",
+        "module": "app",
+        "obj": "",
+        "line": 21,
+        "column": 0,
+        "endLine": 21,
+        "endColumn": 64,
+        "path": "src\\python\\dashboard\\app.py",
+        "symbol": "wrong-import-position",
+        "message": "Import \"from utils.data_processor import DataBuffer, process_sensor_data\" should be placed at the top of the module",
+        "message-id": "C0413"
+      },
+      {
+        "type": "error",
+        "module": "app",
+        "obj": "",
+        "line": 22,
+        "column": 0,
+        "endLine": 22,
+        "endColumn": 65,
+        "path": "src\\python\\dashboard\\app.py",
+        "symbol": "import-error",
+        "message": "Unable to import 'utils.serial_reader'",
+        "message-id": "E0401"
+      },
+      {
+        "type": "convention",
+        "module": "app",
+        "obj": "",
+        "line": 22,
+        "column": 0,
+        "endLine": 22,
+        "endColumn": 65,
+        "path": "src\\python\\dashboard\\app.py",
+        "symbol": "wrong-import-position",
+        "message": "Import \"from utils.serial_reader import DHT22SerialReader, DHT22Simulator\" should be placed at the top of the module",
+        "message-id": "C0413"
+      },
+      {
+        "type": "warning",
+        "module": "app",
+        "obj": "data_collection_thread",
+        "line": 176,
+        "column": 15,
+        "endLine": 176,
+        "endColumn": 24,
+        "path": "src\\python\\dashboard\\app.py",
+        "symbol": "broad-exception-caught",
+        "message": "Catching too general exception Exception",
+        "message-id": "W0718"
+      },
+      {
+        "type": "warning",
+        "module": "app",
+        "obj": "update_current_values",
+        "line": 197,
+        "column": 26,
+        "endLine": 197,
+        "endColumn": 27,
+        "path": "src\\python\\dashboard\\app.py",
+        "symbol": "unused-argument",
+        "message": "Unused argument 'n'",
+        "message-id": "W0613"
+      },
+      {
+        "type": "warning",
+        "module": "app",
+        "obj": "update_temperature_chart",
+        "line": 221,
+        "column": 29,
+        "endLine": 221,
+        "endColumn": 30,
+        "path": "src\\python\\dashboard\\app.py",
+        "symbol": "unused-argument",
+        "message": "Unused argument 'n'",
+        "message-id": "W0613"
+      },
+      {
+        "type": "warning",
+        "module": "app",
+        "obj": "update_humidity_chart",
+        "line": 256,
+        "column": 26,
+        "endLine": 256,
+        "endColumn": 27,
+        "path": "src\\python\\dashboard\\app.py",
+        "symbol": "unused-argument",
+        "message": "Unused argument 'n'",
+        "message-id": "W0613"
+      },
+      {
+        "type": "warning",
+        "module": "app",
+        "obj": "update_statistics",
+        "line": 291,
+        "column": 22,
+        "endLine": 291,
+        "endColumn": 23,
+        "path": "src\\python\\dashboard\\app.py",
+        "symbol": "unused-argument",
+        "message": "Unused argument 'n'",
+        "message-id": "W0613"
+      },
+      {
+        "type": "refactor",
+        "module": "data_processor",
+        "obj": "get_comfort_level",
+        "line": 91,
+        "column": 4,
+        "endLine": 102,
+        "endColumn": 30,
+        "path": "src\\python\\utils\\data_processor.py",
+        "symbol": "no-else-return",
+        "message": "Unnecessary \"elif\" after \"return\", remove the leading \"el\" from \"elif\"",
+        "message-id": "R1705"
+      },
+      {
+        "type": "warning",
+        "module": "env_loader",
+        "obj": "EnvLoader._load_env_file",
+        "line": 63,
+        "column": 15,
+        "endLine": 63,
+        "endColumn": 24,
+        "path": "src\\python\\utils\\env_loader.py",
+        "symbol": "broad-exception-caught",
+        "message": "Catching too general exception Exception",
+        "message-id": "W0718"
+      },
+      {
+        "type": "refactor",
+        "module": "env_loader",
+        "obj": "EnvLoader.get_bool",
+        "line": 127,
+        "column": 8,
+        "endLine": 132,
+        "endColumn": 26,
+        "path": "src\\python\\utils\\env_loader.py",
+        "symbol": "no-else-return",
+        "message": "Unnecessary \"elif\" after \"return\", remove the leading \"el\" from \"elif\"",
+        "message-id": "R1705"
+      },
+      {
+        "type": "warning",
+        "module": "serial_reader",
+        "obj": "DHT22SerialReader.connect",
+        "line": 33,
+        "column": 12,
+        "endLine": 33,
+        "endColumn": 76,
+        "path": "src\\python\\utils\\serial_reader.py",
+        "symbol": "logging-fstring-interpolation",
+        "message": "Use lazy % formatting in logging functions",
+        "message-id": "W1203"
+      },
+      {
+        "type": "warning",
+        "module": "serial_reader",
+        "obj": "DHT22SerialReader.connect",
+        "line": 36,
+        "column": 12,
+        "endLine": 36,
+        "endColumn": 66,
+        "path": "src\\python\\utils\\serial_reader.py",
+        "symbol": "logging-fstring-interpolation",
+        "message": "Use lazy % formatting in logging functions",
+        "message-id": "W1203"
+      },
+      {
+        "type": "warning",
+        "module": "serial_reader",
+        "obj": "DHT22SerialReader.read_sensor_data",
+        "line": 68,
+        "column": 12,
+        "endLine": 68,
+        "endColumn": 61,
+        "path": "src\\python\\utils\\serial_reader.py",
+        "symbol": "logging-fstring-interpolation",
+        "message": "Use lazy % formatting in logging functions",
+        "message-id": "W1203"
+      },
+      {
+        "type": "warning",
+        "module": "serial_reader",
+        "obj": "DHT22SerialReader.get_available_ports",
+        "line": 73,
+        "column": 8,
+        "endLine": 73,
+        "endColumn": 38,
+        "path": "src\\python\\utils\\serial_reader.py",
+        "symbol": "redefined-outer-name",
+        "message": "Redefining name 'serial' from outer scope (line 10)",
+        "message-id": "W0621"
+      },
+      {
+        "type": "convention",
+        "module": "serial_reader",
+        "obj": "DHT22SerialReader.get_available_ports",
+        "line": 73,
+        "column": 8,
+        "endLine": 73,
+        "endColumn": 38,
+        "path": "src\\python\\utils\\serial_reader.py",
+        "symbol": "import-outside-toplevel",
+        "message": "Import outside toplevel (serial.tools.list_ports)",
+        "message-id": "C0415"
+      },
+      {
+        "type": "refactor",
+        "module": "serial_reader",
+        "obj": "DHT22Simulator",
+        "line": 79,
+        "column": 0,
+        "endLine": 79,
+        "endColumn": 20,
+        "path": "src\\python\\utils\\serial_reader.py",
+        "symbol": "too-few-public-methods",
+        "message": "Too few public methods (1/2)",
+        "message-id": "R0903"
+      }
+    ]
+  },
+  "lines": {
+    "timestamp": "2025-08-15T13:57:38.650583",
+    "summary": {
+      "nFiles": 4,
+      "nLines": 1041,
+      "nCode": 849,
+      "nComment": 37,
+      "nBlank": 155
+    },
+    "by_file": {
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\dashboard\\app.py": {
+        "nLines": 525,
+        "nCode": 466,
+        "nComment": 17,
+        "nBlank": 42
+      },
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\utils\\data_processor.py": {
+        "nLines": 184,
+        "nCode": 135,
+        "nComment": 6,
+        "nBlank": 43
+      },
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\utils\\env_loader.py": {
+        "nLines": 218,
+        "nCode": 166,
+        "nComment": 8,
+        "nBlank": 44
+      },
+      "E:\\project\\04_P_dht22_monitoring\\src\\python\\utils\\serial_reader.py": {
+        "nLines": 114,
+        "nCode": 82,
+        "nComment": 6,
+        "nBlank": 26
+      }
+    }
+  },
+  "summary": {
+    "total_coverage": 91.55844155844156,
+    "total_files": 4,
+    "total_lines": 1041,
+    "code_lines": 849,
+    "quality_issues": 18
+  }
+}

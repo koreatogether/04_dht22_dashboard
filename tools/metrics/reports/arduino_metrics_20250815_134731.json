@@ -1,0 +1,219 @@
+{
+  "timestamp": "2025-08-15T13:47:31.550064",
+  "project": "DHT22 Arduino Environmental Sensor",
+  "line_metrics": {
+    "timestamp": "2025-08-15T13:47:31.549063",
+    "files": {
+      "E:\\project\\04_P_dht22_monitoring\\src\\arduino\\dht22_sensor\\dht22_sensor.ino": {
+        "total_lines": 67,
+        "code_lines": 30,
+        "comment_lines": 21,
+        "blank_lines": 12,
+        "preprocessor_lines": 4,
+        "functions": [
+          {
+            "name": "dht",
+            "line": 23,
+            "signature": "DHT dht(DHT_PIN, DHT_TYPE);"
+          },
+          {
+            "name": "setup",
+            "line": 25,
+            "signature": "void setup() {"
+          },
+          {
+            "name": "begin",
+            "line": 26,
+            "signature": "Serial.begin(9600);"
+          },
+          {
+            "name": "begin",
+            "line": 27,
+            "signature": "dht.begin();"
+          },
+          {
+            "name": "delay",
+            "line": 31,
+            "signature": "delay(10);"
+          },
+          {
+            "name": "println",
+            "line": 34,
+            "signature": "Serial.println(\"DHT22 Environmental Monitor Started\");"
+          },
+          {
+            "name": "println",
+            "line": 35,
+            "signature": "Serial.println(\"Sending JSON data every 2 seconds...\");"
+          },
+          {
+            "name": "loop",
+            "line": 38,
+            "signature": "void loop() {"
+          },
+          {
+            "name": "readHumidity",
+            "line": 40,
+            "signature": "float humidity = dht.readHumidity();"
+          },
+          {
+            "name": "readTemperature",
+            "line": 41,
+            "signature": "float temperature = dht.readTemperature();"
+          },
+          {
+            "name": "println",
+            "line": 45,
+            "signature": "Serial.println(\"{\\\"error\\\":\\\"Failed to read from DHT sensor!\\\"}\");"
+          },
+          {
+            "name": "delay",
+            "line": 46,
+            "signature": "delay(2000);"
+          },
+          {
+            "name": "computeHeatIndex",
+            "line": 51,
+            "signature": "float heatIndex = dht.computeHeatIndex(temperature, humidity, false);"
+          },
+          {
+            "name": "millis",
+            "line": 55,
+            "signature": "doc[\"timestamp\"] = millis();"
+          },
+          {
+            "name": "round",
+            "line": 56,
+            "signature": "doc[\"temperature\"] = round(temperature * 100.0) / 100.0;  // Round to 2 decimal places"
+          },
+          {
+            "name": "round",
+            "line": 57,
+            "signature": "doc[\"humidity\"] = round(humidity * 100.0) / 100.0;"
+          },
+          {
+            "name": "round",
+            "line": 58,
+            "signature": "doc[\"heat_index\"] = round(heatIndex * 100.0) / 100.0;"
+          },
+          {
+            "name": "serializeJson",
+            "line": 63,
+            "signature": "serializeJson(doc, Serial);"
+          },
+          {
+            "name": "println",
+            "line": 64,
+            "signature": "Serial.println(); // New line for easier parsing"
+          },
+          {
+            "name": "delay",
+            "line": 66,
+            "signature": "delay(2000); // Send data every 2 seconds"
+          }
+        ],
+        "includes": [
+          "DHT.h",
+          "ArduinoJson.h"
+        ],
+        "defines": [
+          "DHT_PIN",
+          "DHT_TYPE"
+        ]
+      }
+    },
+    "summary": {
+      "total_files": 1,
+      "total_lines": 67,
+      "code_lines": 30,
+      "comment_lines": 21,
+      "blank_lines": 12,
+      "preprocessor_lines": 4
+    }
+  },
+  "complexity": {
+    "timestamp": "2025-08-15T13:47:31.549063",
+    "files": {
+      "E:\\project\\04_P_dht22_monitoring\\src\\arduino\\dht22_sensor\\dht22_sensor.ino": {
+        "functions": [
+          {
+            "name": "setup",
+            "complexity": 3,
+            "lines": 8
+          },
+          {
+            "name": "loop",
+            "complexity": 3,
+            "lines": 8
+          }
+        ]
+      }
+    },
+    "summary": {
+      "total_functions": 2,
+      "avg_complexity": 3.0,
+      "max_complexity": 3,
+      "complex_functions": []
+    }
+  },
+  "memory": {
+    "timestamp": "2025-08-15T13:47:31.550064",
+    "estimated_flash": 10196,
+    "estimated_ram": 85,
+    "libraries": [
+      "ArduinoJson.h",
+      "DHT.h"
+    ],
+    "large_arrays": [],
+    "string_literals": [
+      "DHT22 Environmental Monitor Started",
+      "Sending JSON data every 2 seconds...",
+      "temperature"
+    ]
+  },
+  "dependencies": {
+    "timestamp": "2025-08-15T13:47:31.550064",
+    "libraries": {
+      "DHT.h": {
+        "used_in": [
+          "E:\\project\\04_P_dht22_monitoring\\src\\arduino\\dht22_sensor\\dht22_sensor.ino"
+        ],
+        "type": "external"
+      },
+      "ArduinoJson.h": {
+        "used_in": [
+          "E:\\project\\04_P_dht22_monitoring\\src\\arduino\\dht22_sensor\\dht22_sensor.ino"
+        ],
+        "type": "system"
+      }
+    },
+    "custom_includes": [],
+    "defines": [
+      "DHT_TYPE",
+      "DHT_PIN"
+    ],
+    "dependency_graph": {
+      "E:\\project\\04_P_dht22_monitoring\\src\\arduino\\dht22_sensor\\dht22_sensor.ino": {
+        "libraries": [
+          "DHT.h",
+          "ArduinoJson.h"
+        ],
+        "custom_includes": [],
+        "defines": [
+          "DHT_PIN",
+          "DHT_TYPE"
+        ]
+      }
+    }
+  },
+  "summary": {
+    "total_files": 1,
+    "total_lines": 67,
+    "code_lines": 30,
+    "total_functions": 2,
+    "avg_complexity": 3.0,
+    "estimated_flash": 10196,
+    "estimated_ram": 85,
+    "library_count": 2
+  }
+}

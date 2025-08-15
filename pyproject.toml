@@ -38,7 +38,11 @@ dev = [
 [dependency-groups]
 dev = [
     "matplotlib>=3.9.4",
+    "mypy>=1.17.1",
     "pandas-stubs>=2.2.2.240807",
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+    "ruff>=0.12.9",
     "types-pyserial>=3.5.0.20250809",
 ]
 

@@ -65,7 +65,10 @@ app.layout = html.Div(
                                 html.Div(
                                     [
                                         html.Span("🌡️", className="metric-icon"),
-                                        html.Div(id="current-temperature", className="metric-value"),
+                                        html.Div(
+                                            id="current-temperature",
+                                            className="metric-value",
+                                        ),
                                         html.Span("°C", className="metric-unit"),
                                     ],
                                     className="metric-row",
@@ -80,7 +83,10 @@ app.layout = html.Div(
                                 html.Div(
                                     [
                                         html.Span("💧", className="metric-icon"),
-                                        html.Div(id="current-humidity", className="metric-value"),
+                                        html.Div(
+                                            id="current-humidity",
+                                            className="metric-value",
+                                        ),
                                         html.Span("%", className="metric-unit"),
                                     ],
                                     className="metric-row",
@@ -95,7 +101,10 @@ app.layout = html.Div(
                                 html.Div(
                                     [
                                         html.Span("🌫️", className="metric-icon"),
-                                        html.Div(id="current-dewpoint", className="metric-value"),
+                                        html.Div(
+                                            id="current-dewpoint",
+                                            className="metric-value",
+                                        ),
                                         html.Span("°C", className="metric-unit"),
                                     ],
                                     className="metric-row",
@@ -109,8 +118,14 @@ app.layout = html.Div(
                             [
                                 html.Div(
                                     [
-                                        html.Div(id="current-discomfort", className="metric-value"),
-                                        html.Div(id="comfort-level", className="comfort-level-inline"),
+                                        html.Div(
+                                            id="current-discomfort",
+                                            className="metric-value",
+                                        ),
+                                        html.Div(
+                                            id="comfort-level",
+                                            className="comfort-level-inline",
+                                        ),
                                     ],
                                     className="metric-row",
                                 ),

@@ -43,26 +43,28 @@ class TestEnvLoader:
         """커스텀 .env 파일 경로로 초기화 테스트"""
         custom_path = "/custom/.env"
         loader = EnvLoader(custom_path)
-        assert str(loader.env_file) == custom_path
+        # Windows path normalization
+        expected_path = custom_path.replace('/', '\\')
+        assert str(loader.env_file) == expected_path
 
     @patch("builtins.open", mock_open(read_data="TEST_VAR=test_value\n# Comment\nEMPTY_LINE=\n"))
     @patch("pathlib.Path.exists", return_value=True)
-    def test_load_env_file_success(self):
+    def test_load_env_file_success(self, mock_exists):
         """환경변수 파일 로드 성공 테스트"""
         with patch.dict(os.environ, {}, clear=True):
             EnvLoader()
             assert os.environ.get("TEST_VAR") == "test_value"
 
     @patch("pathlib.Path.exists", return_value=False)
-    def test_load_env_file_not_found(self, capsys):
+    def test_load_env_file_not_found(self, mock_exists, capsys):
         """환경변수 파일이 없을 때 테스트"""
         EnvLoader()
         captured = capsys.readouterr()
-        assert "env 파일을 찾을 수 없습니다" in captured.out
+        assert ".env 파일을 찾을 수 없습니다" in captured.out
 
     @patch("builtins.open", mock_open(read_data='QUOTED_VAR="quoted value"\nSINGLE_QUOTED=\'single value\''))
     @patch("pathlib.Path.exists", return_value=True)
-    def test_load_env_file_with_quotes(self):
+    def test_load_env_file_with_quotes(self, mock_exists):
         """따옴표가 있는 환경변수 로드 테스트"""
         with patch.dict(os.environ, {}, clear=True):
             EnvLoader()

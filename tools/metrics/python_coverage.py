@@ -234,7 +234,9 @@ class PythonMetricsAnalyzer:
                         # JSON이 아닌 경우 텍스트로 처리
                         pass
 
-            print(f"Quality analysis completed - {len(quality_data['issues'])} issues found")
+            print(
+                f"Quality analysis completed - {len(quality_data['issues'])} issues found"
+            )
 
         except Exception as e:
             print(f"Quality analysis error: {e}")
@@ -274,7 +276,9 @@ class PythonMetricsAnalyzer:
                     print(f"Comment lines: {summary.get('nComment', 0)}")
                     print(f"Blank lines: {summary.get('nBlank', 0)}")
             else:
-                print("Warning: cloc is not available. Attempting manual line calculation.")
+                print(
+                    "Warning: cloc is not available. Attempting manual line calculation."
+                )
                 line_data = self._manual_line_count()
 
         except Exception as e:

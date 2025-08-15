@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Integrated Metrics Management System
 
@@ -19,11 +18,10 @@ from pathlib import Path
 from typing import Any, Optional
 
 import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
 
 # Configure Korean font for matplotlib
-plt.rcParams['font.family'] = 'Malgun Gothic'
-plt.rcParams['axes.unicode_minus'] = False
+plt.rcParams["font.family"] = "Malgun Gothic"
+plt.rcParams["axes.unicode_minus"] = False
 
 
 class IntegratedMetricsManager:
@@ -299,14 +297,6 @@ class IntegratedMetricsManager:
         python_data = results.get("python")
         arduino_data = results.get("arduino")
 
-        health_emoji = {
-            "excellent": "🟢",
-            "good": "🟡",
-            "fair": "🟠",
-            "needs_improvement": "🔴",
-            "unknown": "⚪",
-        }
-
         with open(report_path, "w", encoding="utf-8") as f:
             f.write(
                 f"""# DHT22 Project Metrics Dashboard
@@ -579,15 +569,17 @@ def main():
 
 if __name__ == "__main__":
     # Set console encoding to UTF-8 for Windows
-    if os.name == 'nt':
+    if os.name == "nt":
         try:
             import sys
-            sys.stdout.reconfigure(encoding='utf-8')
-            sys.stderr.reconfigure(encoding='utf-8')
+
+            sys.stdout.reconfigure(encoding="utf-8")
+            sys.stderr.reconfigure(encoding="utf-8")
         except:
             # Fallback for older Python versions
             import codecs
-            sys.stdout = codecs.getwriter('utf-8')(sys.stdout.detach())
-            sys.stderr = codecs.getwriter('utf-8')(sys.stderr.detach())
-    
+
+            sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
+            sys.stderr = codecs.getwriter("utf-8")(sys.stderr.detach())
+
     main()
