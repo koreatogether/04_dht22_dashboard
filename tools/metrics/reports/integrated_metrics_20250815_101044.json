@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-08-15T10:10:44.059670",
+  "python": {
+    "error": "Traceback (most recent call last):\n  File \"E:\\project\\04_P_dht22_monitoring\\tools\\metrics\\python_coverage.py\", line 434, in <module>\n    main()\n    ~~~~^^\n  File \"E:\\project\\04_P_dht22_monitoring\\tools\\metrics\\python_coverage.py\", line 412, in main\n    print(\"\\U0001f40d Python 코드 메트릭스 및 커버리지 분석 시작\")\n    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'cp949' codec can't encode character '\\U0001f40d' in position 0: illegal multibyte sequence\n"
+  },
+  "arduino": {
+    "error": "Traceback (most recent call last):\n  File \"E:\\project\\04_P_dht22_monitoring\\tools\\metrics\\arduino_metrics.py\", line 562, in <module>\n    main()\n    ~~~~^^\n  File \"E:\\project\\04_P_dht22_monitoring\\tools\\metrics\\arduino_metrics.py\", line 535, in main\n    print(\"\\U0001f527 Arduino 코드 메트릭스 분석 시작\")\n    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'cp949' codec can't encode character '\\U0001f527' in position 0: illegal multibyte sequence\n"
+  },
+  "integration": {
+    "project_health": "needs_improvement",
+    "quality_score": 0,
+    "recommendations": [],
+    "achievements": [],
+    "total_lines": 0,
+    "total_files": 0,
+    "language_distribution": {}
+  }
+}
