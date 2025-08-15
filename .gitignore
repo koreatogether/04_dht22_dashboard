@@ -18,8 +18,11 @@ venv/
 # Logs
 logs/*.log
 
-# Environment
+# Environment files
 .env
+.env.*
+!.env.example
+.envrc
 
 # Results / reports
 tools/quality/results/

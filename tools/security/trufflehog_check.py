@@ -29,6 +29,12 @@ class TruffleHogRunner:
         # TruffleHog 실행 파일 경로
         self.trufflehog_path = self.tools_dir / "trufflehog.exe"
         
+        # 환경변수에서 URL 가져오기
+        self.trufflehog_url = os.getenv(
+            'TRUFFLEHOG_DOWNLOAD_URL',
+            'https://github.com/trufflesecurity/trufflehog/releases/latest/download/trufflehog_3.63.2_windows_amd64.tar.gz'
+        )
+        
     def ensure_trufflehog(self) -> bool:
         """TruffleHog 도구가 있는지 확인하고 없으면 다운로드"""
         if self.trufflehog_path.exists():
@@ -37,12 +43,12 @@ class TruffleHogRunner:
         print("🔍 TruffleHog를 다운로드하는 중...")
         
         try:
-            # GitHub에서 최신 릴리스 다운로드
-            url = "https://github.com/trufflesecurity/trufflehog/releases/latest/download/trufflehog_3.63.2_windows_amd64.tar.gz"
+            # GitHub에서 최신 릴리스 다운로드 (환경변수에서 URL 가져오기)
+            print(f"📥 다운로드 URL: {self.trufflehog_url}")
             
             # 임시 파일로 다운로드
             temp_file = self.tools_dir / "trufflehog.tar.gz"
-            urllib.request.urlretrieve(url, temp_file)
+            urllib.request.urlretrieve(self.trufflehog_url, temp_file)
             
             # 압축 해제 (간단한 버전을 위해 7z 또는 다른 방법 필요)
             print("✅ TruffleHog 다운로드 완료")
@@ -150,9 +156,9 @@ class TruffleHogRunner:
         """추가 보안 검사"""
         findings = []
         
-        # .env 파일 검사
+        # .env 파일 검사 (.env.example은 제외)
         for env_file in self.project_root.rglob(".env*"):
-            if env_file.is_file():
+            if env_file.is_file() and not env_file.name.endswith('.example'):
                 findings.append({
                     "type": "환경 파일",
                     "file": str(env_file.relative_to(self.project_root)),
