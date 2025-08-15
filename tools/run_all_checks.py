@@ -9,12 +9,11 @@
 4. 종합 리포트 생성
 """
 
+import json
 import subprocess
 import sys
-from pathlib import Path
 from datetime import datetime
-import json
-from typing import Dict, Any
+from pathlib import Path
 
 
 class IntegratedChecker:
@@ -30,13 +29,13 @@ class IntegratedChecker:
                 [sys.executable, "tools/quality/quality_check.py"],
                 capture_output=True,
                 text=True,
-                cwd=self.project_root
+                cwd=self.project_root,
             )
 
             self.results["python_quality"] = {
                 "passed": result.returncode == 0,
                 "output": result.stdout,
-                "errors": result.stderr
+                "errors": result.stderr,
             }
 
             if result.returncode == 0:
@@ -48,10 +47,7 @@ class IntegratedChecker:
 
         except Exception as e:
             print(f"💥 Python 품질 검사 오류: {e}")
-            self.results["python_quality"] = {
-                "passed": False,
-                "error": str(e)
-            }
+            self.results["python_quality"] = {"passed": False, "error": str(e)}
             return False
 
     def run_arduino_checks(self) -> bool:
@@ -62,13 +58,13 @@ class IntegratedChecker:
                 [sys.executable, "tools/quality/arduino_check.py"],
                 capture_output=True,
                 text=True,
-                cwd=self.project_root
+                cwd=self.project_root,
             )
 
             self.results["arduino_quality"] = {
                 "passed": result.returncode == 0,
                 "output": result.stdout,
-                "errors": result.stderr
+                "errors": result.stderr,
             }
 
             if result.returncode == 0:
@@ -80,10 +76,7 @@ class IntegratedChecker:
 
         except Exception as e:
             print(f"💥 Arduino 코드 검사 오류: {e}")
-            self.results["arduino_quality"] = {
-                "passed": False,
-                "error": str(e)
-            }
+            self.results["arduino_quality"] = {"passed": False, "error": str(e)}
             return False
 
     def run_security_checks(self) -> bool:
@@ -94,13 +87,13 @@ class IntegratedChecker:
                 [sys.executable, "tools/security/trufflehog_check.py"],
                 capture_output=True,
                 text=True,
-                cwd=self.project_root
+                cwd=self.project_root,
             )
 
             self.results["security_scan"] = {
                 "passed": result.returncode == 0,
                 "output": result.stdout,
-                "errors": result.stderr
+                "errors": result.stderr,
             }
 
             if result.returncode == 0:
@@ -112,10 +105,7 @@ class IntegratedChecker:
 
         except Exception as e:
             print(f"💥 보안 검사 오류: {e}")
-            self.results["security_scan"] = {
-                "passed": False,
-                "error": str(e)
-            }
+            self.results["security_scan"] = {"passed": False, "error": str(e)}
             return False
 
     def run_dependency_check(self) -> bool:
@@ -126,7 +116,7 @@ class IntegratedChecker:
                 ["uv", "run", "safety", "check", "--json"],
                 capture_output=True,
                 text=True,
-                cwd=self.project_root
+                cwd=self.project_root,
             )
 
             # Safety는 취약점이 없으면 exit code 0, 있으면 1
@@ -135,7 +125,7 @@ class IntegratedChecker:
             self.results["dependency_security"] = {
                 "passed": not vulnerabilities_found,
                 "output": result.stdout,
-                "errors": result.stderr
+                "errors": result.stderr,
             }
 
             if not vulnerabilities_found:
@@ -147,10 +137,7 @@ class IntegratedChecker:
 
         except Exception as e:
             print(f"💥 의존성 검사 오류: {e}")
-            self.results["dependency_security"] = {
-                "passed": False,
-                "error": str(e)
-            }
+            self.results["dependency_security"] = {"passed": False, "error": str(e)}
             return False
 
     def generate_summary_report(self) -> None:
@@ -158,12 +145,14 @@ class IntegratedChecker:
 
         # 전체 결과 계산
         total_checks = len(self.results)
-        passed_checks = sum(1 for result in self.results.values() if result.get("passed", False))
+        passed_checks = sum(
+            1 for result in self.results.values() if result.get("passed", False)
+        )
 
         # 콘솔 요약
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("🎯 DHT22 프로젝트 종합 품질 및 보안 검사 결과")
-        print("="*80)
+        print("=" * 80)
 
         print(f"📊 전체 결과: {passed_checks}/{total_checks} 통과")
         print(f"📅 검사 완료 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
@@ -173,7 +162,7 @@ class IntegratedChecker:
             "python_quality": "🐍 Python 코드 품질",
             "arduino_quality": "🔧 Arduino 코드 품질",
             "security_scan": "🛡️  보안 스캔",
-            "dependency_security": "📦 의존성 보안"
+            "dependency_security": "📦 의존성 보안",
         }
 
         for check_key, result in self.results.items():
@@ -197,9 +186,13 @@ class IntegratedChecker:
                 "total_checks": total_checks,
                 "passed_checks": passed_checks,
                 "failed_checks": total_checks - passed_checks,
-                "success_rate": round((passed_checks / total_checks) * 100, 2) if total_checks > 0 else 0
+                "success_rate": (
+                    round((passed_checks / total_checks) * 100, 2)
+                    if total_checks > 0
+                    else 0
+                ),
             },
-            "results": self.results
+            "results": self.results,
         }
 
         with open(report_file, "w", encoding="utf-8") as f:
@@ -212,7 +205,9 @@ class IntegratedChecker:
             print("\n🎉 모든 검사를 통과했습니다! 커밋할 준비가 되었습니다.")
             return True
         else:
-            print(f"\n⚠️  {total_checks - passed_checks}개의 검사가 실패했습니다. 문제를 해결한 후 다시 시도하세요.")
+            print(
+                f"\n⚠️  {total_checks - passed_checks}개의 검사가 실패했습니다. 문제를 해결한 후 다시 시도하세요."
+            )
             return False
 
 

@@ -30,7 +30,7 @@ if USE_SIMULATOR:
     sensor = DHT22Simulator()
     print("Using DHT22 Simulator")
 else:
-    sensor = DHT22SerialReader(port='COM3')  # Adjust port as needed
+    sensor = DHT22SerialReader(port="COM3")  # Adjust port as needed
     if not sensor.connect():
         print("Failed to connect to Arduino, falling back to simulator")
         sensor = DHT22Simulator()
@@ -41,60 +41,81 @@ app = dash.Dash(__name__)
 app.title = "DHT22 Environmental Monitor"
 
 # App layout
-app.layout = html.Div([
-    html.Div([
-        html.H1("🌡️ DHT22 환경 모니터링", className="header-title"),
-        html.P("실시간 온도, 습도 및 체감 지수 모니터링", className="header-subtitle"),
-        html.Div(id="status-indicator", className="status-indicator")
-    ], className="header"),
+app.layout = html.Div(
+    [
+        html.Div(
+            [
+                html.H1("🌡️ DHT22 환경 모니터링", className="header-title"),
+                html.P(
+                    "실시간 온도, 습도 및 체감 지수 모니터링",
+                    className="header-subtitle",
+                ),
+                html.Div(id="status-indicator", className="status-indicator"),
+            ],
+            className="header",
+        ),
+        # Current readings cards
+        html.Div(
+            [
+                html.Div(
+                    [
+                        html.H3("🌡️ 온도", className="card-title"),
+                        html.Div(id="current-temperature", className="metric-value"),
+                        html.Span("°C", className="metric-unit"),
+                    ],
+                    className="metric-card",
+                ),
+                html.Div(
+                    [
+                        html.H3("💧 습도", className="card-title"),
+                        html.Div(id="current-humidity", className="metric-value"),
+                        html.Span("%", className="metric-unit"),
+                    ],
+                    className="metric-card",
+                ),
+                html.Div(
+                    [
+                        html.H3("🌫️ 이슬점", className="card-title"),
+                        html.Div(id="current-dewpoint", className="metric-value"),
+                        html.Span("°C", className="metric-unit"),
+                    ],
+                    className="metric-card",
+                ),
+                html.Div(
+                    [
+                        html.H3("😰 체감 지수", className="card-title"),
+                        html.Div(id="current-discomfort", className="metric-value"),
+                        html.Div(id="comfort-level", className="comfort-level"),
+                    ],
+                    className="metric-card",
+                ),
+            ],
+            className="metrics-grid",
+        ),
+        # Charts
+        html.Div(
+            [
+                html.H2("📊 실시간 차트"),
+                dcc.Graph(id="temperature-chart"),
+                dcc.Graph(id="humidity-chart"),
+            ],
+            className="charts-section",
+        ),
+        # Statistics
+        html.Div(
+            [html.H2("📈 통계"), html.Div(id="statistics-table")],
+            className="stats-section",
+        ),
+        # Auto-refresh interval
+        dcc.Interval(
+            id="interval-component",
+            interval=2000,  # Update every 2 seconds
+            n_intervals=0,
+        ),
+    ],
+    className="container",
+)
 
-    # Current readings cards
-    html.Div([
-        html.Div([
-            html.H3("🌡️ 온도", className="card-title"),
-            html.Div(id="current-temperature", className="metric-value"),
-            html.Span("°C", className="metric-unit")
-        ], className="metric-card"),
-
-        html.Div([
-            html.H3("💧 습도", className="card-title"),
-            html.Div(id="current-humidity", className="metric-value"),
-            html.Span("%", className="metric-unit")
-        ], className="metric-card"),
-
-        html.Div([
-            html.H3("🌫️ 이슬점", className="card-title"),
-            html.Div(id="current-dewpoint", className="metric-value"),
-            html.Span("°C", className="metric-unit")
-        ], className="metric-card"),
-
-        html.Div([
-            html.H3("😰 체감 지수", className="card-title"),
-            html.Div(id="current-discomfort", className="metric-value"),
-            html.Div(id="comfort-level", className="comfort-level")
-        ], className="metric-card"),
-    ], className="metrics-grid"),
-
-    # Charts
-    html.Div([
-        html.H2("📊 실시간 차트"),
-        dcc.Graph(id="temperature-chart"),
-        dcc.Graph(id="humidity-chart"),
-    ], className="charts-section"),
-
-    # Statistics
-    html.Div([
-        html.H2("📈 통계"),
-        html.Div(id="statistics-table")
-    ], className="stats-section"),
-
-    # Auto-refresh interval
-    dcc.Interval(
-        id='interval-component',
-        interval=2000,  # Update every 2 seconds
-        n_intervals=0
-    )
-], className="container")
 
 # Data collection thread
 def data_collection_thread():
@@ -109,18 +130,22 @@ def data_collection_thread():
             print(f"Error collecting data: {e}")
         time.sleep(2)
 
+
 # Start data collection
 threading.Thread(target=data_collection_thread, daemon=True).start()
 
+
 # Callbacks
 @app.callback(
-    [Output('current-temperature', 'children'),
-     Output('current-humidity', 'children'),
-     Output('current-dewpoint', 'children'),
-     Output('current-discomfort', 'children'),
-     Output('comfort-level', 'children'),
-     Output('status-indicator', 'children')],
-    [Input('interval-component', 'n_intervals')]
+    [
+        Output("current-temperature", "children"),
+        Output("current-humidity", "children"),
+        Output("current-dewpoint", "children"),
+        Output("current-discomfort", "children"),
+        Output("comfort-level", "children"),
+        Output("status-indicator", "children"),
+    ],
+    [Input("interval-component", "n_intervals")],
 )
 def update_current_values(n):
     """Update current sensor readings"""
@@ -138,13 +163,13 @@ def update_current_values(n):
         f"{data['humidity']:.1f}",
         f"{data['dew_point']:.1f}",
         f"{data['discomfort_index']:.1f}",
-        data['comfort_level'],
-        status
+        data["comfort_level"],
+        status,
     )
 
+
 @app.callback(
-    Output('temperature-chart', 'figure'),
-    [Input('interval-component', 'n_intervals')]
+    Output("temperature-chart", "figure"), [Input("interval-component", "n_intervals")]
 )
 def update_temperature_chart(n):
     """Update temperature chart"""
@@ -154,30 +179,32 @@ def update_temperature_chart(n):
         return go.Figure()
 
     df = pd.DataFrame(recent_data)
-    df['time'] = pd.to_datetime(df['python_timestamp'], unit='s')
+    df["time"] = pd.to_datetime(df["python_timestamp"], unit="s")
 
     fig = go.Figure()
-    fig.add_trace(go.Scatter(
-        x=df['time'],
-        y=df['temperature'],
-        mode='lines+markers',
-        name='온도',
-        line=dict(color='#ff6b6b', width=2)
-    ))
+    fig.add_trace(
+        go.Scatter(
+            x=df["time"],
+            y=df["temperature"],
+            mode="lines+markers",
+            name="온도",
+            line=dict(color="#ff6b6b", width=2),
+        )
+    )
 
     fig.update_layout(
         title="온도 추이",
         xaxis_title="시간",
         yaxis_title="온도 (°C)",
         height=300,
-        margin=dict(l=50, r=50, t=50, b=50)
+        margin=dict(l=50, r=50, t=50, b=50),
     )
 
     return fig
 
+
 @app.callback(
-    Output('humidity-chart', 'figure'),
-    [Input('interval-component', 'n_intervals')]
+    Output("humidity-chart", "figure"), [Input("interval-component", "n_intervals")]
 )
 def update_humidity_chart(n):
     """Update humidity chart"""
@@ -187,30 +214,32 @@ def update_humidity_chart(n):
         return go.Figure()
 
     df = pd.DataFrame(recent_data)
-    df['time'] = pd.to_datetime(df['python_timestamp'], unit='s')
+    df["time"] = pd.to_datetime(df["python_timestamp"], unit="s")
 
     fig = go.Figure()
-    fig.add_trace(go.Scatter(
-        x=df['time'],
-        y=df['humidity'],
-        mode='lines+markers',
-        name='습도',
-        line=dict(color='#4ecdc4', width=2)
-    ))
+    fig.add_trace(
+        go.Scatter(
+            x=df["time"],
+            y=df["humidity"],
+            mode="lines+markers",
+            name="습도",
+            line=dict(color="#4ecdc4", width=2),
+        )
+    )
 
     fig.update_layout(
         title="습도 추이",
         xaxis_title="시간",
         yaxis_title="습도 (%)",
         height=300,
-        margin=dict(l=50, r=50, t=50, b=50)
+        margin=dict(l=50, r=50, t=50, b=50),
     )
 
     return fig
 
+
 @app.callback(
-    Output('statistics-table', 'children'),
-    [Input('interval-component', 'n_intervals')]
+    Output("statistics-table", "children"), [Input("interval-component", "n_intervals")]
 )
 def update_statistics(n):
     """Update statistics table"""
@@ -221,37 +250,49 @@ def update_statistics(n):
 
     table_rows = []
     for metric, values in stats.items():
-        if metric in ['temperature', 'humidity', 'dew_point', 'discomfort_index']:
+        if metric in ["temperature", "humidity", "dew_point", "discomfort_index"]:
             korean_names = {
-                'temperature': '온도 (°C)',
-                'humidity': '습도 (%)',
-                'dew_point': '이슬점 (°C)',
-                'discomfort_index': '불쾌지수'
+                "temperature": "온도 (°C)",
+                "humidity": "습도 (%)",
+                "dew_point": "이슬점 (°C)",
+                "discomfort_index": "불쾌지수",
             }
 
-            table_rows.append(html.Tr([
-                html.Td(korean_names[metric]),
-                html.Td(f"{values['min']:.1f}"),
-                html.Td(f"{values['max']:.1f}"),
-                html.Td(f"{values['mean']:.1f}"),
-                html.Td(f"{values['current']:.1f}")
-            ]))
+            table_rows.append(
+                html.Tr(
+                    [
+                        html.Td(korean_names[metric]),
+                        html.Td(f"{values['min']:.1f}"),
+                        html.Td(f"{values['max']:.1f}"),
+                        html.Td(f"{values['mean']:.1f}"),
+                        html.Td(f"{values['current']:.1f}"),
+                    ]
+                )
+            )
 
-    return html.Table([
-        html.Thead([
-            html.Tr([
-                html.Th("측정값"),
-                html.Th("최소값"),
-                html.Th("최대값"),
-                html.Th("평균값"),
-                html.Th("현재값")
-            ])
-        ]),
-        html.Tbody(table_rows)
-    ], className="stats-table")
+    return html.Table(
+        [
+            html.Thead(
+                [
+                    html.Tr(
+                        [
+                            html.Th("측정값"),
+                            html.Th("최소값"),
+                            html.Th("최대값"),
+                            html.Th("평균값"),
+                            html.Th("현재값"),
+                        ]
+                    )
+                ]
+            ),
+            html.Tbody(table_rows),
+        ],
+        className="stats-table",
+    )
+
 
 # CSS styling
-app.index_string = '''
+app.index_string = """
 <!DOCTYPE html>
 <html>
     <head>
@@ -361,11 +402,11 @@ app.index_string = '''
         </footer>
     </body>
 </html>
-'''
+"""
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print("Starting DHT22 Environmental Monitor...")
     print(f"Using {'Simulator' if USE_SIMULATOR else 'Arduino'} for data")
     print("Dashboard available at: http://localhost:8050")
 
-    app.run(debug=False, host='0.0.0.0', port=8050)
+    app.run(debug=False, host="0.0.0.0", port=8050)

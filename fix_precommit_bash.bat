@@ -4,7 +4,7 @@ echo Setting up pre-commit bash environment for Windows...
 REM Add Git bin to PATH permanently
 setx PATH "%PATH%;C:\Program Files\Git\bin" /M
 
-REM Add Python Scripts to PATH permanently  
+REM Add Python Scripts to PATH permanently
 setx PATH "%PATH%;C:\Users\h\AppData\Roaming\Python\Python313\Scripts" /M
 
 REM Set bash executable for pre-commit

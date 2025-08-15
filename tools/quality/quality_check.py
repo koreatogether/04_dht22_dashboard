@@ -9,12 +9,12 @@
 - Pytest: 단위 테스트 실행
 """
 
+import json
 import subprocess
 import sys
-from pathlib import Path
-from typing import List, Tuple, Dict
-import json
 from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Tuple
 
 
 def run_command(cmd: List[str], description: str) -> Tuple[bool, str]:
@@ -50,15 +50,14 @@ def check_black() -> Tuple[bool, str]:
     """Black 코드 포맷팅 검사"""
     return run_command(
         ["uv", "run", "black", "--check", "--diff", "src/python/", "tools/"],
-        "Black 포맷팅 검사"
+        "Black 포맷팅 검사",
     )
 
 
 def check_ruff() -> Tuple[bool, str]:
     """Ruff 린팅 검사"""
     return run_command(
-        ["uv", "run", "ruff", "check", "src/python/", "tools/"],
-        "Ruff 린팅 검사"
+        ["uv", "run", "ruff", "check", "src/python/", "tools/"], "Ruff 린팅 검사"
     )
 
 
@@ -66,16 +65,13 @@ def check_ruff_format() -> Tuple[bool, str]:
     """Ruff 포맷팅 검사"""
     return run_command(
         ["uv", "run", "ruff", "format", "--check", "src/python/", "tools/"],
-        "Ruff 포맷팅 검사"
+        "Ruff 포맷팅 검사",
     )
 
 
 def check_mypy() -> Tuple[bool, str]:
     """MyPy 타입 검사"""
-    return run_command(
-        ["uv", "run", "mypy", "src/python/"],
-        "MyPy 타입 검사"
-    )
+    return run_command(["uv", "run", "mypy", "src/python/"], "MyPy 타입 검사")
 
 
 def run_tests() -> Tuple[bool, str]:
@@ -85,10 +81,7 @@ def run_tests() -> Tuple[bool, str]:
         print("📝 테스트 디렉토리가 없습니다. 테스트를 건너뜁니다.")
         return True, "No tests directory found"
 
-    return run_command(
-        ["uv", "run", "pytest", "--tb=short"],
-        "pytest 단위 테스트"
-    )
+    return run_command(["uv", "run", "pytest", "--tb=short"], "pytest 단위 테스트")
 
 
 def check_imports() -> Tuple[bool, str]:
@@ -98,8 +91,8 @@ def check_imports() -> Tuple[bool, str]:
         sys.path.insert(0, str(Path("src/python").absolute()))
 
         # 주요 모듈들 import 테스트
-        from utils import serial_reader, data_processor  # noqa: F401
         from dashboard import app  # noqa: F401
+        from utils import data_processor, serial_reader  # noqa: F401
 
         print("✅ Python import 검사 통과")
         return True, "All imports successful"
@@ -120,9 +113,9 @@ def generate_report(results: Dict[str, Tuple[bool, str]]) -> None:
     """검사 결과 리포트 생성"""
 
     # 콘솔 요약
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("🎯 코드 품질 검사 결과 요약")
-    print("="*60)
+    print("=" * 60)
 
     passed = 0
     total = len(results)
@@ -148,15 +141,12 @@ def generate_report(results: Dict[str, Tuple[bool, str]]) -> None:
             "total_checks": total,
             "passed": passed,
             "failed": total - passed,
-            "success_rate": round((passed / total) * 100, 2) if total > 0 else 0
+            "success_rate": round((passed / total) * 100, 2) if total > 0 else 0,
         },
         "results": {
-            name: {
-                "passed": success,
-                "output": output[:1000]  # 출력 길이 제한
-            }
+            name: {"passed": success, "output": output[:1000]}  # 출력 길이 제한
             for name, (success, output) in results.items()
-        }
+        },
     }
 
     with open(report_file, "w", encoding="utf-8") as f:
@@ -176,10 +166,11 @@ def main():
     """메인 함수"""
     # Windows 콘솔 인코딩 설정
     import codecs
-    if sys.platform.startswith('win'):
+
+    if sys.platform.startswith("win"):
         try:
-            sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
-            sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer)
+            sys.stdout = codecs.getwriter("utf-8")(sys.stdout.buffer)
+            sys.stderr = codecs.getwriter("utf-8")(sys.stderr.buffer)
         except AttributeError:
             pass
 

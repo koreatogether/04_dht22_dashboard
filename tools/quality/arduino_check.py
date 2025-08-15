@@ -9,12 +9,12 @@ Arduino 코드 품질 검사 도구
 - 라이브러리 include 검사
 """
 
+import json
 import re
 import sys
-from pathlib import Path
-from typing import List, Dict, Tuple
 from datetime import datetime
-import json
+from pathlib import Path
+from typing import Dict, List, Tuple
 
 
 class ArduinoChecker:
@@ -45,10 +45,12 @@ class ArduinoChecker:
         print(f"📁 검사 중: {file_path.relative_to(self.project_root)}")
 
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 content = f.read()
         except Exception as e:
-            self.add_issue(file_path, 0, "파일 읽기 오류", f"파일을 읽을 수 없습니다: {e}", "HIGH")
+            self.add_issue(
+                file_path, 0, "파일 읽기 오류", f"파일을 읽을 수 없습니다: {e}", "HIGH"
+            )
             return False
 
         file_passed = True
@@ -80,12 +82,12 @@ class ArduinoChecker:
         passed = True
 
         # setup() 함수 존재 확인
-        if not re.search(r'void\s+setup\s*\(\s*\)\s*\{', content):
+        if not re.search(r"void\s+setup\s*\(\s*\)\s*\{", content):
             self.add_issue(file_path, 0, "구조 오류", "setup() 함수가 없습니다", "HIGH")
             passed = False
 
         # loop() 함수 존재 확인
-        if not re.search(r'void\s+loop\s*\(\s*\)\s*\{', content):
+        if not re.search(r"void\s+loop\s*\(\s*\)\s*\{", content):
             self.add_issue(file_path, 0, "구조 오류", "loop() 함수가 없습니다", "HIGH")
             passed = False
 
@@ -102,30 +104,61 @@ class ArduinoChecker:
 
         for line_num, line in enumerate(lines, 1):
             # 주석 제거
-            line = re.sub(r'//.*$', '', line)
-            line = re.sub(r'/\*.*?\*/', '', line)
+            line = re.sub(r"//.*$", "", line)
+            line = re.sub(r"/\*.*?\*/", "", line)
 
             # 괄호 카운트
-            brace_count += line.count('{') - line.count('}')
-            paren_count += line.count('(') - line.count(')')
+            brace_count += line.count("{") - line.count("}")
+            paren_count += line.count("(") - line.count(")")
 
             # 세미콜론 누락 검사 (간단한 버전)
             stripped = line.strip()
-            if (stripped and
-                not stripped.endswith((';', '{', '}', ':', '#')) and
-                not stripped.startswith(('#', '//', '/*')) and
-                not any(keyword in stripped for keyword in ['if', 'else', 'for', 'while', 'switch', 'case', 'default']) and
-                re.search(r'[a-zA-Z_]\w*\s*\(.*\)\s*$', stripped)):
-                self.add_issue(file_path, line_num, "문법 오류", f"세미콜론이 누락되었을 수 있습니다: {stripped}", "MEDIUM")
+            if (
+                stripped
+                and not stripped.endswith((";", "{", "}", ":", "#"))
+                and not stripped.startswith(("#", "//", "/*"))
+                and not any(
+                    keyword in stripped
+                    for keyword in [
+                        "if",
+                        "else",
+                        "for",
+                        "while",
+                        "switch",
+                        "case",
+                        "default",
+                    ]
+                )
+                and re.search(r"[a-zA-Z_]\w*\s*\(.*\)\s*$", stripped)
+            ):
+                self.add_issue(
+                    file_path,
+                    line_num,
+                    "문법 오류",
+                    f"세미콜론이 누락되었을 수 있습니다: {stripped}",
+                    "MEDIUM",
+                )
                 passed = False
 
         # 괄호 불일치 검사
         if brace_count != 0:
-            self.add_issue(file_path, 0, "문법 오류", f"중괄호가 {abs(brace_count)}개 {'부족' if brace_count < 0 else '초과'}합니다", "HIGH")
+            self.add_issue(
+                file_path,
+                0,
+                "문법 오류",
+                f"중괄호가 {abs(brace_count)}개 {'부족' if brace_count < 0 else '초과'}합니다",
+                "HIGH",
+            )
             passed = False
 
         if paren_count != 0:
-            self.add_issue(file_path, 0, "문법 오류", f"소괄호가 {abs(paren_count)}개 {'부족' if paren_count < 0 else '초과'}합니다", "HIGH")
+            self.add_issue(
+                file_path,
+                0,
+                "문법 오류",
+                f"소괄호가 {abs(paren_count)}개 {'부족' if paren_count < 0 else '초과'}합니다",
+                "HIGH",
+            )
             passed = False
 
         return passed
@@ -137,16 +170,34 @@ class ArduinoChecker:
 
         for line_num, line in enumerate(lines, 1):
             # 탭 사용 검사
-            if '\t' in line:
-                self.add_issue(file_path, line_num, "스타일", "탭 대신 스페이스 사용을 권장합니다", "LOW")
+            if "\t" in line:
+                self.add_issue(
+                    file_path,
+                    line_num,
+                    "스타일",
+                    "탭 대신 스페이스 사용을 권장합니다",
+                    "LOW",
+                )
 
             # 줄 길이 검사
             if len(line) > 120:
-                self.add_issue(file_path, line_num, "스타일", f"줄이 너무 깁니다 ({len(line)}자)", "LOW")
+                self.add_issue(
+                    file_path,
+                    line_num,
+                    "스타일",
+                    f"줄이 너무 깁니다 ({len(line)}자)",
+                    "LOW",
+                )
 
             # 후행 공백 검사
-            if line.endswith(' ') or line.endswith('\t'):
-                self.add_issue(file_path, line_num, "스타일", "줄 끝에 불필요한 공백이 있습니다", "LOW")
+            if line.endswith(" ") or line.endswith("\t"):
+                self.add_issue(
+                    file_path,
+                    line_num,
+                    "스타일",
+                    "줄 끝에 불필요한 공백이 있습니다",
+                    "LOW",
+                )
 
         return passed
 
@@ -156,25 +207,41 @@ class ArduinoChecker:
 
         # 필요한 include 확인
         required_includes = {
-            'DHT': ['#include <DHT.h>', '#include "DHT.h"'],
-            'ArduinoJson': ['#include <ArduinoJson.h>', '#include "ArduinoJson.h"'],
+            "DHT": ["#include <DHT.h>", '#include "DHT.h"'],
+            "ArduinoJson": ["#include <ArduinoJson.h>", '#include "ArduinoJson.h"'],
         }
 
         # DHT 관련 코드가 있는지 확인
-        if 'DHT' in content or 'dht' in content:
+        if "DHT" in content or "dht" in content:
             has_dht_include = any(
-                include in content for includes in required_includes['DHT'] for include in includes
+                include in content
+                for includes in required_includes["DHT"]
+                for include in includes
             )
             if not has_dht_include:
-                self.add_issue(file_path, 0, "라이브러리", "DHT 라이브러리 include가 필요할 수 있습니다", "MEDIUM")
+                self.add_issue(
+                    file_path,
+                    0,
+                    "라이브러리",
+                    "DHT 라이브러리 include가 필요할 수 있습니다",
+                    "MEDIUM",
+                )
 
         # JSON 관련 코드가 있는지 확인
-        if any(keyword in content for keyword in ['Json', 'json', 'JSON']):
+        if any(keyword in content for keyword in ["Json", "json", "JSON"]):
             has_json_include = any(
-                include in content for includes in required_includes['ArduinoJson'] for include in includes
+                include in content
+                for includes in required_includes["ArduinoJson"]
+                for include in includes
             )
             if not has_json_include:
-                self.add_issue(file_path, 0, "라이브러리", "ArduinoJson 라이브러리 include가 필요할 수 있습니다", "MEDIUM")
+                self.add_issue(
+                    file_path,
+                    0,
+                    "라이브러리",
+                    "ArduinoJson 라이브러리 include가 필요할 수 있습니다",
+                    "MEDIUM",
+                )
 
         return passed
 
@@ -185,26 +252,46 @@ class ArduinoChecker:
 
         for line_num, line in enumerate(lines, 1):
             # 하드코딩된 비밀번호나 키 검사
-            if re.search(r'(password|pwd|secret|key)\s*=\s*"[^"]*"', line, re.IGNORECASE):
-                self.add_issue(file_path, line_num, "보안", "하드코딩된 비밀번호나 키가 발견되었습니다", "HIGH")
+            if re.search(
+                r'(password|pwd|secret|key)\s*=\s*"[^"]*"', line, re.IGNORECASE
+            ):
+                self.add_issue(
+                    file_path,
+                    line_num,
+                    "보안",
+                    "하드코딩된 비밀번호나 키가 발견되었습니다",
+                    "HIGH",
+                )
                 passed = False
 
             # 디버그 정보 노출 검사
-            if 'Serial.println' in line and any(keyword in line.lower() for keyword in ['password', 'secret', 'key']):
-                self.add_issue(file_path, line_num, "보안", "민감한 정보가 시리얼로 출력될 수 있습니다", "MEDIUM")
+            if "Serial.println" in line and any(
+                keyword in line.lower() for keyword in ["password", "secret", "key"]
+            ):
+                self.add_issue(
+                    file_path,
+                    line_num,
+                    "보안",
+                    "민감한 정보가 시리얼로 출력될 수 있습니다",
+                    "MEDIUM",
+                )
 
         return passed
 
-    def add_issue(self, file_path: Path, line_num: int, category: str, message: str, severity: str):
+    def add_issue(
+        self, file_path: Path, line_num: int, category: str, message: str, severity: str
+    ):
         """이슈 추가"""
-        self.issues.append({
-            "file": str(file_path.relative_to(self.project_root)),
-            "line": line_num,
-            "category": category,
-            "message": message,
-            "severity": severity,
-            "timestamp": datetime.now().isoformat()
-        })
+        self.issues.append(
+            {
+                "file": str(file_path.relative_to(self.project_root)),
+                "line": line_num,
+                "category": category,
+                "message": message,
+                "severity": severity,
+                "timestamp": datetime.now().isoformat(),
+            }
+        )
 
     def generate_report(self, all_passed: bool) -> None:
         """리포트 생성"""
@@ -215,9 +302,9 @@ class ArduinoChecker:
             severity_counts[issue["severity"]] += 1
 
         # 콘솔 출력
-        print("\n" + "="*60)
+        print("\n" + "=" * 60)
         print("🔧 Arduino 코드 검사 결과")
-        print("="*60)
+        print("=" * 60)
 
         if all_passed and not self.issues:
             print("✅ 모든 Arduino 코드가 품질 기준을 통과했습니다!")
@@ -229,7 +316,9 @@ class ArduinoChecker:
 
             # 이슈별 상세 출력
             for i, issue in enumerate(self.issues, 1):
-                severity_icon = {"HIGH": "🔴", "MEDIUM": "🟡", "LOW": "🟢"}[issue["severity"]]
+                severity_icon = {"HIGH": "🔴", "MEDIUM": "🟡", "LOW": "🟢"}[
+                    issue["severity"]
+                ]
                 print(f"\n{i}. {severity_icon} {issue['category']}")
                 print(f"   📁 파일: {issue['file']}:{issue['line']}")
                 print(f"   📝 내용: {issue['message']}")
@@ -246,9 +335,9 @@ class ArduinoChecker:
             "summary": {
                 "total_issues": len(self.issues),
                 "severity_breakdown": severity_counts,
-                "passed": all_passed
+                "passed": all_passed,
             },
-            "issues": self.issues
+            "issues": self.issues,
         }
 
         with open(report_file, "w", encoding="utf-8") as f:
@@ -260,12 +349,12 @@ class ArduinoChecker:
 def main():
     """메인 함수"""
     # Windows 콘솔 인코딩 설정
-    import locale
     import codecs
-    if sys.platform.startswith('win'):
+
+    if sys.platform.startswith("win"):
         try:
-            sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
-            sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer)
+            sys.stdout = codecs.getwriter("utf-8")(sys.stdout.buffer)
+            sys.stderr = codecs.getwriter("utf-8")(sys.stderr.buffer)
         except AttributeError:
             pass
 

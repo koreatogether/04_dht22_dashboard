@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 class DHT22SerialReader:
     """Handles serial communication with Arduino DHT22 sensor"""
 
-    def __init__(self, port: str = 'COM3', baudrate: int = 9600, timeout: float = 1.0):
+    def __init__(self, port: str = "COM3", baudrate: int = 9600, timeout: float = 1.0):
         self.port = port
         self.baudrate = baudrate
         self.timeout = timeout
@@ -26,9 +26,7 @@ class DHT22SerialReader:
         """Establish serial connection"""
         try:
             self.connection = serial.Serial(
-                port=self.port,
-                baudrate=self.baudrate,
-                timeout=self.timeout
+                port=self.port, baudrate=self.baudrate, timeout=self.timeout
             )
             time.sleep(2)  # Allow Arduino to reset
             self.is_connected = True
@@ -53,7 +51,7 @@ class DHT22SerialReader:
 
         try:
             # Read line from serial
-            line = self.connection.readline().decode('utf-8').strip()
+            line = self.connection.readline().decode("utf-8").strip()
 
             if not line:
                 return None
@@ -62,7 +60,7 @@ class DHT22SerialReader:
             data = json.loads(line)
 
             # Add Python timestamp
-            data['python_timestamp'] = time.time()
+            data["python_timestamp"] = time.time()
 
             return data
 
@@ -73,6 +71,7 @@ class DHT22SerialReader:
     def get_available_ports(self) -> list:
         """Get list of available serial ports"""
         import serial.tools.list_ports
+
         ports = serial.tools.list_ports.comports()
         return [port.device for port in ports]
 
@@ -94,7 +93,9 @@ class DHT22Simulator:
 
         # Add some sine wave variation
         temp_variation = 3.0 * (0.5 + 0.5 * (elapsed / 60))  # Slow temperature drift
-        humidity_variation = 10.0 * (0.5 + 0.5 * (elapsed / 120))  # Slower humidity drift
+        humidity_variation = 10.0 * (
+            0.5 + 0.5 * (elapsed / 120)
+        )  # Slower humidity drift
 
         temperature = base_temp + temp_variation
         humidity = base_humidity + humidity_variation
@@ -103,11 +104,11 @@ class DHT22Simulator:
         heat_index = temperature + (humidity / 100 * 5)
 
         return {
-            'timestamp': int(elapsed * 1000),  # Milliseconds since start
-            'temperature': round(temperature, 2),
-            'humidity': round(humidity, 2),
-            'heat_index': round(heat_index, 2),
-            'sensor': 'DHT22_SIM',
-            'status': 'OK',
-            'python_timestamp': current_time
+            "timestamp": int(elapsed * 1000),  # Milliseconds since start
+            "temperature": round(temperature, 2),
+            "humidity": round(humidity, 2),
+            "heat_index": round(heat_index, 2),
+            "sensor": "DHT22_SIM",
+            "status": "OK",
+            "python_timestamp": current_time,
         }

@@ -41,24 +41,26 @@ def calculate_heat_index(temperature: float, humidity: float) -> float:
         Heat index in Celsius
     """
     # Convert to Fahrenheit for calculation
-    temp_f = temperature * 9/5 + 32
+    temp_f = temperature * 9 / 5 + 32
 
     if temp_f < 80:
         return temperature  # Heat index not meaningful below 80°F
 
     # Heat Index formula (Rothfusz regression)
-    hi = (-42.379 +
-          2.04901523 * temp_f +
-          10.14333127 * humidity -
-          0.22475541 * temp_f * humidity -
-          6.83783e-3 * temp_f**2 -
-          5.481717e-2 * humidity**2 +
-          1.22874e-3 * temp_f**2 * humidity +
-          8.5282e-4 * temp_f * humidity**2 -
-          1.99e-6 * temp_f**2 * humidity**2)
+    hi = (
+        -42.379
+        + 2.04901523 * temp_f
+        + 10.14333127 * humidity
+        - 0.22475541 * temp_f * humidity
+        - 6.83783e-3 * temp_f**2
+        - 5.481717e-2 * humidity**2
+        + 1.22874e-3 * temp_f**2 * humidity
+        + 8.5282e-4 * temp_f * humidity**2
+        - 1.99e-6 * temp_f**2 * humidity**2
+    )
 
     # Convert back to Celsius
-    heat_index_c = (hi - 32) * 5/9
+    heat_index_c = (hi - 32) * 5 / 9
     return round(heat_index_c, 2)
 
 
@@ -111,24 +113,24 @@ def process_sensor_data(raw_data: Dict) -> Dict:
     Returns:
         Processed data with additional calculated values
     """
-    temperature = raw_data.get('temperature', 0)
-    humidity = raw_data.get('humidity', 0)
+    temperature = raw_data.get("temperature", 0)
+    humidity = raw_data.get("humidity", 0)
 
     processed = raw_data.copy()
 
     # Add calculated values
-    processed['dew_point'] = calculate_dew_point(temperature, humidity)
-    processed['discomfort_index'] = calculate_discomfort_index(temperature, humidity)
-    processed['comfort_level'] = get_comfort_level(processed['discomfort_index'])
+    processed["dew_point"] = calculate_dew_point(temperature, humidity)
+    processed["discomfort_index"] = calculate_discomfort_index(temperature, humidity)
+    processed["comfort_level"] = get_comfort_level(processed["discomfort_index"])
 
     # Add timestamp if not present
-    if 'python_timestamp' not in processed:
-        processed['python_timestamp'] = datetime.now().timestamp()
+    if "python_timestamp" not in processed:
+        processed["python_timestamp"] = datetime.now().timestamp()
 
     # Add formatted datetime
-    processed['datetime'] = datetime.fromtimestamp(
-        processed['python_timestamp']
-    ).strftime('%Y-%m-%d %H:%M:%S')
+    processed["datetime"] = datetime.fromtimestamp(
+        processed["python_timestamp"]
+    ).strftime("%Y-%m-%d %H:%M:%S")
 
     return processed
 
@@ -168,16 +170,16 @@ class DataBuffer:
             return {}
 
         df = self.to_dataframe()
-        numeric_columns = ['temperature', 'humidity', 'dew_point', 'discomfort_index']
+        numeric_columns = ["temperature", "humidity", "dew_point", "discomfort_index"]
 
         stats = {}
         for col in numeric_columns:
             if col in df.columns:
                 stats[col] = {
-                    'min': df[col].min(),
-                    'max': df[col].max(),
-                    'mean': df[col].mean(),
-                    'current': df[col].iloc[-1] if len(df) > 0 else None
+                    "min": df[col].min(),
+                    "max": df[col].max(),
+                    "mean": df[col].mean(),
+                    "current": df[col].iloc[-1] if len(df) > 0 else None,
                 }
 
         return stats
