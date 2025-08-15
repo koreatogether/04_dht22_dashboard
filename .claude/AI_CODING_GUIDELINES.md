@@ -40,7 +40,7 @@ result = some_very_long_function_name(parameter1, parameter2, parameter3, parame
 
 # ✅ 올바른 예시
 result = some_very_long_function_name(
-    parameter1, parameter2, parameter3, 
+    parameter1, parameter2, parameter3,
     parameter4, parameter5
 )
 
@@ -105,14 +105,14 @@ from fastapi import WebSocket
 class ConnectionManager:
     def __init__(self) -> None:
         self.active_connections: list[WebSocket] = []
-    
+
     async def connect(self, websocket: WebSocket) -> None:
         await websocket.accept()
         self.active_connections.append(websocket)
-    
+
     async def disconnect(self, websocket: WebSocket) -> None:
         self.active_connections.remove(websocket)
-    
+
     async def broadcast(self, message: str) -> None:
         for connection in self.active_connections:
             await connection.send_text(message)
@@ -157,16 +157,16 @@ class DataPoint:
     def __init__(self, temp: float, humidity: float) -> None:
         self.temperature = temp
         self.humidity = humidity
-    
+
     def __str__(self) -> str:
         return f"DataPoint(temp={self.temperature}, humidity={self.humidity})"
-    
+
     def __repr__(self) -> str:
         return f"DataPoint({self.temperature}, {self.humidity})"
-    
+
     def __len__(self) -> int:
         return 2  # temperature와 humidity
-    
+
     def __bool__(self) -> bool:
         return self.temperature > 0 and self.humidity > 0
 ```
@@ -222,7 +222,7 @@ html = (
 # ❌ AI가 자주 놓치는 실수 (79자 초과)
 js_code = "document.getElementById('statusIndicator').classList.add('online', 'bg-success');"
 
-# ✅ 올바른 분할  
+# ✅ 올바른 분할
 js_code = (
     "document.getElementById('statusIndicator')"
     ".classList.add('online', 'bg-success');"
@@ -231,7 +231,7 @@ js_code = (
 
 #### 🎯 **3. CSS 스타일 정의**
 ```python
-# ❌ AI가 자주 놓치는 실수 (79자 초과)  
+# ❌ AI가 자주 놓치는 실수 (79자 초과)
 css = "background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px;"
 
 # ✅ 올바른 분할
@@ -264,7 +264,7 @@ adjustment = ((13 - humidity) / 4) * math.sqrt(
 )
 ```
 
-#### 🎯 **6. 함수/메서드 체인**  
+#### 🎯 **6. 함수/메서드 체인**
 ```python
 # ❌ AI가 자주 놓치는 실수 (79자 초과)
 result = data.filter(lambda x: x.temperature > 20).map(lambda x: x.to_dict()).collect()
@@ -297,7 +297,7 @@ raise HTTPException(status_code=500, detail=f"Failed to connect to sensor at {ad
 
 # ✅ 올바른 분할
 raise HTTPException(
-    status_code=500, 
+    status_code=500,
     detail=f"Failed to connect to sensor at {address}: {str(e)}"
 )
 ```
@@ -454,12 +454,12 @@ logger = logging.getLogger(__name__)
 def process_sensor_reading(data: dict) -> None:
     """센서 읽기 처리"""
     logger.debug(f"Processing sensor data: {data}")
-    
+
     try:
         validated_data = validate_sensor_data(data)
         store_data(validated_data)
         logger.info(f"Successfully processed sensor reading: {validated_data['sensor_id']}")
-        
+
     except ValidationError as e:
         logger.warning(f"Invalid sensor data: {e}")
         raise
@@ -492,7 +492,7 @@ line-length = 88
 target-version = "py39"
 exclude = [
     ".venv",
-    "venv", 
+    "venv",
     "__pycache__",
     ".git",
     ".mypy_cache",
@@ -530,7 +530,7 @@ exclude = '''
 def check_black(warnings: list[str]) -> None:
     code, out, err = _run(
         [sys.executable, "-m", "black", "--check", "src/", "tools/"])
-    
+
 def check_ruff(warnings: list[str]) -> None:
     code, out, err = _run(
         [sys.executable, "-m", "ruff", "check", "src/", "tools/"])
@@ -541,11 +541,11 @@ def check_ruff(warnings: list[str]) -> None:
 # Black 실행 시 .venv 제외
 python -m black --exclude .venv src/ tools/
 
-# Ruff 실행 시 .venv 제외  
+# Ruff 실행 시 .venv 제외
 python -m ruff check --exclude .venv src/ tools/
 ```
 
-**핵심 원칙**: 
+**핵심 원칙**:
 - ✅ 코드 품질 도구는 **src/**, **tools/** 폴더만 검사
 - ✅ .venv, __pycache__, .git 등 시스템 폴더는 **반드시 제외**
 - ✅ pyproject.toml에 exclude 설정으로 전역 적용
@@ -590,7 +590,7 @@ async def fetch_multiple_sensors(sensor_ids: list[str]) -> dict[str, dict]:
     """여러 센서 데이터 동시 페치"""
     tasks = [fetch_sensor_data(sensor_id) for sensor_id in sensor_ids]
     results = await asyncio.gather(*tasks, return_exceptions=True)
-    
+
     return {
         sensor_id: result for sensor_id, result in zip(sensor_ids, results)
         if not isinstance(result, Exception)
@@ -653,6 +653,6 @@ def process_large_dataset(data_stream) -> None:
 
 ---
 
-**📝 마지막 업데이트**: 2025-08-14 22:45  
-**🎯 적용 프로젝트**: DHT22 환경 모니터링 시스템  
+**📝 마지막 업데이트**: 2025-08-14 22:45
+**🎯 적용 프로젝트**: DHT22 환경 모니터링 시스템
 **✨ 효과**: 코드 품질 문제 90% 사전 방지 가능

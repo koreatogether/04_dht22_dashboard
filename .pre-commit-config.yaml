@@ -1,20 +1,114 @@
 repos:
+  # Built-in hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
-    - id: check-yaml
-    - id: check-added-large-files
-    - id: trailing-whitespace
-    - id: end-of-file-fixer
-    - id: check-python-use-type-hints
-    - id: check-syntax
+      - id: trailing-whitespace
+        exclude: ^tools/security/
+      - id: end-of-file-fixer
+        exclude: ^tools/security/
+      - id: check-yaml
+        exclude: ^tools/security/
+      - id: check-json
+        exclude: ^tools/security/
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-docstring-first
+        files: ^src/python/
+      - id: debug-statements
+        files: ^src/python/
+      - id: name-tests-test
+        files: ^tests/
 
+  # Black - code formatting
+  - repo: https://github.com/psf/black
+    rev: 24.1.1
+    hooks:
+      - id: black
+        language_version: python3.13
+        files: ^src/python/|^tools/|^tests/
+        exclude: ^tools/security/trufflehog
+
+  # Ruff - fast linting and import sorting
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.4
+    hooks:
+      - id: ruff
+        args: ["--fix", "--exit-non-zero-on-fix"]
+        files: ^src/python/|^tools/|^tests/
+        exclude: ^tools/security/trufflehog
+      - id: ruff-format
+        files: ^src/python/|^tools/|^tests/
+        exclude: ^tools/security/trufflehog
+
+  # MyPy - type checking
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0
+    hooks:
+      - id: mypy
+        additional_dependencies: [
+          types-requests,
+          pandas-stubs,
+          types-pyserial,
+        ]
+        files: ^src/python/
+        exclude: ^tests/|^tools/
+
+  # Bandit - security linting
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        args: ["-r", "src/python/", "-f", "json", "-o", "tools/security/bandit-report.json"]
+        files: ^src/python/
+        pass_filenames: false
+
+  # Safety - dependency vulnerability scanning
+  - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
+    rev: v1.3.2
+    hooks:
+      - id: python-safety-dependencies-check
+        files: pyproject.toml
+
+  # Custom hooks
   - repo: local
     hooks:
-    - id: validate-tools
-      name: Validate Tool Files
-      entry: python tools/quality/validate_tools.py
-      language: python
-      pass_filenames: false
-      always_run: true
-      stages: [commit]
+      # Trufflehog - secret detection
+      - id: trufflehog
+        name: TruffleHog Secret Detection
+        entry: python tools/security/trufflehog_check.py
+        language: system
+        files: ^src/|^tools/|pyproject.toml|README.MD
+        exclude: ^tools/security/trufflehog
+
+      # Quality check
+      - id: quality-check
+        name: Quality Check
+        entry: python tools/quality/quality_check.py
+        language: system
+        files: ^src/python/
+        pass_filenames: false
+
+      # Arduino syntax check
+      - id: arduino-syntax
+        name: Arduino Syntax Check
+        entry: python tools/quality/arduino_check.py
+        language: system
+        files: ^src/arduino/.*\.ino$
+
+# Global configuration
+default_language_version:
+  python: python3.13
+
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit hooks
+
+    for more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: ''
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: weekly
+  skip: [trufflehog, quality-check, arduino-syntax]
+  submodules: false

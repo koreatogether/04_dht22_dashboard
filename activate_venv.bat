@@ -24,7 +24,7 @@ if errorlevel 1 (
     exit /b 1
 ) else (
     echo [SUCCESS] 가상환경이 활성화되었습니다!
-    echo [INFO] Python 버전: 
+    echo [INFO] Python 버전:
     python --version
     echo [INFO] 설치된 패키지 목록:
     pip list --local

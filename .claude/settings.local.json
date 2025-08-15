@@ -7,10 +7,14 @@
       "Bash(toolsqualityquick_fix.bat)",
       "Bash(cmd /c:*)",
       "Bash(uv:*)",
-      "Bash(.venv_new/Scripts/activate:*)",
+      "Bash(.venv/Scripts/activate:*)",
       "Bash(pip --version)",
-      "Bash(.venv_newScriptspython.exe --version)",
-      "Bash(C:Python313python.exe -m venv .venv_new)"
+      "Bash(.venv/Scripts/python.exe --version)",
+      "Bash(deactivate)",
+      "Bash(true)",
+      "Bash(rmdir:*)",
+      "Bash(rm:*)",
+      "Bash(mkdir:*)"
     ],
     "deny": [],
     "ask": [],

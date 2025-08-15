@@ -1,0 +1,30 @@
+{
+  "timestamp": "2025-08-15T09:28:19.960674",
+  "summary": {
+    "total_checks": 4,
+    "passed_checks": 0,
+    "failed_checks": 4,
+    "success_rate": 0.0
+  },
+  "results": {
+    "python_quality": {
+      "passed": false,
+      "output": "",
+      "errors": "Traceback (most recent call last):\n  File \"E:\\project\\04_P_dht22_monitoring\\tools\\quality\\quality_check.py\", line 200, in <module>\n    main()\n  File \"E:\\project\\04_P_dht22_monitoring\\tools\\quality\\quality_check.py\", line 177, in main\n    print(\"\\U0001f680 DHT22 프로젝트 코드 품질 검사 시작\")\nUnicodeEncodeError: 'cp949' codec can't encode character '\\U0001f680' in position 0: illegal multibyte sequence\n"
+    },
+    "arduino_quality": {
+      "passed": false,
+      "output": "",
+      "errors": "Traceback (most recent call last):\n  File \"E:\\project\\04_P_dht22_monitoring\\tools\\quality\\arduino_check.py\", line 279, in <module>\n    main()\n  File \"E:\\project\\04_P_dht22_monitoring\\tools\\quality\\arduino_check.py\", line 262, in main\n    print(\"\\U0001f527 Arduino 코드 품질 검사 시작\")\nUnicodeEncodeError: 'cp949' codec can't encode character '\\U0001f527' in position 0: illegal multibyte sequence\n"
+    },
+    "security_scan": {
+      "passed": false,
+      "output": "",
+      "errors": "Traceback (most recent call last):\n  File \"E:\\project\\04_P_dht22_monitoring\\tools\\security\\trufflehog_check.py\", line 274, in <module>\n    main()\n  File \"E:\\project\\04_P_dht22_monitoring\\tools\\security\\trufflehog_check.py\", line 252, in main\n    print(\"\\U0001f6e1\\ufe0f  DHT22 프로젝트 보안 스캔 시작\")\nUnicodeEncodeError: 'cp949' codec can't encode character '\\U0001f6e1' in position 0: illegal multibyte sequence\n"
+    },
+    "dependency_security": {
+      "passed": false,
+      "error": "[WinError 2] 지정된 파일을 찾을 수 없습니다"
+    }
+  }
+}

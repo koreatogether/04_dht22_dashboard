@@ -34,15 +34,15 @@ if ($currentPolicy -eq "Restricted") {
 try {
     & .\.venv\Scripts\Activate.ps1
     Write-Host "[SUCCESS] 가상환경이 활성화되었습니다!" -ForegroundColor Green
-    
+
     # Python 버전 확인
     $pythonVersion = python --version 2>&1
     Write-Host "[INFO] Python 버전: $pythonVersion" -ForegroundColor Cyan
-    
+
     # 설치된 패키지 목록 (주요 패키지만)
     Write-Host "[INFO] 주요 설치 패키지:" -ForegroundColor Cyan
     pip list --format=columns | Select-String -Pattern "(fastapi|uvicorn|ruff|black|mypy|pytest)"
-    
+
 }
 catch {
     Write-Host "[ERROR] 가상환경 활성화에 실패했습니다: $($_.Exception.Message)" -ForegroundColor Red

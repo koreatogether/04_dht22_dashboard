@@ -40,7 +40,7 @@ result = some_very_long_function_name(parameter1, parameter2, parameter3, parame
 
 # ✅ 올바른 예시
 result = some_very_long_function_name(
-    parameter1, parameter2, parameter3, 
+    parameter1, parameter2, parameter3,
     parameter4, parameter5
 )
 ```
@@ -91,14 +91,14 @@ from fastapi import WebSocket
 class ConnectionManager:
     def __init__(self) -> None:
         self.active_connections: list[WebSocket] = []
-    
+
     async def connect(self, websocket: WebSocket) -> None:
         await websocket.accept()
         self.active_connections.append(websocket)
-    
+
     async def disconnect(self, websocket: WebSocket) -> None:
         self.active_connections.remove(websocket)
-    
+
     async def broadcast(self, message: str) -> None:
         for connection in self.active_connections:
             await connection.send_text(message)
@@ -143,16 +143,16 @@ class DataPoint:
     def __init__(self, temp: float, humidity: float) -> None:
         self.temperature = temp
         self.humidity = humidity
-    
+
     def __str__(self) -> str:
         return f"DataPoint(temp={self.temperature}, humidity={self.humidity})"
-    
+
     def __repr__(self) -> str:
         return f"DataPoint({self.temperature}, {self.humidity})"
-    
+
     def __len__(self) -> int:
         return 2  # temperature와 humidity
-    
+
     def __bool__(self) -> bool:
         return self.temperature > 0 and self.humidity > 0
 ```
@@ -193,7 +193,7 @@ from typing import Protocol, TypeVar, Generic
 # ✅ 함수 호출 분할
 result = some_complex_function(
     parameter1="value1",
-    parameter2="value2", 
+    parameter2="value2",
     parameter3="value3",
     parameter4="value4"
 )
@@ -209,7 +209,7 @@ config = {
 # ✅ 리스트 분할
 sensors = [
     "temperature_sensor",
-    "humidity_sensor", 
+    "humidity_sensor",
     "pressure_sensor",
     "light_sensor"
 ]
@@ -343,12 +343,12 @@ logger = logging.getLogger(__name__)
 def process_sensor_reading(data: dict) -> None:
     """센서 읽기 처리"""
     logger.debug(f"Processing sensor data: {data}")
-    
+
     try:
         validated_data = validate_sensor_data(data)
         store_data(validated_data)
         logger.info(f"Successfully processed sensor reading: {validated_data['sensor_id']}")
-        
+
     except ValidationError as e:
         logger.warning(f"Invalid sensor data: {e}")
         raise
@@ -394,7 +394,7 @@ async def fetch_multiple_sensors(sensor_ids: list[str]) -> dict[str, dict]:
     """여러 센서 데이터 동시 페치"""
     tasks = [fetch_sensor_data(sensor_id) for sensor_id in sensor_ids]
     results = await asyncio.gather(*tasks, return_exceptions=True)
-    
+
     return {
         sensor_id: result for sensor_id, result in zip(sensor_ids, results)
         if not isinstance(result, Exception)
@@ -453,6 +453,6 @@ def process_large_dataset(data_stream) -> None:
 
 ---
 
-**📝 마지막 업데이트**: 2025-08-14 22:45  
-**🎯 적용 프로젝트**: DHT22 환경 모니터링 시스템  
+**📝 마지막 업데이트**: 2025-08-14 22:45
+**🎯 적용 프로젝트**: DHT22 환경 모니터링 시스템
 **✨ 효과**: 코드 품질 문제 90% 사전 방지 가능

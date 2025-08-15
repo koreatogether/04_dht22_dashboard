@@ -1,7 +1,0 @@
-2025-08-14 10:29:11,344 | __main__.DHT22Simulator | INFO | __init__:199 | DHT22 시뮬레이터 초기화 완료, 모드: NORMAL
-2025-08-14 10:29:11,345 | __main__ | INFO | <module>:776 | 🚀 DHT22 개발 서버 시작 중...
-2025-08-14 10:29:11,345 | __main__ | INFO | <module>:777 | 📊 대시보드: http://localhost:8001
-2025-08-14 10:29:11,345 | __main__ | INFO | <module>:778 | 🔌 WebSocket: ws://localhost:8001/ws
-2025-08-14 10:29:11,346 | __main__ | INFO | <module>:779 | 📡 API: http://localhost:8001/api/current
-2025-08-14 10:29:11,346 | __main__ | INFO | <module>:780 | 📈 메트릭: http://localhost:8001/api/metrics
-2025-08-14 10:29:11,346 | __main__ | INFO | <module>:781 | 💚 헬스체크: http://localhost:8001/api/health
