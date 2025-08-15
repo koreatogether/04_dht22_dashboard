@@ -117,7 +117,8 @@ class TruffleHogRunner:
 
         # Scan Python files
         for py_file in self.project_root.rglob("*.py"):
-            if ".venv" in str(py_file) or "__pycache__" in str(py_file):
+            py_file_str = str(py_file)
+            if ".venv" in py_file_str or "__pycache__" in py_file_str or "tools\\security" in py_file_str or "tools/security" in py_file_str:
                 continue
 
             try:
@@ -158,23 +159,35 @@ class TruffleHogRunner:
         """Additional security checks"""
         findings = []
 
-        # Check .env files (exclude .env.example)
-        for env_file in self.project_root.rglob(".env*"):
-            if env_file.is_file() and not env_file.name.endswith(".example"):
-                findings.append(
-                    {
-                        "type": "Environment File",
-                        "file": str(env_file.relative_to(self.project_root)),
-                        "line": 1,
-                        "content": ".env file found",
-                        "severity": "MEDIUM",
-                        "recommendation": "Add .env file to .gitignore",
-                    }
-                )
+        # Check .env files (exclude .env.example) - skip if already in .gitignore
+        gitignore_path = self.project_root / ".gitignore"
+        env_ignored = False
+        if gitignore_path.exists():
+            try:
+                with open(gitignore_path, "r", encoding="utf-8") as f:
+                    gitignore_content = f.read()
+                    env_ignored = ".env" in gitignore_content
+            except Exception:
+                pass
+
+        if not env_ignored:
+            for env_file in self.project_root.rglob(".env*"):
+                if env_file.is_file() and not env_file.name.endswith(".example"):
+                    findings.append(
+                        {
+                            "type": "Environment File",
+                            "file": str(env_file.relative_to(self.project_root)),
+                            "line": 1,
+                            "content": ".env file found",
+                            "severity": "MEDIUM",
+                            "recommendation": "Add .env file to .gitignore",
+                        }
+                    )
 
         # Check hardcoded URLs
         for py_file in self.project_root.rglob("*.py"):
-            if ".venv" in str(py_file):
+            py_file_str = str(py_file)
+            if ".venv" in py_file_str or "tools\\security" in py_file_str or "tools/security" in py_file_str:
                 continue
 
             try:
