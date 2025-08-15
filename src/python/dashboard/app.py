@@ -54,43 +54,75 @@ app.layout = html.Div(
             ],
             className="header",
         ),
-        # Current readings cards
+        # Current readings cards (2x2 grid, full width)
         html.Div(
             [
                 html.Div(
                     [
-                        html.H3("🌡️ 온도", className="card-title"),
-                        html.Div(id="current-temperature", className="metric-value"),
-                        html.Span("°C", className="metric-unit"),
+                        # 온도 카드
+                        html.Div(
+                            [
+                                html.Div(
+                                    [
+                                        html.Span("🌡️", className="metric-icon"),
+                                        html.Div(id="current-temperature", className="metric-value"),
+                                        html.Span("°C", className="metric-unit"),
+                                    ],
+                                    className="metric-row",
+                                ),
+                                html.H3("온도", className="card-title"),
+                            ],
+                            className="metric-card",
+                        ),
+                        # 습도 카드
+                        html.Div(
+                            [
+                                html.Div(
+                                    [
+                                        html.Span("💧", className="metric-icon"),
+                                        html.Div(id="current-humidity", className="metric-value"),
+                                        html.Span("%", className="metric-unit"),
+                                    ],
+                                    className="metric-row",
+                                ),
+                                html.H3("습도", className="card-title"),
+                            ],
+                            className="metric-card",
+                        ),
+                        # 이슬점 카드
+                        html.Div(
+                            [
+                                html.Div(
+                                    [
+                                        html.Span("🌫️", className="metric-icon"),
+                                        html.Div(id="current-dewpoint", className="metric-value"),
+                                        html.Span("°C", className="metric-unit"),
+                                    ],
+                                    className="metric-row",
+                                ),
+                                html.H3("이슬점", className="card-title"),
+                            ],
+                            className="metric-card",
+                        ),
+                        # 체감 지수 카드
+                        html.Div(
+                            [
+                                html.Div(
+                                    [
+                                        html.Div(id="current-discomfort", className="metric-value"),
+                                        html.Div(id="comfort-level", className="comfort-level-inline"),
+                                    ],
+                                    className="metric-row",
+                                ),
+                                html.H3("체감 지수", className="card-title"),
+                            ],
+                            className="metric-card",
+                        ),
                     ],
-                    className="metric-card",
-                ),
-                html.Div(
-                    [
-                        html.H3("💧 습도", className="card-title"),
-                        html.Div(id="current-humidity", className="metric-value"),
-                        html.Span("%", className="metric-unit"),
-                    ],
-                    className="metric-card",
-                ),
-                html.Div(
-                    [
-                        html.H3("🌫️ 이슬점", className="card-title"),
-                        html.Div(id="current-dewpoint", className="metric-value"),
-                        html.Span("°C", className="metric-unit"),
-                    ],
-                    className="metric-card",
-                ),
-                html.Div(
-                    [
-                        html.H3("😰 체감 지수", className="card-title"),
-                        html.Div(id="current-discomfort", className="metric-value"),
-                        html.Div(id="comfort-level", className="comfort-level"),
-                    ],
-                    className="metric-card",
+                    className="metrics-grid-2x2",
                 ),
             ],
-            className="metrics-grid",
+            className="metrics-full",
         ),
         # Charts
         html.Div(
@@ -301,17 +333,20 @@ app.index_string = """
         {%favicon%}
         {%css%}
         <style>
+            /* 전체 페이지 배경 및 폰트 설정 */
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 margin: 0;
                 padding: 0;
                 background-color: #f5f7fa;
             }
+            /* 대시보드 전체 컨테이너 */
             .container {
                 max-width: 1200px;
                 margin: 0 auto;
                 padding: 20px;
             }
+            /* 상단 헤더 영역 */
             .header {
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                 color: white;
@@ -320,26 +355,81 @@ app.index_string = """
                 margin-bottom: 30px;
                 text-align: center;
             }
+            /* 헤더 타이틀 */
             .header-title {
                 margin: 0 0 10px 0;
                 font-size: 2.5em;
             }
+            /* 헤더 서브타이틀 */
             .header-subtitle {
                 margin: 0;
                 opacity: 0.9;
                 font-size: 1.2em;
             }
+            /* 연결 상태 표시 */
             .status-indicator {
                 margin-top: 15px;
                 font-size: 1.1em;
                 font-weight: bold;
             }
-            .metrics-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 20px;
+            /* 측정값 카드 전체 영역 (가운데 정렬) */
+            .metrics-full {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 margin-bottom: 30px;
             }
+            /* 2x2 측정값 카드 그리드 (온도/습도/이슬점/체감지수) */
+            .metrics-grid-2x2 {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+                column-gap: 130px;
+                row-gap: 30px;
+                width: 100%;
+                max-width: 600px;
+            }
+            /* 개별 측정값 카드 스타일 */
+            .metric-card {
+                background: white;
+                padding: 32px 0 32px 0;
+                border-radius: 12px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                width: 100%;
+                min-width: 0;
+                min-height: 160px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            /* 값+아이콘+단위 한 줄 배치 */
+            .metric-row {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                margin-bottom: 8px;
+            }
+            .metric-icon {
+                font-size: 2em;
+                margin-left: 2px;
+                margin-right: 2px;
+            }
+            .comfort-level-inline {
+                margin-left: 8px;
+                padding: 6px 14px;
+                border-radius: 20px;
+                font-weight: bold;
+                color: white;
+                background-color: #3498db;
+                font-size: 1em;
+                display: inline-block;
+            }
+            /* 개별 측정값 카드 스타일 (중복 정의, 필요시 하나만 유지) */
             .metric-card {
                 background: white;
                 padding: 25px;
@@ -347,21 +437,25 @@ app.index_string = """
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 text-align: center;
             }
+            /* 카드 타이틀 (예: 온도, 습도 등) */
             .card-title {
                 margin: 0 0 15px 0;
                 color: #333;
                 font-size: 1.2em;
             }
+            /* 카드 내 값 표시 (숫자) */
             .metric-value {
                 font-size: 2.5em;
                 font-weight: bold;
                 color: #2c3e50;
                 margin-bottom: 5px;
             }
+            /* 단위 표시 (°C, %) */
             .metric-unit {
                 color: #7f8c8d;
-                font-size: 1.2em;
+                font-size: 2.5em;
             }
+            /* 체감 지수 레벨 표시 (쾌적 등) */
             .comfort-level {
                 margin-top: 10px;
                 padding: 8px 16px;
@@ -370,6 +464,7 @@ app.index_string = """
                 color: white;
                 background-color: #3498db;
             }
+            /* 차트/통계 영역 카드 스타일 */
             .charts-section, .stats-section {
                 background: white;
                 padding: 25px;
@@ -377,16 +472,19 @@ app.index_string = """
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 margin-bottom: 30px;
             }
+            /* 통계 테이블 전체 */
             .stats-table {
                 width: 100%;
                 border-collapse: collapse;
                 margin-top: 20px;
             }
+            /* 통계 테이블 셀 스타일 */
             .stats-table th, .stats-table td {
                 padding: 12px;
                 text-align: left;
                 border-bottom: 1px solid #ddd;
             }
+            /* 통계 테이블 헤더 셀 스타일 */
             .stats-table th {
                 background-color: #f8f9fa;
                 font-weight: bold;
