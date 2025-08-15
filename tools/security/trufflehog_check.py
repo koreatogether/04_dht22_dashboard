@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-TruffleHog 기반 보안 스캔 도구
+TruffleHog-based Security Scan Tool
 
-이 스크립트는 다음을 수행합니다:
-- 코드에서 잠재적인 비밀 정보 탐지
-- API 키, 패스워드, 토큰 등 민감한 정보 검사
-- 개인 정보 노출 위험 검사
+This script performs the following:
+- Detect potential secret information in code
+- Check for sensitive information like API keys, passwords, tokens
+- Check for personal information exposure risks
 """
 
 import subprocess
@@ -25,76 +25,76 @@ class TruffleHogRunner:
         self.project_root = Path.cwd()
         self.tools_dir = self.project_root / "tools" / "security"
         self.tools_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # TruffleHog 실행 파일 경로
         self.trufflehog_path = self.tools_dir / "trufflehog.exe"
-        
+
         # 환경변수에서 URL 가져오기
         self.trufflehog_url = os.getenv(
-            'TRUFFLEHOG_DOWNLOAD_URL',
-            'https://github.com/trufflesecurity/trufflehog/releases/latest/download/trufflehog_3.63.2_windows_amd64.tar.gz'
+            "TRUFFLEHOG_DOWNLOAD_URL",
+            "https://github.com/trufflesecurity/trufflehog/releases/latest/download/trufflehog_3.63.2_windows_amd64.tar.gz",
         )
-        
+
     def ensure_trufflehog(self) -> bool:
-        """TruffleHog 도구가 있는지 확인하고 없으면 다운로드"""
+        """Check if TruffleHog tool exists and download if not"""
         if self.trufflehog_path.exists():
             return True
-            
-        print("🔍 TruffleHog를 다운로드하는 중...")
-        
+
+        print("Downloading TruffleHog...")
+
         try:
-            # GitHub에서 최신 릴리스 다운로드 (환경변수에서 URL 가져오기)
-            print(f"📥 다운로드 URL: {self.trufflehog_url}")
-            
-            # 임시 파일로 다운로드
+            # Download latest release from GitHub (get URL from environment variable)
+            print(f"Download URL: {self.trufflehog_url}")
+
+            # Download to temporary file
             temp_file = self.tools_dir / "trufflehog.tar.gz"
             urllib.request.urlretrieve(self.trufflehog_url, temp_file)
-            
-            # 압축 해제 (간단한 버전을 위해 7z 또는 다른 방법 필요)
-            print("✅ TruffleHog 다운로드 완료")
+
+            # Extract (need 7z or other method for simple version)
+            print("TruffleHog download complete")
             return True
-            
+
         except Exception as e:
-            print(f"❌ TruffleHog 다운로드 실패: {e}")
+            print(f"TruffleHog download failed: {e}")
             return False
-    
+
     def run_builtin_scan(self) -> Tuple[bool, List[Dict]]:
-        """내장된 패턴 매칭으로 기본 보안 스캔"""
-        print("🔍 내장 보안 패턴 검사 중...")
-        
-        # 위험한 패턴들
+        """Basic security scan with built-in pattern matching"""
+        print("Checking built-in security patterns...")
+
+        # Dangerous patterns
         dangerous_patterns = {
-            "API 키": [
+            "API Key": [
                 r"api[_-]?key[\s]*=[\s]*['\"][a-zA-Z0-9_-]{20,}['\"]",
                 r"apikey[\s]*=[\s]*['\"][a-zA-Z0-9_-]{20,}['\"]",
             ],
-            "패스워드": [
+            "Password": [
                 r"password[\s]*=[\s]*['\"][^'\"]{3,}['\"]",
                 r"passwd[\s]*=[\s]*['\"][^'\"]{3,}['\"]",
                 r"pwd[\s]*=[\s]*['\"][^'\"]{3,}['\"]",
             ],
-            "토큰": [
+            "Token": [
                 r"token[\s]*=[\s]*['\"][a-zA-Z0-9_-]{20,}['\"]",
                 r"access[_-]?token[\s]*=[\s]*['\"][a-zA-Z0-9_-]{20,}['\"]",
             ],
-            "시크릿": [
+            "Secret": [
                 r"secret[\s]*=[\s]*['\"][a-zA-Z0-9_-]{10,}['\"]",
                 r"client[_-]?secret[\s]*=[\s]*['\"][a-zA-Z0-9_-]{10,}['\"]",
             ],
-            "개인정보": [
+            "Personal Info": [
                 r"email[\s]*=[\s]*['\"][^@]+@[^@]+\.[a-zA-Z]{2,}['\"]",
                 r"phone[\s]*=[\s]*['\"][0-9-+()\\s]{10,}['\"]",
             ],
-            "데이터베이스": [
+            "Database": [
                 r"db[_-]?password[\s]*=[\s]*['\"][^'\"]{3,}['\"]",
                 r"database[_-]?url[\s]*=[\s]*['\"][^'\"]+['\"]",
-            ]
+            ],
         }
-        
+
         findings = []
         scan_files = [
             "src/python/**/*.py",
-            "tools/**/*.py", 
+            "tools/**/*.py",
             "*.py",
             "*.env*",
             "*.conf",
@@ -104,176 +104,186 @@ class TruffleHogRunner:
             "*.json",
             "*.toml",
         ]
-        
+
         for pattern_type, patterns in dangerous_patterns.items():
             for pattern in patterns:
                 findings.extend(self._scan_pattern(pattern, pattern_type))
-        
+
         return len(findings) == 0, findings
-    
+
     def _scan_pattern(self, pattern: str, pattern_type: str) -> List[Dict]:
-        """특정 패턴으로 파일들을 스캔"""
+        """Scan files with specific pattern"""
         findings = []
-        
-        # Python 파일들 스캔
+
+        # Scan Python files
         for py_file in self.project_root.rglob("*.py"):
             if ".venv" in str(py_file) or "__pycache__" in str(py_file):
                 continue
-                
+
             try:
                 with open(py_file, "r", encoding="utf-8") as f:
                     content = f.read()
-                    
+
                 for line_num, line in enumerate(content.splitlines(), 1):
                     if re.search(pattern, line, re.IGNORECASE):
-                        findings.append({
-                            "type": pattern_type,
-                            "file": str(py_file.relative_to(self.project_root)),
-                            "line": line_num,
-                            "content": line.strip(),
-                            "pattern": pattern,
-                            "severity": self._get_severity(pattern_type)
-                        })
-                        
+                        findings.append(
+                            {
+                                "type": pattern_type,
+                                "file": str(py_file.relative_to(self.project_root)),
+                                "line": line_num,
+                                "content": line.strip(),
+                                "pattern": pattern,
+                                "severity": self._get_severity(pattern_type),
+                            }
+                        )
+
             except Exception as e:
-                print(f"⚠️  파일 읽기 오류 {py_file}: {e}")
-        
+                print(f"File reading error {py_file}: {e}")
+
         return findings
-    
+
     def _get_severity(self, pattern_type: str) -> str:
-        """패턴 유형에 따른 심각도 결정"""
-        high_severity = ["API 키", "토큰", "시크릿", "패스워드"]
-        medium_severity = ["데이터베이스"]
-        
+        """Determine severity based on pattern type"""
+        high_severity = ["API Key", "Token", "Secret", "Password"]
+        medium_severity = ["Database"]
+
         if pattern_type in high_severity:
             return "HIGH"
         elif pattern_type in medium_severity:
             return "MEDIUM"
         else:
             return "LOW"
-    
+
     def run_additional_checks(self) -> List[Dict]:
-        """추가 보안 검사"""
+        """Additional security checks"""
         findings = []
-        
-        # .env 파일 검사 (.env.example은 제외)
+
+        # Check .env files (exclude .env.example)
         for env_file in self.project_root.rglob(".env*"):
-            if env_file.is_file() and not env_file.name.endswith('.example'):
-                findings.append({
-                    "type": "환경 파일",
-                    "file": str(env_file.relative_to(self.project_root)),
-                    "line": 1,
-                    "content": ".env 파일이 발견됨",
-                    "severity": "MEDIUM",
-                    "recommendation": ".env 파일을 .gitignore에 추가하세요"
-                })
-        
-        # 하드코딩된 URL 검사
+            if env_file.is_file() and not env_file.name.endswith(".example"):
+                findings.append(
+                    {
+                        "type": "Environment File",
+                        "file": str(env_file.relative_to(self.project_root)),
+                        "line": 1,
+                        "content": ".env file found",
+                        "severity": "MEDIUM",
+                        "recommendation": "Add .env file to .gitignore",
+                    }
+                )
+
+        # Check hardcoded URLs
         for py_file in self.project_root.rglob("*.py"):
             if ".venv" in str(py_file):
                 continue
-                
+
             try:
                 with open(py_file, "r", encoding="utf-8") as f:
                     content = f.read()
-                    
-                # 하드코딩된 URL 패턴
-                url_pattern = r"https?://[a-zA-Z0-9.-]+(?:\:[0-9]+)?(?:/[^\s\"']*)?[\"']"
+
+                # Hardcoded URL pattern
+                url_pattern = (
+                    r"https?://[a-zA-Z0-9.-]+(?:\:[0-9]+)?(?:/[^\s\"']*)?[\"']"
+                )
                 for line_num, line in enumerate(content.splitlines(), 1):
                     if re.search(url_pattern, line):
-                        # localhost는 제외
+                        # Exclude localhost
                         if "localhost" not in line and "127.0.0.1" not in line:
-                            findings.append({
-                                "type": "하드코딩 URL",
-                                "file": str(py_file.relative_to(self.project_root)),
-                                "line": line_num,
-                                "content": line.strip(),
-                                "severity": "LOW",
-                                "recommendation": "URL을 환경변수로 관리하세요"
-                            })
-                            
+                            findings.append(
+                                {
+                                    "type": "Hardcoded URL",
+                                    "file": str(py_file.relative_to(self.project_root)),
+                                    "line": line_num,
+                                    "content": line.strip(),
+                                    "severity": "LOW",
+                                    "recommendation": "Manage URLs with environment variables",
+                                }
+                            )
+
             except Exception:
                 pass
-        
+
         return findings
-    
+
     def generate_report(self, findings: List[Dict]) -> None:
-        """보안 스캔 리포트 생성"""
-        
-        # 심각도별 분류
+        """Generate security scan report"""
+
+        # Classify by severity
         severity_counts = {"HIGH": 0, "MEDIUM": 0, "LOW": 0}
         for finding in findings:
             severity_counts[finding["severity"]] += 1
-        
-        # 콘솔 출력
-        print("\n" + "="*60)
-        print("🔒 보안 스캔 결과")
-        print("="*60)
-        
+
+        # Console output
+        print("\n" + "=" * 60)
+        print("Security Scan Results")
+        print("=" * 60)
+
         if not findings:
-            print("✅ 보안 이슈가 발견되지 않았습니다!")
+            print("No security issues found!")
         else:
-            print(f"⚠️  총 {len(findings)}개의 잠재적 보안 이슈 발견")
-            print(f"   🔴 HIGH: {severity_counts['HIGH']}개")
-            print(f"   🟡 MEDIUM: {severity_counts['MEDIUM']}개") 
-            print(f"   🟢 LOW: {severity_counts['LOW']}개")
-            
-            print("\n📋 상세 내역:")
+            print(f"Total {len(findings)} potential security issues found")
+            print(f"   HIGH: {severity_counts['HIGH']}")
+            print(f"   MEDIUM: {severity_counts['MEDIUM']}")
+            print(f"   LOW: {severity_counts['LOW']}")
+
+            print("\nDetailed findings:")
             for i, finding in enumerate(findings, 1):
-                severity_icon = {"HIGH": "🔴", "MEDIUM": "🟡", "LOW": "🟢"}[finding["severity"]]
+                severity_icon = {"HIGH": "[HIGH]", "MEDIUM": "[MED]", "LOW": "[LOW]"}[
+                    finding["severity"]
+                ]
                 print(f"\n{i}. {severity_icon} {finding['type']}")
-                print(f"   📁 파일: {finding['file']}:{finding['line']}")
-                print(f"   📝 내용: {finding['content'][:100]}...")
+                print(f"   File: {finding['file']}:{finding['line']}")
+                print(f"   Content: {finding['content'][:100]}...")
                 if "recommendation" in finding:
-                    print(f"   💡 권장사항: {finding['recommendation']}")
-        
-        # JSON 리포트 저장
+                    print(f"   Recommendation: {finding['recommendation']}")
+
+        # Save JSON report
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         report_file = self.tools_dir / f"security_scan_{timestamp}.json"
-        
+
         report_data = {
             "timestamp": datetime.now().isoformat(),
             "summary": {
                 "total_findings": len(findings),
-                "severity_breakdown": severity_counts
+                "severity_breakdown": severity_counts,
             },
-            "findings": findings
+            "findings": findings,
         }
-        
+
         with open(report_file, "w", encoding="utf-8") as f:
             json.dump(report_data, f, indent=2, ensure_ascii=False)
-        
-        print(f"\n📄 상세 리포트: {report_file}")
-        
-        # HIGH 심각도 이슈가 있으면 실패 처리
+
+        print(f"\nDetailed report: {report_file}")
+
+        # Fail if HIGH severity issues found
         if severity_counts["HIGH"] > 0:
-            print("\n🚨 HIGH 심각도 보안 이슈가 발견되었습니다!")
+            print("\nHIGH severity security issues found!")
             return False
-        
+
         return True
 
 
 def main():
-    """메인 함수"""
-    print("🛡️  DHT22 프로젝트 보안 스캔 시작")
-    print(f"📅 시작 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    
+    """Main function"""
+    print("DHT22 Project Security Scan Starting")
+    print(f"Start time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+
     runner = TruffleHogRunner()
-    
-    # 내장 패턴 스캔
+
+    # Built-in pattern scan
     success, findings = runner.run_builtin_scan()
-    
-    # 추가 검사
+
+    # Additional checks
     additional_findings = runner.run_additional_checks()
     findings.extend(additional_findings)
-    
-    # 리포트 생성
+
+    # Generate report
     scan_success = runner.generate_report(findings)
-    
+
     if not scan_success:
         sys.exit(1)
-    
-    print("✅ 보안 스캔 완료")
+
+    print("Security scan complete")
 
 
 if __name__ == "__main__":

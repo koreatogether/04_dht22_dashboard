@@ -188,7 +188,7 @@ def update_temperature_chart(n):
             y=df["temperature"],
             mode="lines+markers",
             name="온도",
-            line=dict(color="#ff6b6b", width=2),
+            line={"color": "#ff6b6b", "width": 2},
         )
     )
 
@@ -197,7 +197,7 @@ def update_temperature_chart(n):
         xaxis_title="시간",
         yaxis_title="온도 (°C)",
         height=300,
-        margin=dict(l=50, r=50, t=50, b=50),
+        margin={"l": 50, "r": 50, "t": 50, "b": 50},
     )
 
     return fig
@@ -223,7 +223,7 @@ def update_humidity_chart(n):
             y=df["humidity"],
             mode="lines+markers",
             name="습도",
-            line=dict(color="#4ecdc4", width=2),
+            line={"color": "#4ecdc4", "width": 2},
         )
     )
 
@@ -232,7 +232,7 @@ def update_humidity_chart(n):
         xaxis_title="시간",
         yaxis_title="습도 (%)",
         height=300,
-        margin=dict(l=50, r=50, t=50, b=50),
+        margin={"l": 50, "r": 50, "t": 50, "b": 50},
     )
 
     return fig

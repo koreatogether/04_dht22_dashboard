@@ -5,7 +5,7 @@ Serial communication module for reading DHT22 sensor data from Arduino
 import json
 import logging
 import time
-from typing import Dict, Optional
+from typing import Optional
 
 import serial
 
@@ -44,7 +44,7 @@ class DHT22SerialReader:
             self.is_connected = False
             logger.info("Serial connection closed")
 
-    def read_sensor_data(self) -> Optional[Dict]:
+    def read_sensor_data(self) -> Optional[dict]:
         """Read and parse sensor data from Arduino"""
         if not self.is_connected or not self.connection:
             return None
@@ -82,7 +82,7 @@ class DHT22Simulator:
     def __init__(self):
         self.start_time = time.time()
 
-    def read_sensor_data(self) -> Dict:
+    def read_sensor_data(self) -> dict:
         """Generate simulated sensor data"""
         current_time = time.time()
         elapsed = current_time - self.start_time

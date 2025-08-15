@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-통합 코드 품질 검사 도구
+Integrated Code Quality Check Tool
 
-이 스크립트는 다음 검사를 수행합니다:
-- Black: 코드 포맷팅 검사
-- Ruff: 린팅 및 코드 스타일 검사
-- MyPy: 타입 힌트 검사
-- Pytest: 단위 테스트 실행
+This script performs the following checks:
+- Black: Code formatting check
+- Ruff: Linting and code style check
+- MyPy: Type hint check
+- Pytest: Unit test execution
 """
 
 import json
@@ -14,121 +14,131 @@ import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Tuple
 
 
-def run_command(cmd: List[str], description: str) -> Tuple[bool, str]:
-    """명령어를 실행하고 결과를 반환합니다."""
-    print(f"🔍 {description}...")
+def run_command(cmd: list[str], description: str) -> tuple[bool, str]:
+    """Execute command and return results."""
+    print(f"Checking {description}...")
     try:
         result = subprocess.run(
             cmd,
             capture_output=True,
             text=True,
             cwd=Path.cwd(),
-            timeout=300,  # 5분 타임아웃
+            timeout=300,  # 5 minute timeout
+            encoding="utf-8",
+            errors="replace",  # Use replacement character for decode errors
         )
 
         if result.returncode == 0:
-            print(f"✅ {description} 통과")
+            print(f"{description} passed")
             return True, result.stdout
         else:
-            print(f"❌ {description} 실패")
+            print(f"{description} failed")
             print(f"STDOUT: {result.stdout}")
             print(f"STDERR: {result.stderr}")
             return False, result.stderr
 
     except subprocess.TimeoutExpired:
-        print(f"⏰ {description} 타임아웃")
+        print(f"{description} timed out")
         return False, "Command timed out"
     except Exception as e:
-        print(f"💥 {description} 오류: {str(e)}")
+        print(f"{description} error: {str(e)}")
         return False, str(e)
 
 
-def check_black() -> Tuple[bool, str]:
-    """Black 코드 포맷팅 검사"""
+def check_ruff() -> tuple[bool, str]:
+    """Ruff linting check"""
     return run_command(
-        ["uv", "run", "black", "--check", "--diff", "src/python/", "tools/"],
-        "Black 포맷팅 검사",
+        ["uv", "run", "ruff", "check", "src/python/", "tools/"], "Ruff linting"
     )
 
 
-def check_ruff() -> Tuple[bool, str]:
-    """Ruff 린팅 검사"""
+def fix_ruff() -> tuple[bool, str]:
+    """Ruff auto-fix"""
     return run_command(
-        ["uv", "run", "ruff", "check", "src/python/", "tools/"], "Ruff 린팅 검사"
+        [
+            "uv",
+            "run",
+            "ruff",
+            "check",
+            "--fix",
+            "--unsafe-fixes",
+            "src/python/",
+            "tools/",
+        ],
+        "Ruff auto-fix",
     )
 
 
-def check_ruff_format() -> Tuple[bool, str]:
-    """Ruff 포맷팅 검사"""
+def check_ruff_format() -> tuple[bool, str]:
+    """Ruff formatting check"""
     return run_command(
         ["uv", "run", "ruff", "format", "--check", "src/python/", "tools/"],
-        "Ruff 포맷팅 검사",
+        "Ruff formatting",
     )
 
 
-def check_mypy() -> Tuple[bool, str]:
-    """MyPy 타입 검사"""
-    return run_command(["uv", "run", "mypy", "src/python/"], "MyPy 타입 검사")
+def check_mypy() -> tuple[bool, str]:
+    """MyPy type check"""
+    return run_command(["uv", "run", "mypy", "src/python/"], "MyPy type check")
 
 
-def run_tests() -> Tuple[bool, str]:
-    """pytest 단위 테스트 실행"""
+def run_tests() -> tuple[bool, str]:
+    """pytest unit test execution"""
     tests_dir = Path("tests")
     if not tests_dir.exists():
-        print("📝 테스트 디렉토리가 없습니다. 테스트를 건너뜁니다.")
+        print("No tests directory found. Skipping tests.")
         return True, "No tests directory found"
 
-    return run_command(["uv", "run", "pytest", "--tb=short"], "pytest 단위 테스트")
+    return run_command(["uv", "run", "pytest", "--tb=short"], "pytest unit tests")
 
 
-def check_imports() -> Tuple[bool, str]:
-    """Python import 검사"""
+def check_imports() -> tuple[bool, str]:
+    """Python import check"""
     try:
-        # 기본 import 테스트
+        # Basic import test
         sys.path.insert(0, str(Path("src/python").absolute()))
 
-        # 주요 모듈들 import 테스트
+        # Test importing main modules
         from dashboard import app  # noqa: F401
         from utils import data_processor, serial_reader  # noqa: F401
 
-        print("✅ Python import 검사 통과")
+        print("Python import check passed")
         return True, "All imports successful"
 
     except ImportError as e:
-        print(f"❌ Import 오류: {e}")
+        print(f"Import error: {e}")
         return False, str(e)
     except Exception as e:
-        print(f"💥 Import 검사 오류: {e}")
+        print(f"Import check error: {e}")
         return False, str(e)
     finally:
-        # sys.path 복원
+        # Restore sys.path
         if str(Path("src/python").absolute()) in sys.path:
             sys.path.remove(str(Path("src/python").absolute()))
 
 
-def generate_report(results: Dict[str, Tuple[bool, str]]) -> None:
-    """검사 결과 리포트 생성"""
+def generate_report(results: dict[str, tuple[bool, str]]) -> None:
+    """Generate check results report"""
 
-    # 콘솔 요약
+    # Console summary
     print("\n" + "=" * 60)
-    print("🎯 코드 품질 검사 결과 요약")
+    print("Code Quality Check Results Summary")
     print("=" * 60)
 
     passed = 0
     total = len(results)
 
-    for check_name, (success, output) in results.items():
-        status = "✅ 통과" if success else "❌ 실패"
+    for check_name, (success, _output) in results.items():
+        status = "PASSED" if success else "FAILED"
         print(f"{check_name:20} : {status}")
         if success:
             passed += 1
 
-    print(f"\n📊 전체 결과: {passed}/{total} 통과")
+    print(f"\nOverall results: {passed}/{total} passed")
 
-    # JSON 리포트 생성
+    # Generate JSON report
     report_dir = Path("tools/quality/reports")
     report_dir.mkdir(exist_ok=True)
 
@@ -144,7 +154,7 @@ def generate_report(results: Dict[str, Tuple[bool, str]]) -> None:
             "success_rate": round((passed / total) * 100, 2) if total > 0 else 0,
         },
         "results": {
-            name: {"passed": success, "output": output[:1000]}  # 출력 길이 제한
+            name: {"passed": success, "output": output[:1000]}  # Limit output length
             for name, (success, output) in results.items()
         },
     }
@@ -152,19 +162,19 @@ def generate_report(results: Dict[str, Tuple[bool, str]]) -> None:
     with open(report_file, "w", encoding="utf-8") as f:
         json.dump(report_data, f, indent=2, ensure_ascii=False)
 
-    print(f"📄 상세 리포트: {report_file}")
+    print(f"Detailed report: {report_file}")
 
-    # 실패한 검사가 있으면 종료 코드 1
+    # Exit with code 1 if any checks failed
     if passed < total:
-        print(f"\n💡 {total - passed}개의 검사가 실패했습니다. 위의 오류를 확인하세요.")
+        print(f"\n{total - passed} checks failed. Please review the errors above.")
         sys.exit(1)
     else:
-        print("\n🎉 모든 품질 검사를 통과했습니다!")
+        print("\nAll quality checks passed!")
 
 
 def main():
-    """메인 함수"""
-    # Windows 콘솔 인코딩 설정
+    """Main function"""
+    # Set Windows console encoding
     import codecs
 
     if sys.platform.startswith("win"):
@@ -174,25 +184,24 @@ def main():
         except AttributeError:
             pass
 
-    print("🚀 DHT22 프로젝트 코드 품질 검사 시작")
-    print(f"📅 시작 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print("DHT22 Project Code Quality Check Starting")
+    print(f"Start time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
-    # 프로젝트 루트에서 실행되고 있는지 확인
+    # Check if running from project root
     if not Path("pyproject.toml").exists():
-        print("❌ pyproject.toml을 찾을 수 없습니다. 프로젝트 루트에서 실행해주세요.")
+        print("pyproject.toml not found. Please run from project root.")
         sys.exit(1)
 
-    # 각 검사 실행
+    # Run each check
     checks = {
-        "Import 검사": check_imports(),
-        "Black 포맷팅": check_black(),
-        "Ruff 린팅": check_ruff(),
-        "Ruff 포맷팅": check_ruff_format(),
-        "MyPy 타입검사": check_mypy(),
-        "단위 테스트": run_tests(),
+        "Import Check": check_imports(),
+        "Ruff Linting": check_ruff(),
+        "Ruff Formatting": check_ruff_format(),
+        "MyPy Type Check": check_mypy(),
+        "Unit Tests": run_tests(),
     }
 
-    # 결과 리포트 생성
+    # Generate results report
     generate_report(checks)
 
 

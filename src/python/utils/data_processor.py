@@ -4,7 +4,6 @@ Data processing utilities for DHT22 environmental monitoring
 
 import math
 from datetime import datetime
-from typing import Dict, List
 
 import pandas as pd
 
@@ -103,7 +102,7 @@ def get_comfort_level(discomfort_index: float) -> str:
         return "매우 불쾌"
 
 
-def process_sensor_data(raw_data: Dict) -> Dict:
+def process_sensor_data(raw_data: dict) -> dict:
     """
     Process raw sensor data and add calculated values
 
@@ -140,15 +139,15 @@ class DataBuffer:
 
     def __init__(self, max_size: int = 100):
         self.max_size = max_size
-        self.data: List[Dict] = []
+        self.data: list[dict] = []
 
-    def add(self, data_point: Dict) -> None:
+    def add(self, data_point: dict) -> None:
         """Add a data point to the buffer"""
         self.data.append(data_point)
         if len(self.data) > self.max_size:
             self.data.pop(0)
 
-    def get_recent(self, count: int = None) -> List[Dict]:
+    def get_recent(self, count: int = None) -> list[dict]:
         """Get recent data points"""
         if count is None:
             return self.data.copy()
@@ -164,7 +163,7 @@ class DataBuffer:
         """Clear all data from buffer"""
         self.data.clear()
 
-    def get_stats(self) -> Dict:
+    def get_stats(self) -> dict:
         """Get basic statistics from buffered data"""
         if not self.data:
             return {}

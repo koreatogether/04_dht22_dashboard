@@ -1,6 +1,6 @@
 @echo off
 echo ========================================
-echo DHT22 프로젝트 메트릭스 및 커버리지 분석
+echo DHT22 Project Metrics and Coverage Analysis
 echo ========================================
 
 set SCRIPT_DIR=%~dp0
@@ -15,41 +15,41 @@ if "%1"=="help" goto show_help
 
 :all_metrics
 echo.
-echo 🚀 전체 메트릭스 분석 실행 중...
+echo Running complete metrics analysis...
 python "%SCRIPT_DIR%\integrated_metrics.py"
 goto end
 
 :python_only
 echo.
-echo 🐍 Python 메트릭스 분석 실행 중...
+echo Running Python metrics analysis...
 python "%SCRIPT_DIR%\python_coverage.py"
 goto end
 
 :arduino_only
 echo.
-echo 🔧 Arduino 메트릭스 분석 실행 중...
+echo Running Arduino metrics analysis...
 python "%SCRIPT_DIR%\arduino_metrics.py"
 goto end
 
 :integrated_only
 echo.
-echo 📊 통합 대시보드 생성 중...
+echo Generating integrated dashboard...
 python "%SCRIPT_DIR%\integrated_metrics.py"
 goto end
 
 :show_help
 echo.
-echo 사용법:
-echo   run_metrics.bat [옵션]
+echo Usage:
+echo   run_metrics.bat [option]
 echo.
-echo 옵션:
-echo   (없음)     - 전체 메트릭스 분석 실행
-echo   python     - Python 코드만 분석
-echo   arduino    - Arduino 코드만 분석
-echo   integrated - 통합 대시보드만 생성
-echo   help       - 이 도움말 표시
+echo Options:
+echo   (none)     - Run complete metrics analysis
+echo   python     - Analyze Python code only
+echo   arduino    - Analyze Arduino code only
+echo   integrated - Generate integrated dashboard only
+echo   help       - Show this help message
 echo.
-echo 예시:
+echo Examples:
 echo   run_metrics.bat
 echo   run_metrics.bat python
 echo   run_metrics.bat arduino
@@ -57,6 +57,6 @@ goto end
 
 :end
 echo.
-echo ✅ 메트릭스 분석 완료!
-echo 📄 결과는 tools\metrics\reports\ 폴더에서 확인하세요.
+echo Metrics analysis completed!
+echo Results can be found in tools\metrics\reports\ folder.
 pause

@@ -224,23 +224,22 @@ def main():
     checker = IntegratedChecker()
 
     # 각 검사 실행
-    all_passed = True
 
     # Python 품질 검사
     if not checker.run_python_checks():
-        all_passed = False
+        pass
 
     # Arduino 검사
     if not checker.run_arduino_checks():
-        all_passed = False
+        pass
 
     # 보안 검사
     if not checker.run_security_checks():
-        all_passed = False
+        pass
 
     # 의존성 보안 검사
     if not checker.run_dependency_check():
-        all_passed = False
+        pass
 
     # 종합 리포트 생성
     final_success = checker.generate_summary_report()

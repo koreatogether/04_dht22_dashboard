@@ -14,7 +14,6 @@ import re
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Tuple
 
 
 class ArduinoChecker:
@@ -22,7 +21,7 @@ class ArduinoChecker:
         self.project_root = Path.cwd()
         self.issues = []
 
-    def check_arduino_files(self) -> Tuple[bool, List[Dict]]:
+    def check_arduino_files(self) -> tuple[bool, list[dict]]:
         """모든 Arduino 파일 검사"""
         arduino_files = list(self.project_root.rglob("*.ino"))
 

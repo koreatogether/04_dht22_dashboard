@@ -21,7 +21,7 @@ class EnvLoader:
             env_file: .env 파일 경로 (기본값: 프로젝트 루트의 .env)
         """
         self.project_root = Path(__file__).parent.parent.parent.parent
-        self.env_file = env_file or self.project_root / ".env"
+        self.env_file = Path(env_file) if env_file else self.project_root / ".env"
         self._load_env_file()
 
     def _load_env_file(self) -> None:
